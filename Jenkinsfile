@@ -20,8 +20,6 @@ pipeline {
         stage('Publish site') {
             steps {
                 dir(publishDirectory) {
-                    sh "ls -al"
-                    sh "git status"
                     sh 'git add --all && git commit -m "Publishing to gh-pages" && git push'
                 }
             }
