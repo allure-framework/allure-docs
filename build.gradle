@@ -21,7 +21,7 @@ asciidoctor {
     }
     resources {
         from(sourceDir) {
-            include '**/images/**'
+            include 'index.html', '**/images/**'
         }
     }
 
