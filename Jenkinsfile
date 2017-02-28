@@ -2,7 +2,7 @@ def publishDirectory = 'build/docs/html5'
 def publishBranch = 'gh-pages'
 
 pipeline {
-    agent { label 'ruby' }
+    agent { label 'java' }
     stages {
 
         stage('Checkout gh-pages branch') {
@@ -14,7 +14,7 @@ pipeline {
 
         stage('Build site') {
             steps {
-                sh './gradlew clean asciidoctor'
+                sh './gradlew asciidoctor'
             }
         }
         stage('Publish site') {
