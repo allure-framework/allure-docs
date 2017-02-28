@@ -2,7 +2,7 @@ def publishDirectory = 'build/docs/html5'
 def publishBranch = 'gh-pages'
 
 pipeline {
-    agent { label 'ruby' }
+    agent { label 'java' }
     stages {
 
         stage('Checkout gh-pages branch') {
