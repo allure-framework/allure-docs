@@ -14,7 +14,7 @@ pipeline {
 
         stage('Build site') {
             steps {
-                sh './gradlew clean asciidoctor'
+                sh './gradlew asciidoctor'
             }
         }
         stage('Publish site') {
