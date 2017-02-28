@@ -2,7 +2,7 @@ def publishDirectory = 'build/docs/html5'
 def publishBranch = 'gh-pages'
 
 pipeline {
-    agent { label 'ruby' }
+    agent { label 'java' }
     stages {
 
         stage('Checkout gh-pages branch') {
@@ -20,6 +20,8 @@ pipeline {
         stage('Publish site') {
             steps {
                 dir(publishDirectory) {
+                    sh "ls -al"
+                    sh "git status"
                     sh 'git add --all && git commit -m "Publishing to gh-pages" && git push'
                 }
             }
