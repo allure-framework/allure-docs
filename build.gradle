@@ -1,0 +1,32 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
+    }
+}
+
+apply plugin: 'org.asciidoctor.convert'
+
+asciidoctorj {
+    version = '1.5.4'
+}
+
+asciidoctor {
+    sourceDir = file('docs')
+    sources {
+        include '**/index.adoc'
+    }
+    resources {
+        from(sourceDir) {
+            include '**/images/**'
+        }
+    }
+
+    attributes imagesdir: 'images', icons: 'font', numbered: '', toc: 'right', toclevels: 2,
+            'source-highlighter': 'coderay'
+
+    outputDir = file('build/docs')
+}
