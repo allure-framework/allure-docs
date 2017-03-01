@@ -26,3 +26,26 @@ Contributions include:
 * New content: documentation for new features and guides for common use cases
 
 Please feel free to open an issue or a pull request. See the Contributing Guide for more information.
+
+== Guide for docs-team
+
+First of all create/select the issue you wish to work on. You can use waffle board for that https://waffle.io/allure-framework/allure2?source=allure-framework%2Fallure-docs
+
+Then create a branch (no need to fork the repo!) using the following name convention `{issue-number}-some-comment`, eg `10-jenkins`:
+
+```bash
+$ git checkout -b 10-jenkins
+$ git push -u origin 10-jenkins
+```
+
+After that issue will automaticly assigned to you and moved to `in progress`. Then you can add some commits and send the pull request with changes (an example, using https://github.com/github/hub[hub] util):
+
+```bash
+$ git commit -am "some awesome changes"
+$ git push origin 10-jenkins
+$ hub pull-request
+```
+
+Issue will automaticly moved to `on review`.
+
+That is it, we will review it and merge.
