@@ -1,0 +1,296 @@
+=== jUnit 4
+
+==== Installation
+
+===== Maven
+You need to add the following to your *pom.xml*:
+[source, xml]
+.pom.xml
+----
+...
+<properties>
+    <aspectj.version>1.7.4</aspectj.version>
+    <allure.version>{latest-allure-version}</allure.version>
+</properties>
+
+<dependencies>
+    <dependency>
+        <groupId>ru.yandex.qatools.allure</groupId>
+        <artifactId>allure-junit-adaptor</artifactId>
+        <version>${allure.version}</version>
+    </dependency>
+</dependencies>
+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.14</version>
+            <configuration>
+                <testFailureIgnore>false</testFailureIgnore>
+                <argLine>
+                    -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar
+                </argLine>
+                <properties>
+                    <property>
+                        <name>listener</name>
+                        <value>ru.yandex.qatools.allure.junit.AllureRunListener</value>
+                    </property>
+                </properties>
+            </configuration>
+            <dependencies>
+                <dependency>
+                    <groupId>org.aspectj</groupId>
+                    <artifactId>aspectjweaver</artifactId>
+                    <version>${aspectj.version}</version>
+                </dependency>
+            </dependencies>
+        </plugin>
+    </plugins>
+</build>
+...
+----
+
+Then run the build as usual:
+
+[source, bash]
+----
+$ mvn clean test
+----
+
+===== Ant
+Right now using Allure with http://ant.apache.org[Ant] is not possible,
+because the http://junit.sourceforge.net/javadoc/org/junit/runner/notification/RunListener.html[RunListener] that we
+provide is only supported in JUnit 4, whereas even the latest version of Ant requires the implementation of JUnit 3 specific interfaces.
+
+==== Features
+This adapter comes with a set of Java annotations and traits allowing to use main Allure features.
+
+===== Title
+In order to add such title to any test class or https://github.com/allure-framework/allure-core/wiki/Glossary#test-case[test case]
+method you need to annotate it with *@Title* annotation:
+
+[source, java]
+----
+package my.company.tests;
+
+import org.junit.Test;
+import ru.yandex.qatools.allure.annotations.Title;
+
+@Title("Human-readable test suite title")
+public class SearchTest {
+
+    @Test
+    @Title("Human-readable test case title")
+    public void searchTest() throws Exception {
+        ...
+    }
+
+}
+----
+
+===== Description
+Similarly you can add detailed description for each test class and
+https://github.com/allure-framework/allure-core/wiki/Glossary#test-case[test method].
+
+To add such description simply use *@Description* annotation:
+
+[source, java]
+----
+package my.company.tests;
+
+import org.junit.Test;
+import ru.yandex.qatools.allure.annotations.Description;
+
+@Test
+@Description(
+        value === "Detailed description for this <a href="...">test suite</a>.",
+        type === DescriptionType.HTML
+)
+public class SearchTest {
+
+    @Test
+    @Description(
+            value === "Detailed description for this *test case*.",
+            type === DescriptionType.MARKDOWN
+    )
+    public void searchTest() throws Exception {
+        ...
+    }
+
+}
+----
+
+Description can be added in plain *text*, *HTML* or *Markdown* format - simply assign different **type** value.
+
+===== Steps
+Steps are any actions that constitute a testing scenario. Steps can be used in different testing scenarios.
+They can: be parametrized, make checks, have nested steps, and create attachments. Each step has a name.
+
+In order to define steps in Java code, you need to annotate the respective methods with **@Step** annotation.
+When not specified, the step name is equal to the annotated method name converted to human-readable format.
+To define an explicit step name:
+
+[source, java]
+----
+@Step("Open {0} page.")
+public void openPageByAddress(String pageAddress) {
+     ...
+}
+----
+
+Step names support the following placeholders:
+
+* *{N}* where N is a zero-based positive integer that will be replaced by the Nth method argument value (0 corresponds
+  to the first argument, 1 to the second, etc.). See example above.
+* *{method}* will be replaced by the annotated method name e.g. *openPageByAddress*
+
+Depending on the project layout, you can consider adding Allure dependency to the test scope only.
+
+===== Attachments
+An attachment in Java code is simply a method annotated with *@Attachment* that returns either
+a **String** or **byte[]**, which should be added to the report:
+
+[source, java]
+----
+@Attachment
+public String performedActions(ActionSequence actionSequence) {
+    return actionSequence.toString();
+}
+
+@Attachment(value === "Page screenshot", type === "image/png")
+public byte[] saveScreenshot(byte[] screenShot) {
+    return screenShot;
+}
+----
+
+If return type in a method annotated with *@Attachment* differs from *String* or *byte[]* we call *toString()*
+on return value to get attachment contents.
+
+You can specify exact MIME type for each attached file using *type* parameter of *@Attachment* annotation
+like shown above. However there's no need to explicitly specify attachment type for all attached files as Allure
+by default analyses attachment contents and can determine attachment type automatically. You usually need to
+specify attachment type when working with plain text files.
+
+===== Issues Tracker
+To link a https://github.com/allure-framework/allure-core/wiki/Glossary#test-case[test case] or a
+https://github.com/allure-framework/allure-core/wiki/Glossary#test-suite[test suite] to such issues,
+you can use *@Issue* annotation. Simply specify the issue key as shown below:
+
+[source, java]
+----
+@Issue("MYISSUE-1")
+public void testSomething() {
+     ...
+}
+----
+
+To add multiple issues, use *@Issues* annotation:
+
+[source, java]
+----
+@Issues({
+    @Issue("MYISSUE-1"),
+    @Issue("MYISSUE-2")
+})
+public void testSomething() {
+     ...
+}
+----
+
+To specify the issue tracker URL, use the **allure.issues.tracker.pattern** property during report generation
+(either in the *allure.properties* file or as your build tool property):
+
+[source]
+----
+allure.issues.tracker.pattern=http://github.com/allure-framework/allure-core/issues/%s
+----
+
+===== Test Management System
+To link a https://github.com/allure-framework/allure-core/wiki/Glossary#test-case[test case] to Test Management System,
+you can use *@TestCaseId* annotation. Simply specify the test case ID as shown below:
+
+[source, java]
+----
+@TestCaseId("TMS-1")
+public void testSomething() {
+     ...
+}
+----
+
+===== Parameters
+In order to add information about test method
+https://github.com/allure-framework/allure-core/wiki/Glossary#parameter[parameters]
+you should use *@Parameter* annotation:
+
+[source, java]
+----
+package my.company.tests;
+
+import org.junit.Test;
+import ru.yandex.qatools.allure.annotations.Parameter;
+
+public class SearchTest {
+
+    @Parameter("Base web driver url")
+    private final String baseUrl === "http://...";
+
+    @Test
+    public void searchTest() throws Exception {
+
+    }
+
+}
+----
+
+===== Severity
+*@Severity* annotation is used in order to prioritize test methods by severity:
+[source, java]
+----
+package my.company.tests;
+
+import org.junit.Test;
+import ru.yandex.qatools.allure.annotations.Severity;
+import ru.yandex.qatools.allure.model.SeverityLevel;
+
+public class SearchTest {
+
+    @Test
+    @Severity(SeverityLevel.CRITICAL)
+    public void searchTest() throws Exception {
+
+    }
+
+}
+----
+
+===== Behaviours Mapping
+In some development approaches tests are classified by
+https://github.com/allure-framework/allure-core/wiki/Glossary#user-story[stories]
+and https://github.com/allure-framework/allure-core/wiki/Glossary#feature[features].
+If you're using this then you can annotate your test with *@Stories* and *@Features* annotations:
+
+[source, java]
+----
+package my.company.tests;
+
+import org.junit.Test;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Stories;
+
+@Features({"nested-test-cases-feature"})
+@Stories({"nested-test-cases-story"})
+public class SearchTest {
+
+    @Test
+    @Features({"test-case-feature"})
+    @Stories({"test-case-story"})
+    public void searchTest() throws Exception {
+        ...
+    }
+
+}
+----
+
+You will then be able to filter tests by specified features and stories in generated Allure report.
