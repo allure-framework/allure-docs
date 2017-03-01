@@ -9,13 +9,13 @@ https://github.com/allure-framework[Allure Framework].
 
 Documentation will be generated in the `build/docs/html5/{version}/index.html` path.
 
-=== Style Requirements
+== Style Requirements
 
-==== AsciiDoc
+=== AsciiDoc
 All of our documentation is written in http://asciidoctor.org[AsciiDoctor]. If you're not a Markdown expert but you
 have content to contribute, feel free to submit a PR and we'll help you out with the formatting.
 
-==== Writing Style
+=== Writing Style
 In general, we try to keep our writing style approachable and easy to understand.
 
 == Contributing
@@ -38,14 +38,15 @@ $ git checkout -b 10-jenkins
 $ git push -u origin 10-jenkins
 ```
 
-After that issue will automaticly assigned to you and moved to `in progress`. Then you can add some commits and send the pull request with changes (an example, using https://github.com/github/hub[hub] util):
+After that issue will automatically be assigned to you and moved to `in progress` tab. Then you can commit your work and send a pull request with changes (e.g. using https://github.com/github/hub[hub] util like this):
 
 ```bash
 $ git commit -am "some awesome changes"
 $ git push origin 10-jenkins
 $ hub pull-request
 ```
+Note: your pull request message should necessarily contain a line **"fixes #*github issue number*"**, in order to make waffle link your pull request to the issue. 
 
-Issue will automaticly moved to `on review`.
+Then the issue will automatically be moved to `on review` tab.
 
-That is it, we will review it and merge.
+That is it, at this point we will review it and merge.
