@@ -1,6 +1,6 @@
 = Allure Documentation
 
-This repository powers docs.qameta.io, which includes documentation for the
+This repository powers *docs.qameta.io*, which includes documentation for the
 https://github.com/allure-framework[Allure Framework].
 
 == Getting started
@@ -12,7 +12,7 @@ Documentation will be generated in the `build/docs/html5/{version}/index.html` p
 == Style Requirements
 
 === AsciiDoc
-All of our documentation is written in http://asciidoctor.org[AsciiDoctor]. If you're not a Markdown expert but you
+All of our documentation is written in http://asciidoctor.org[AsciiDoctor]. If you're not an expert in markup, but you
 have content to contribute, feel free to submit a PR and we'll help you out with the formatting.
 
 === Writing Style
@@ -21,15 +21,17 @@ In general, we try to keep our writing style approachable and easy to understand
 == Contributing
 Allure's documentation is open source. We strongly encourage (and value!) any contributions from the community.
 
-Contributions include:
-* General content improvement: typo fixes and sentence clarifications
-* New content: documentation for new features and guides for common use cases
+Contributions include:  
 
-Please feel free to open an issue or a pull request. See the Contributing Guide for more information.
+* General content improvement: typo fixes and sentence clarifications  
+* New content: documentation for new features and guides for common use cases  
+
+Please feel free to open an issue or a pull request. See the _Contributing Guide_ for more information.
+
 
 == Guide for docs-team
 
-First of all create/select the issue you wish to work on. You can use waffle board for that https://waffle.io/allure-framework/allure2?source=allure-framework%2Fallure-docs
+First of all create/select the issue you wish to work on. You can use https://waffle.io/allure-framework/allure2?source=allure-framework%2Fallure-docs[waffle board] for that 
 
 Then create a branch (no need to fork the repo!) using the following name convention `{issue-number}-some-comment`, eg `10-jenkins`:
 
