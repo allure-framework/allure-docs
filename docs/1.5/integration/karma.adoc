@@ -1,7 +1,7 @@
-=== Karma
+= Karma
 Reporter for the Allure XML format. It allows to make a detailed report
 
-==== karma-allure-reporter
+== karma-allure-reporter
 Install karma-allure-reporter into your project as devDependency
 
 [source, json]
@@ -21,14 +21,14 @@ You can simple do it by:
 npm install karma-allure-reporter --save-dev
 ----
 
-==== Configuration
+== Configuration
 Add allure into `reporters` section. Allure-reporter has a single config, it's a `reportDir` —
 result files location relatively to base dir. By default, files save right in the base dir.
 
 [source, javascript]
 ----
 // karma.conf.js
-module.exports === function(config) {
+module.exports = function(config) {
   config.set({
     reporters: ['progress', 'allure'],
 
@@ -47,7 +47,7 @@ You can pass list of reporters as a CLI argument too:
 karma start --reporters allure,dots
 ----
 
-==== API
+== API
 With allure reporter you get some functions for provide additional info about tests.
 All functions available as methods of the global `allure` object.
 
@@ -67,7 +67,7 @@ All functions available as methods of the global `allure` object.
 See the https://github.com/allure-framework/allure/blob/master/docs/dictionary.md[docs]
  in core project for more information about these features and their purpose.
 
-==== Example
+== Example
 There is an https://github.com/allure-examples/allure-karma-example[example project], where you may look to allure-reporter in action.
 
 For more information about Allure see the https://github.com/allure-framework/allure[allure core] project.
