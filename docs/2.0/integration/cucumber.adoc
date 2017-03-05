@@ -1,7 +1,7 @@
-=== Cucumber
+= Cucumber
 This page describes Allure adaptor usage for http://cukes.info/[Cucumber] framework.
 
-==== Installation
+== Installation
 Add this line to your application's Gemfile:
 
 [source, ruby]
@@ -23,14 +23,14 @@ Or install it yourself as:
 $ gem install allure-cucumber
 ----
 
-==== Configuration
+== Configuration
 By default, Allure XML files are stored in `gen/allure-results`.
 To change this add the following in `features/support/env.rb` file:
 
 [source, ruby]
 ----
 AllureCucumber.configure do |c|
-   c.output_dir === "/output/dir"
+   c.output_dir = "/output/dir"
 end
 ----
 
@@ -39,7 +39,7 @@ By default, the Allure XML files from earlier runs are deleted at the start of n
 [source, ruby]
 ----
 AllureCucumber.configure do |c|
-  c.clean_dir  === false
+  c.clean_dir  = false
 end
 ----
 
@@ -48,9 +48,9 @@ By default, allure-cucumber will analyze your cucumber tags looking for Test Man
 
 [source, ruby]
 ----
-    DEFAULT_TMS_PREFIX      === '@TMS:'
-    DEFAULT_ISSUE_PREFIX    === '@ISSUE:'
-    DEFAULT_SEVERITY_PREFIX === '@SEVERITY:'
+    DEFAULT_TMS_PREFIX      = '@TMS:'
+    DEFAULT_ISSUE_PREFIX    = '@ISSUE:'
+    DEFAULT_SEVERITY_PREFIX = '@SEVERITY:'
 ----
 
 Example:
@@ -68,10 +68,10 @@ You can configure what allure-cucumber looks for by making the following changes
 [source, ruby]
 ----
 AllureCucumber.configure do |c|
-  c.clean_dir  === false
-  c.tms_prefix      === '@HIPTEST--'
-  c.issue_prefix    === '@JIRA++'
-  c.severity_prefix === '@URGENCY:'
+  c.clean_dir  = false
+  c.tms_prefix      = '@HIPTEST--'
+  c.issue_prefix    = '@JIRA++'
+  c.severity_prefix = '@URGENCY:'
 end
 ----
 
@@ -85,7 +85,7 @@ Example:
     Then exactly (1) [validation_error] should be visible
 ----
 
-==== Usage
+== Usage
 Put the following in your `features/support/env.rb` file:
 
 [source, ruby]
@@ -106,7 +106,7 @@ You can also https://github.com/allure-framework/allure-core/wiki/Glossary#attac
  attach_file(title, file)
 ----
 
-==== How to generate report
+== How to generate report
 This adapter only generates XML files containing information about tests. See
 https://github.com/allure-framework/allure-core/wiki#generating-report[wiki section]
  on how to generate report.

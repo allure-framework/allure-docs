@@ -1,14 +1,14 @@
-=== Mocha
+= Mocha
 :icons: font
 :page-layout: docs
 :page-version: 1.4
 :page-product: allure
 :source-highlighter: coderay
 
-==== mocha-allure-reporter
+== mocha-allure-reporter
 Allure reporter for Mocha framework.
 
-==== Installation
+== Installation
 Assuming that you have http://mochajs.org/[mocha] installed, install reporter via npm:
 
 [source, bash]
@@ -28,10 +28,10 @@ See https://github.com/allure-framework/allure-core/wiki#generating-a-report[gen
 
 Also check out https://github.com/allure-examples/mocha-allure-example[mocha-allure-example] to see it in action.
 
-==== Supported options
+== Supported options
 * targetDir _(string)_ – directory where test results will be stored
 
-==== Runtime API
+== Runtime API
 Allure is a test framework which provides more data from tests than usual.
 Once added `mocha-allure-reporter` will create global `allure` object with the following API:
 

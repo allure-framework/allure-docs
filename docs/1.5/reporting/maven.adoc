@@ -1,6 +1,6 @@
-=== Maven
+= Maven
 
-==== Installation
+== Installation
 Add allure-maven-plugin to your pom.xml file.
 
 [source, xml]
@@ -21,16 +21,16 @@ Add allure-maven-plugin to your pom.xml file.
 </project>
 ----
 
-==== Configuration
-===== Properties handling
+== Configuration
+=== Properties handling
 
 Since 2.5 there is ability to configure report generation. There is few ways to do it:
 
-====== Directly from source code
+==== Directly from source code
 Put **allure.properties** (**report.properties** for Allure 1.5 or above) to classpath.
 Both compile *class* path and *test class* path are supported.
 
-====== Or specify the *properties* in configuration
+==== Or specify the *properties* in configuration
 [source, xml]
 .pom.xml
 ----
@@ -41,7 +41,7 @@ Both compile *class* path and *test class* path are supported.
 </configuration>
 ----
 
-====== Or specify the *propertiesFilePath*
+==== Or specify the *propertiesFilePath*
 [source, xml]
 .pom.xml
 ----
@@ -50,7 +50,7 @@ Both compile *class* path and *test class* path are supported.
 </configuration>
 ----
 
-===== Results Directory
+=== Results Directory
 The path to Allure results directory. In general it is the directory created by allure adaptor and contains allure
 xml files and attachments. This path can be relative from build directory (for maven it is the target directory)
 or absolute (absolute only for report mojo). Will be ignored for bulk mojo.
@@ -70,20 +70,20 @@ System property **allure.results.directory**.
 </plugin>
 ----
 
-==== Usage
+== Usage
 The Allure Maven Plugin has three goals:
 
 * *allure:report*
 * *allure:aggregate*
 * *allure:bulk*
 
-===== Generate the Allure report as Part of Project Reports
+=== Generate the Allure report as Part of Project Reports
 [source, bash]
 ----
 $ mvn site
 ----
 
-===== Generate the Allure Report in a Standalone Fashion
+=== Generate the Allure Report in a Standalone Fashion
 The plugin can also generate the report using its standalone goal:
 [source, bash]
 ----

@@ -1,22 +1,22 @@
-=== Scaltest
+= Scaltest
 This adapter allows to retrieve test execution data from [ScalaTest]() framework and convert it to the form suitable for
 [Allure report generation](https://github.com/allure-framework/allure-core/wiki#generating-report).
 
-==== Example project
+== Example project
 Example project is located at: https://github.com/allure-framework/allure-scalatest-example
 
-==== Installation, Configuration and Usage
+== Installation, Configuration and Usage
 **In order to use this adapter you need to have JDK 1.7+ installed.** To enabled adapter simply add the following
 dependency to build.sbt:
 [source, scala]
 ----
-libraryDependencies +=== "ru.yandex.qatools.allure" % "allure-scalatest_2.10" % "1.4.0-SNAPSHOT"
+libraryDependencies += "ru.yandex.qatools.allure" % "allure-scalatest_2.10" % "1.4.0-SNAPSHOT"
 ----
 
 Then attach **AllureReporter** in build.sbt:
 [source, scala]
 ----
-testOptions in Test ++=== Seq(
+testOptions in Test ++= Seq(
     Tests.Argument(TestFrameworks.ScalaTest, "-oD"),
     Tests.Argument(TestFrameworks.ScalaTest, "-C", "ru.yandex.qatools.allure.scalatest.AllureReporter")
 )
@@ -43,16 +43,16 @@ javax.xml.bind.PropertyException: name: com.sun.xml.bind.marshaller.CharacterEsc
 
 This is related to incompatible JAXB versions used in Allure and Scalatest so you can safely ignore it.
 
-==== How to generate report
+== How to generate report
 This adapter only generates XML files containing information about tests. See [wiki section]
 (https://github.com/allure-framework/allure-core/wiki#generating-report) on how to generate report.
 
-==== Publishing to Sonatype (adapter development)
+== Publishing to Sonatype (adapter development)
 A publicly available (on public keyserver) GPG key should be present in you default GPG keyring. You need to create
 **sonatype.sbt** file in **~/.sbt/<sbt-version>/**:
 [source, scala]
 ----
-credentials +=== Credentials("Sonatype Nexus Repository Manager",
+credentials += Credentials("Sonatype Nexus Repository Manager",
                            "oss.sonatype.org",
                            "login",
                            "password")

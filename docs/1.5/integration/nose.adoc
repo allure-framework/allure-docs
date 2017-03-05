@@ -1,7 +1,7 @@
-=== Nose
+= Nose
 It is a port of https://github.com/allure-framework/allure-python[pytest-allure-adaptor] for https://github.com/nose-devs/nose[nose framework].
 
-==== Usage
+== Usage
 [source, bash]
 ----
  nosetests --with-allure --logdir=/path/to/put/results
@@ -10,9 +10,9 @@ It is a port of https://github.com/allure-framework/allure-python[pytest-allure-
 
 Option "--not-clear-logdir" is useful with option "--processes" to prevent cleaning of logdr at the end of testing.
 
-==== Supported features
+== Supported features
 
-===== Attachment
+=== Attachment
 To attach some content to test report:
 
 [source, pyhton]
@@ -23,7 +23,7 @@ def test_foo():
     nose.allure.attach('my attach', 'Hello, World')
 ----
 
-===== Step
+=== Step
 To divide a test into steps:
 
 [source, python]
@@ -59,7 +59,7 @@ def test_bar():
     assert make_some_data_bar() is not None
 ----
 
-===== Environment
+=== Environment
 You can provide test https://github.com/allure-framework/allure-core/wiki/Environment[environment parameters] such as report name, browser or test server address to allure test report.
 
 [source, python]
@@ -70,7 +70,7 @@ def test_dummy():
     nose.allure.environment(report='Allure report', browser=u'Firefox')
 ----
 
-===== Severity
+=== Severity
 Any test, class or module can be marked with different severity:
 
 [source, python]
@@ -96,7 +96,7 @@ To run tests with concrete priority:
 nosetests my_tests/ --with-allure --logdir=tmp --severity="critical, hard"
 ----
 
-===== Issue
+=== Issue
 Issues can be set for test.
 
 [source, python]
@@ -108,7 +108,7 @@ def test_foo():
     assert False
 ----
 
-===== Features & Stories
+=== Features & Stories
 Feature and Story can be set for test.
 
 [source, python]

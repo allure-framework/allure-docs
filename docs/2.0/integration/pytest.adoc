@@ -1,7 +1,7 @@
-=== Pytest
+= Pytest
 WARNING: This plugin currently supports only Allure 1.4.x series.
 
-==== Installation and Usage
+== Installation and Usage
 [source, python]
 ----
 py.test --alluredir [path_to_report_dir]
@@ -14,18 +14,18 @@ Connecting to IDE:
 
 [source, python]
 ----
-pytest_plugins === 'allure.pytest_plugin',\
+pytest_plugins = 'allure.pytest_plugin',\
 ----
 
-==== Features
+== Features
 
-===== Title
+=== Title
 IMPORTANT: Not implemented now
 
-===== Description
+=== Description
 IMPORTANT: Not implemented now
 
-===== Steps
+=== Steps
 To divide a test into steps:
 
 [source, python]
@@ -92,7 +92,7 @@ Arguments are passed to `format` method in the same way they are passed to the d
 
 Steps support is limited when used with fixtures.
 
-===== Attachments
+=== Attachments
 To attach some content to test report:
 
 [source, python]
@@ -104,7 +104,7 @@ def test_foo():
 ----
 
 
-===== Issues Tracker
+=== Issues Tracker
 Issues can be set for test.
 
 [source, python]
@@ -135,7 +135,7 @@ class TestBar:
         pass
 ----
 
-===== Test Management System
+=== Test Management System
 Test cases links can be set for test also.
 
 [source, python]
@@ -164,10 +164,10 @@ class TestBar:
         pass
 ----
 
-===== Parameters
+=== Parameters
 IMPORTANT: Not implemented now
 
-===== Severity
+=== Severity
 Any test, class or module can be marked with different severity:
 
 [source, python]
@@ -199,7 +199,7 @@ To run tests with concrete priority:
 py.test my_tests/ --allure_severities=critical,blocker
 ----
 
-===== Behaviours Mapping
+=== Behaviours Mapping
 Feature and Story can be set for test.
 
 [source, python]
@@ -231,7 +231,7 @@ py.test my_tests/ --allure_features=feature1,feature2
 py.test my_tests/ --allure_features=feature1,feature2 --allure_stories=story1,story2
 ----
 
-===== Environment Parameters
+=== Environment Parameters
 You can provide test environment parameters such as report name, browser or test server address to allure test report.
 
 [source, python]
@@ -246,7 +246,7 @@ def pytest_configure(config):
 
 @pytest.fixture(scope="session")
 def app_host_name():
-    host_name === "my.host.local"
+    host_name = "my.host.local"
     allure.environment(hostname=host_name)
     return host_name
 
@@ -261,5 +261,5 @@ More details about allure environment you can know from https://github.com/allur
 Environment[documentation]. 
 
 
-==== Development
+== Development
 Use `allure.common.AllureImpl` class to bind your logic to this adapter.

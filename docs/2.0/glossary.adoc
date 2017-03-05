@@ -1,4 +1,4 @@
-== Glossary
+= Glossary
 
 Step:: An atomic test logic execution unit. Each test case can consist of one or more steps. Steps allow to divide
 complex test cases into smaller pieces of logic. This can dramatically simplify analysis of test results because we

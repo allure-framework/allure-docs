@@ -1,9 +1,9 @@
-=== Gradle
+= Gradle
 Gradle Allure Plugin allows you to integrate http://allure.qatools.ru/[Allure] into spock, testng and junit tests.
 
 https://github.com/d10xa/gradle-allure-plugin-examples[Examples]
 
-==== Basic usage
+== Basic usage
 
 [source, groovy]
 ----
@@ -19,44 +19,44 @@ buildscript {
 apply plugin: 'ru.d10xa.allure'
 
 allure {
-    aspectjweaver === true
+    aspectjweaver = true
     
     // Choose your test framework. 
-    junit === true
-    testNG === false
-    spock === false
+    junit = true
+    testNG = false
+    spock = false
     
     // Choose if you're using Geb for web tests
-    geb === true
+    geb = true
 }
 ----
 
-==== Full configuration
+== Full configuration
 
 [source, groovy]
 ----
 allure {
-    aspectjweaver === true
+    aspectjweaver = true
     
-    junit === true
-    testNG === false
-    spock === false
+    junit = true
+    testNG = false
+    spock = false
     
-    geb === false
+    geb = false
     
-    allureResultsDir === "$buildDir/allure-results"
-    allureReportDir === "$buildDir/allure-report"
+    allureResultsDir = "$buildDir/allure-results"
+    allureReportDir = "$buildDir/allure-report"
     
-    allureVersion === "1.4.24.RC3"
-    aspectjVersion === "1.8.9"
-    allureSpockGebExtensionVersion === "0.2.1"
-    allureJunitAspectjAdaptorVersion === "0.1.1"
+    allureVersion = "1.4.24.RC3"
+    aspectjVersion = "1.8.9"
+    allureSpockGebExtensionVersion = "0.2.1"
+    allureJunitAspectjAdaptorVersion = "0.1.1"
  
-    clean === true
+    clean = true
 }
 ----
 
-==== Configuration
+== Configuration
 
 * `aspectjweaver` (boolean) default false. Adds `-javaagent` to tests
 
@@ -89,9 +89,9 @@ the configuration 'compile' and use the adaptor classes in your source code.
 
 * `clean` (boolean) default true. Execute appropriate clean tasks before tests and report generation.
 
-==== Tasks
+== Tasks
 
-===== `allureReport`
+=== `allureReport`
 
 Creates html report for tests.
 
@@ -127,10 +127,10 @@ task customAllureReport(type: ru.d10xa.allure.AllureReportTask){
 }
 ----
 
-===== `cleanAllureReport`
+=== `cleanAllureReport`
 
 Deletes directory declared in `allureReportDir` parameter
 
-===== `cleanTest` or `cleanYourOwnTest`
+=== `cleanTest` or `cleanYourOwnTest`
 
 Deletes the test results and allure results created by `test` or `yourOwnTest` task

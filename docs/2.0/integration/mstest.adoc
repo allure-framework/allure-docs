@@ -1,11 +1,11 @@
-=== MSTest
+= MSTest
 **MSTestAllureAdapter** allows you convert an MSTest trx file to the XMLs from which an Allure report can be generated.
 
 Because MSTest does not have an extension or hook mechanism this adapter cannot run as part of MSTest but instead it converts the resulting trx file to the xml format expected by allure.
 
 It is a .NET/Mono based console application.
 
-==== Usage
+== Usage
 [source, bash]
 ----
 MSTestAllureAdapter.Console.exe <TRX file> [output target dir]

@@ -1,13 +1,13 @@
-=== TestNG
+= TestNG
 An Allure report can be generated for any TestNG test. In order to get test results, you need to:
 
 * Add AllureTestListener to TestNG settings.
 * Add AspectJ Weaver dependency and its properties.
 * Run tests.
 
-==== Installation
+== Installation
 
-===== Maven
+=== Maven
 See the example project: https://github.com/allure-examples/allure-testng-example
 
 You need to add the following to your **pom.xml**:
@@ -66,7 +66,7 @@ Then run the build as usual:
 $ mvn clean test
 ----
 
-===== Ant
+=== Ant
 See the example project: https://github.com/allure-examples/allure-ant-testng-example
 
 You need to declare the following dependencies in **ivy.xml**:
@@ -87,7 +87,7 @@ Then add the following target to **build.xml**:
 ----
 <property name="build.report" location="${build}/report"/>
 <property name="aspectj.version" value="1.7.4"/>
-<property name === "ivy.lib.dir" value="${basedir}/lib" />
+<property name = "ivy.lib.dir" value="${basedir}/lib" />
 <path id="lib.path.id">
   <fileset dir="${ivy.lib.dir}" />
 </path>
@@ -116,7 +116,7 @@ Don't forget to specify **build.test-compile** and **build.compile** properties 
 $ ant test
 ----
 
-===== Gradle
+=== Gradle
 See the example project: https://github.com/allure-framework/allure-gradle-testng-example
 
 You need to add the following to **build.gradle**:
@@ -155,10 +155,10 @@ allureVersion=1.4.0.RC4
 Finally, to output Allure results to the **build** directory (the default is **target/allure-results**), you need to put the **allure.properties** file in **src/test/resources/**:
 [source] allure.results.directory=build/allure-results
 
-==== Features
+== Features
 This adapter comes with a set of Java annotations and traits allowing to use main Allure features.
 
-===== Title
+=== Title
 In order to add such title to any test class or https://github.com/allure-framework/allure-core/wiki/Glossary#test-case[test case]
 method you need to annotate it with *@Title* annotation:
 
@@ -181,7 +181,7 @@ public class SearchTest {
 }
 ----
 
-===== Description
+=== Description
 Similarly you can add detailed description for each test class and
 https://github.com/allure-framework/allure-core/wiki/Glossary#test-case[test method].
 
@@ -196,15 +196,15 @@ import ru.yandex.qatools.allure.annotations.Description;
 
 @Test
 @Description(
-        value === "Detailed description for this <a href="...">test suite</a>.",
-        type === DescriptionType.HTML
+        value = "Detailed description for this <a href="...">test suite</a>.",
+        type = DescriptionType.HTML
 )
 public class SearchTest {
 
     @Test
     @Description(
-            value === "Detailed description for this *test case*.",
-            type === DescriptionType.MARKDOWN
+            value = "Detailed description for this *test case*.",
+            type = DescriptionType.MARKDOWN
     )
     public void searchTest() throws Exception {
         ...
@@ -215,7 +215,7 @@ public class SearchTest {
 
 Description can be added in plain *text*, *HTML* or *Markdown* format - simply assign different **type** value.
 
-===== Steps
+=== Steps
 Steps are any actions that constitute a testing scenario. Steps can be used in different testing scenarios.
 They can: be parametrized, make checks, have nested steps, and create attachments. Each step has a name.
 
@@ -239,7 +239,7 @@ Step names support the following placeholders:
 
 Depending on the project layout, you can consider adding Allure dependency to the test scope only.
 
-===== Attachments
+=== Attachments
 An attachment in Java code is simply a method annotated with *@Attachment* that returns either
 a **String** or **byte[]**, which should be added to the report:
 
@@ -250,7 +250,7 @@ public String performedActions(ActionSequence actionSequence) {
     return actionSequence.toString();
 }
 
-@Attachment(value === "Page screenshot", type === "image/png")
+@Attachment(value = "Page screenshot", type = "image/png")
 public byte[] saveScreenshot(byte[] screenShot) {
     return screenShot;
 }
@@ -264,7 +264,7 @@ like shown above. However there's no need to explicitly specify attachment type 
 by default analyses attachment contents and can determine attachment type automatically. You usually need to
 specify attachment type when working with plain text files.
 
-===== Issues Tracker
+=== Issues Tracker
 To link a https://github.com/allure-framework/allure-core/wiki/Glossary#test-case[test case] or a
 https://github.com/allure-framework/allure-core/wiki/Glossary#test-suite[test suite] to such issues,
 you can use *@Issue* annotation. Simply specify the issue key as shown below:
@@ -298,7 +298,7 @@ To specify the issue tracker URL, use the **allure.issues.tracker.pattern** prop
 allure.issues.tracker.pattern=http://github.com/allure-framework/allure-core/issues/%s
 ----
 
-===== Test Management System
+=== Test Management System
 To link a https://github.com/allure-framework/allure-core/wiki/Glossary#test-case[test case] to Test Management System,
 you can use *@TestCaseId* annotation. Simply specify the test case ID as shown below:
 
@@ -310,7 +310,7 @@ public void testSomething() {
 }
 ----
 
-===== Parameters
+=== Parameters
 In order to add information about test method
 https://github.com/allure-framework/allure-core/wiki/Glossary#parameter[parameters]
 you should use *@Parameter* annotation:
@@ -325,7 +325,7 @@ import ru.yandex.qatools.allure.annotations.Parameter;
 public class SearchTest {
 
     @Parameter("Base web driver url")
-    private final String baseUrl === "http://...";
+    private final String baseUrl = "http://...";
 
     @Test
     public void searchTest() throws Exception {
@@ -335,7 +335,7 @@ public class SearchTest {
 }
 ----
 
-===== Severity
+=== Severity
 *@Severity* annotation is used in order to prioritize test methods by severity:
 [source, java]
 ----
@@ -356,7 +356,7 @@ public class SearchTest {
 }
 ----
 
-===== Behaviours Mapping
+=== Behaviours Mapping
 In some development approaches tests are classified by
 https://github.com/allure-framework/allure-core/wiki/Glossary#user-story[stories]
 and https://github.com/allure-framework/allure-core/wiki/Glossary#feature[features].
