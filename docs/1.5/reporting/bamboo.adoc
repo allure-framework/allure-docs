@@ -1,11 +1,11 @@
-=== Bamboo
+= Bamboo
 
-==== Installation
+== Installation
 . Install https://confluence.atlassian.com/display/UPM/Installing+add-ons[Allure Plugin] from "Plugin Manager Page".
 . Download the latest version of allure-commandline.zip from github and extract to the desired directory.
 . https://confluence.atlassian.com/bamboo/defining-a-new-executable-capability-289277164.html[Defining a new executable capability] with using the extraction directory.
 
-==== Configuration
+== Configuration
 . Open the build **configuration settings**.
 . Ensure that your build https://github.com/allure-framework/allure-core/wiki#gathering-information-about-tests)[generates Allure XML files].
 . Add Allure task to your job.
@@ -16,7 +16,7 @@ image::bamboo_add_task.png[Add Task in Bamboo]
 image::bamboo_task_fields.png[Task configuration]
 
 
-==== Usage
+== Usage
 When the build is done you will get Allure Report as a part of build artifacts.
 Сlick on *Allure report* artifact on the *Artifacts* tab:
 

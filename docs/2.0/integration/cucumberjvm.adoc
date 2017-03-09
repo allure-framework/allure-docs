@@ -1,14 +1,14 @@
-=== Cucumber JVM
+= Cucumber JVM
 
-==== Allure Cucumber-JVM Adaptor (JUnit)
+== Allure Cucumber-JVM Adaptor (JUnit)
 This adaptor allows to generate allure xml reports after cucumber-jvm Junit test execution.
 
-===== Example project
+=== Example project
 Example project is located at: https://github.com/allure-examples/allure-cucumber-jvm-example
 
-==== Installation
+== Installation
 
-===== Maven
+=== Maven
 Simply add `allure-allure-cucumber-jvm-adaptor` as dependency to your project and add `build` section
  with adaptor listener:
 
@@ -57,19 +57,19 @@ Simply add `allure-allure-cucumber-jvm-adaptor` as dependency to your project an
 Then execute `mvn clean test` goal. After tests executed allure xml files will be
 placed in `target/allure-results/` directory
 
-==== Features
+== Features
 This adapter provides runtime integration allowing conversion of Gherkin dsl features into basic Allure features
 
-===== Title
+=== Title
 Titles for tests and suites are extracted at runtime from  `.feature` files
 
-===== Description
+=== Description
 WARNING: Description specifications are not supported
 
-===== Steps
+=== Steps
 WARNING: Allure @Step annotations are not supported, cucumber steps are used as is.
 
-===== Attachments
+=== Attachments
 An attachment in Java code is simply a method annotated with *@Attachment* that returns either
 a **String** or **byte[]**, which should be added to the report. You can call this method from
 the one of the `Given`/`When`/`Then` step methods.
@@ -81,7 +81,7 @@ public String performedActions(ActionSequence actionSequence) {
     return actionSequence.toString();
 }
 
-@Attachment(value === "Page screenshot", type === "image/png")
+@Attachment(value = "Page screenshot", type = "image/png")
 public byte[] saveScreenshot(byte[] screenShot) {
     return screenShot;
 }
@@ -95,19 +95,19 @@ like shown above. However there's no need to explicitly specify attachment type 
 by default analyses attachment contents and can determine attachment type automatically. You usually need to
 specify attachment type when working with plain text files.
 
-===== Issues Tracker
+=== Issues Tracker
 WARNING: Bug tracker integration is not supported
 
-===== Test Management System
+=== Test Management System
 WARNING: Test management system is not supported
 
-===== Parameters
+=== Parameters
 WARNING: Additional annotations for parameters are not supported
 
-===== Severity
+=== Severity
 WARNING: Severity annotations are not supported
 
-===== Behaviours Mapping
+=== Behaviours Mapping
 In some development approaches tests are classified by
 https://github.com/allure-framework/allure-core/wiki/Glossary#user-story[stories]
 and https://github.com/allure-framework/allure-core/wiki/Glossary#feature[features].

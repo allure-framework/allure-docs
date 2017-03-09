@@ -1,12 +1,12 @@
-=== TeamCity
+= TeamCity
 
-==== Installation
+== Installation
 https://confluence.jetbrains.com/display/TCD9/Installing+Additional+Plugins[Install Allure TeamCity plugin].
 Copy the **allure-commandline.zip** from (https://github.com/allure-framework/allure-core/releases/latest[latest release]
 to the <https://confluence.jetbrains.com/display/TCD9/TeamCity+Data+Directory[TeamCity Data Directory]>/plugins/.tools directory.
 No server restart needed for this step.
 
-==== Configuration
+== Configuration
 . Open the build **configuration settings**.
 . Ensure that your build https://github.com/allure-framework/allure-core/wiki#gathering-information-about-tests)[generates Allure XML files].
 . Go to **Build steps** and add the **Allure Report** build step.
@@ -18,6 +18,6 @@ image::teamcity_plugin_configure_build_step.png[jenkins plugin install]
 
 In case you upgrading the Allure TeamCity plugin you need to remove old Allure report generation feature.
 
-==== Usage
+== Usage
 When the build is done you will get Allure Report as a part of build artifacts – simply open the index.html.  
 image::teamcity_plugin_usage.png[jenkins plugin install]

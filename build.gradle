@@ -30,3 +30,5 @@ asciidoctor {
 
     outputDir = file('build/docs')
 }
+
+build.finalizedBy(asciidoctor)

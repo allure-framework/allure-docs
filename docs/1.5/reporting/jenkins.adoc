@@ -1,6 +1,6 @@
-=== Jenkins
+= Jenkins
 
-==== Installation
+== Installation
 . Install https://wiki.jenkins-ci.org/display/JENKINS/Allure+Plugin[Allure Plugin] from "Plugin Manager Page".
 . Open Plugin Advanced Settings http://<jenkins_host>/pluginManager/advanced.
 . Click "Check Updates" button on the bottom right corner of the page.
@@ -8,7 +8,7 @@
 +
 image::jenkins_plugin_install.jpeg[Jenkins Plugin Install]
 
-===== Configure Jenkins Content Security
+=== Configure Jenkins Content Security
 By default, Jenkins sets Content Security Policy for plugin pages. Allure requires less strict policy, you can set it via system property.
 
 If you haven't done it before, add the following to Jenkins system properties configuration (you need to set both Hudson and Jenkins properties to make it works):  
@@ -22,7 +22,7 @@ If you haven't done it before, add the following to Jenkins system properties co
 You can read more about it in the https://wiki.jenkins-ci.org/display/JENKINS/Configuring+Content+Security+Policy[Jenkins]
 docs and find details in https://github.com/allure-framework/allure-core/issues/715[issue #715] in the Github repository of allure-core.
 
-===== Build agents have connection to maven central
+=== Build agents have connection to maven central
 . Open "Jenkins Configure Page".
 . Find "Allure Commandline" configuration block.
 +
@@ -32,7 +32,7 @@ image::jenkins_plugin_find_cmd.jpeg[Find Allure Commandline]
 image::jenkins_plugin_install_cmd.jpeg[Install Allure Commandline]
 . Fill the name and choose the version of allure report.
 
-===== Build agents have NOT connection to maven central
+=== Build agents have NOT connection to maven central
 . Download the latest version of allure-commandline.zip from github.
 . Upload downloaded file to any file server. Build agents must have access to the file by url. For example, *http://mycompany.com/allure-commandline.zip*
 . Open "Jenkins Configure Page". and find "Allure Commandline" configuration block.
@@ -49,8 +49,8 @@ image::jenkins_plugin_add_installer.jpeg[Install Allure Commandline]
 +
 image::jenkins_plugin_fill_name_and_url.jpeg[Install Allure Commanline]
 
-==== Configuration
-===== Job configuration
+== Configuration
+=== Job configuration
 . Open job configuration page.
 . Ensure that your build generates https://github.com/allure-framework/allure-core/wiki#gathering-information-about-tests[Allure XML files].
 . Add **Allure Report** post build action.
@@ -60,35 +60,35 @@ image::jenkins_plugin_add_allure_report.jpeg[Install Allure Commanline]
 +
 image::jenkins_plugin_configure_allure_report.jpeg[install allure commanline]
 
-===== TMS integration
+=== TMS integration
 . Open Job Configure Page.
 . Find Allure Report configuration section.
 . Setup **allure.tests.management.pattern** property:
 +
 image::jenkins_plugin_setup_tms.jpeg[Install Allure Commanline]
 
-===== Issue Tracker integration
+=== Issue Tracker integration
 . Open Job Configure Page.
 . Find Allure Report configuration section.
 . Setup *allure.issues.tracker.pattern* property:
 +
 image::jenkins_plugin_setup_tracker.jpeg[Install Allure Commanline]
 
-===== Advanced Options
+=== Advanced Options
 . Open Job Configure Page.
 . Find Allure Report configuration section.
 . Click "Advanced..." button if you need custom settings of commadline, jdk or build policy
 +
 image::jenkins_plugin_advanced_options.jpeg[Install Allure Commanline]
 
-==== Usage
+== Usage
 When build is finished a link to Allure report will appear on the build page:
 image::jenkins_plugin_allure_sidebar.png[Install Allure Commanline]
 image::jenkins_plugin_allure_report.png[install allure commanline]
 
-==== Extensions
+== Extensions
 
-===== Job DSL Plugin
+=== Job DSL Plugin
 The https://github.com/jenkinsci/job-dsl-plugin/wiki[job-dsl-plugin] allows the programmatic creation of projects using a DSL.
 
 [source, groovy]

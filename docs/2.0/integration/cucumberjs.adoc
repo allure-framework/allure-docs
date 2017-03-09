@@ -1,16 +1,16 @@
-=== Cucumber JS
+= Cucumber JS
 WARNING: Allure report version supported : 1.4.15
 
-==== Usage:
+== Usage:
 Add `reporter.js` file in feature packages with:
 
 [source, javascript]
 ----
-var reporter === require('cucumberjs-allure-reporter');
+var reporter = require('cucumberjs-allure-reporter');
 reporter.config(
     {...}
 );
-module.exports === reporter;
+module.exports = reporter;
 ----
 
 Supported configuration keys:
@@ -41,7 +41,7 @@ Possible labels:
 
 If you want to cancel step or test, simply throw new Error with message 'Step cancelled' or 'Test cancelled'.
 
-==== Generate HTML report from Allure results
+== Generate HTML report from Allure results
 The Reporter will generate xml files inside of a `targetDir`, then we need to generate HTML out of them.
 You can use Maven for that. Copy ready-to-use `pom.xml` from `node_modules/cucumberjs-allure-reporter` and run:
 
@@ -54,9 +54,9 @@ It will put HTMLs into `target/site/allure-maven-plugin` folder. To serve them v
 Otherwise choose one of
 https://github.com/allure-framework/allure-core/wiki#generating-a-report[other ways to generate HTML].
 
-==== For Developers
+== For Developers
 
-===== Run test examples with:
+=== Run test examples with:
 `./node_modules/.bin/cucumber.js features/<FEATURE_NAME>.feature`
 
 Available tests:
@@ -80,14 +80,14 @@ To check basic configuration run: `./node_modules/.bin/cucumber.js miscellaneous
 
 To check custom tags run: `./node_modules/.bin/cucumber.js miscellaneous/customTagNames`
 
-==== Release notes
+== Release notes
 01/09/2016 version 1.0.3
 
 * added possibility to cancel steps and tests
 
 11/07/2016 version 1.0.2
 
-* peer dependency for cucumber (>=== 1.2.0) added
+* peer dependency for cucumber (>= 1.2.0) added
 
 06/07/2016 version 1.0.1
 

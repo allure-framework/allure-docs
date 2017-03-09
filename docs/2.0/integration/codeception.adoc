@@ -1,15 +1,15 @@
-=== Codeception
+= ALLURECodeception
 This is an official http://codeception.com/[Codeception] adapter for Allure Framework.
 
-==== What is this for?
+== What is this for?
 The main purpose of this adapter is to accumulate information about your tests and write it out to a set of XML
 files: one for each test class. This adapter only generates XML files containing information about tests.
 See https://github.com/allure-framework/allure-core/wiki#generating-report[wiki section] on how to generate report.
 
-==== Example project
+== Example project
 Example project is located at: https://github.com/allure-examples/allure-codeception-example
 
-==== Installation and Usage
+== Installation and Usage
 In order to use this adapter you need to add a new dependency to your **composer.json** file:
 [source , json]
 ----
@@ -49,5 +49,5 @@ allure generate --report-version 1.4.5 --report-path tests/_output/allure-report
 
 Report will be generated in `tests/_output/allure-report`.
 
-==== Main features
+== Main features
 See respective https://github.com/allure-framework/allure-phpunit#advanced-features[PHPUnit] section.

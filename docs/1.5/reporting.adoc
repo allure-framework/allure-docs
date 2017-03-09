@@ -1,14 +1,14 @@
-== Reporting
+= Reporting
 Once the XML files have been created by the adapter, you can generate an Allure report using one of the following tools
 
-include::reporting/commandline.adoc[]
+include::reporting/commandline.adoc[leveloffset=+1]
 
-include::reporting/jenkins.adoc[]
+include::reporting/jenkins.adoc[leveloffset=+1]
 
-include::reporting/teamcity.adoc[]
+include::reporting/teamcity.adoc[leveloffset=+1]
 
-include::reporting/bamboo.adoc[]
+include::reporting/bamboo.adoc[leveloffset=+1]
 
-include::reporting/gradle.adoc[]
+include::reporting/gradle.adoc[leveloffset=+1]
 
-include::reporting/maven.adoc[]
+include::reporting/maven.adoc[leveloffset=+1]
