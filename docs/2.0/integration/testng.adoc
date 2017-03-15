@@ -1,14 +1,14 @@
-=== TestNG
+= TestNG
 An Allure report can be generated for any TestNG test. In order to get test results, you need to:
 
-* Download and uzip latest **allure-command-line**: https://bintray.com/qameta/generic/download_file?file_path=io%2Fqameta%2Fallure%2Fallure%2F2.0-BETA5%2Fallure-2.0-BETA5.zip
+* Download and uzip latest link:https://dl.bintray.com/qameta/generic/io/qameta/allure/allure/2.0-BETA5/allure-2.0-BETA5.zip[allure-commandline]
 * Add **allure-java** dependency.
 * Add **aspectjweaver** dependency and its properties.
 * Run tests.
 
-==== Installation
+== Installation
 
-===== Maven
+=== Maven
 You need to add the following to your **pom.xml**:
 
 [source, xml]
@@ -107,10 +107,10 @@ $ mvn clean test
 Allure results will appear in **target/allure-results** folder. To generate html report and automatically open it in a web browser, run the following command:
 [source, bash]
 ----
-$ ./pathToCommandLine/allure-2.0-BETA5/bin/allure serve /projectRoot/target/allure-results
+$ allure serve target/allure-results
 ----
 
-===== Gradle
+=== Gradle
 You need to add the following to **build.gradle**:
 
 [source, groovy]
@@ -155,13 +155,13 @@ $ ./gradlew clean test
 Allure results will appear in **build/allure-results** folder. To generate html report and automatically open it in a web browser, run the following command:
 [source, bash]
 ----
-$ ./pathToCommandLine/allure-2.0-BETA5/bin/allure serve /projectRoot/build/allure-results
+$ allure serve build/allure-results
 ----
 
-==== Features
+== Features
 This adapter comes with a set of Java annotations and traits allowing to use main Allure features.
 
-===== Steps
+=== Steps
 Steps are any actions that constitute a testing scenario. Steps can be used in different testing scenarios.
 They can: be parametrized, make checks, have nested steps, and create attachments. Each step has a name.
 
@@ -184,7 +184,7 @@ Method's arguments will be automatically parsed and displayed next to the step n
 Open page [ pageAddress: value ]
 ----
 
-===== Attachments
+=== Attachments
 An attachment in Java code is simply an utility method **addAttachment** that accepts different arguments such as name, MIME type, content and file extension.
 Attachments could be added to either individual steps or the entire test case.
 
@@ -216,7 +216,7 @@ public class BaseListener implements IInvokedMethodListener {
 }
 ----
 
-===== Issues Tracker
+=== Issues Tracker
 To link a https://github.com/allure-framework/allure-core/wiki/Glossary#test-case[test case] or a
 https://github.com/allure-framework/allure-core/wiki/Glossary#test-suite[test suite] to such issues,
 you can use *@Issue* annotation. Simply specify the issue key as shown below:
@@ -273,7 +273,7 @@ $ mvn clean test -Dallure.link.issue.pattern=https://github.com/allure-framework
 
 Where **{}** is a placeholder for keys, specified in *@Issue* annotations.
 
-===== Test Management System
+=== Test Management System
 To link a https://github.com/allure-framework/allure-core/wiki/Glossary#test-case[test case] to Test Management System,
 you can use *@TmsLink* annotation. Simply specify the test case ID as shown below:
 
@@ -318,7 +318,7 @@ $ mvn clean test -Dallure.link.tms.pattern=https://github.com/allure-framework/a
 
 Where **{}** is a placeholder for keys, specified in *@TmsLink* annotations.
 
-===== Severity
+=== Severity
 *@Severity* annotation is used in order to prioritize test methods by severity:
 
 [source, java]
@@ -330,7 +330,7 @@ public void testSomething() {
 }
 ----
 
-===== Behaviours Mapping
+=== Behaviours Mapping
 In some development approaches tests are classified by
 https://github.com/allure-framework/allure-core/wiki/Glossary#user-story[stories]
 and https://github.com/allure-framework/allure-core/wiki/Glossary#feature[features].
@@ -349,7 +349,7 @@ public void testSomething() {
 Note that a single test may have multiple *@Story* and *@Feature* annotations.
 You will then be able to filter tests by specified features and stories in generated Allure report.
 
-===== Flaky tests
+=== Flaky tests
 In order to attract developers' / QA's attention to unstable tests, you can mark them with special **@Flaky** annotation.
 Such tests will have a **bomb icon** in generated html report.
 
