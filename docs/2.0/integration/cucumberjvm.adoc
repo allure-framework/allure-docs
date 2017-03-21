@@ -48,8 +48,8 @@ Simply add `allure-cucumber-jvm` plugin as dependency to your project and add it
 ```
 
 Then execute `mvn clean test` goal. After tests executed allure xml files will be +
-placed in `allure-results` directory by default.
-It can be overridden by setting `allure.results.directory` system property or environment variable
+placed in `allure-results` directory by default. It can be overridden by setting `allure.results.directory` +
+system property.
 
 == Features
 This adapter provides runtime integration allowing conversion of Gherkin dsl features into basic Allure features
@@ -92,12 +92,11 @@ specify attachment type when working with plain text files.
 === Issues Tracker
 To pass issues to report, just add `@issue=<ISSUE-NUMBER>` on top of Scenario on Feature in your .feature file. +
 URL template for the issue tracker should be set via `allure.link.issue.pattern = https://example.org/{}` system +
-property or environment variable
+property.
 
 === Test Management System
 To pass TMS links to report, just add `@tmsLink=<TEST-CASE-ID>` on top of Scenario on Feature in your .feature file. +
-URL template for the TMS should be set via `allure.link.tms.pattern = https://example.org/{}` system property or +
-environment variable
+URL template for the TMS should be set via `allure.link.tms.pattern = https://example.org/{}` system property.
 
 === Severity
 To set severity, add `@severity=blocker` on top of Scenario on Feature in your .feature file. +
