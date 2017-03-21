@@ -1,26 +1,24 @@
 = Cucumber JVM
 
-== Allure Cucumber-JVM Adaptor (JUnit)
-This adaptor allows to generate allure xml reports after cucumber-jvm Junit test execution.
+== Allure Cucumber-JVM Plugin
+This plugin allows to generate allure xml reports after cucumber-jvm test execution.
 
-=== Example project
+=== Example projects (JUnit and TestNG)
 Example project is located at: https://github.com/allure-examples/allure-cucumber-jvm-example
 
 == Installation
 
 === Maven
-Simply add `allure-allure-cucumber-jvm-adaptor` as dependency to your project and add `build` section
- with adaptor listener:
+Simply add `allure-cucumber-jvm` plugin as dependency to your project and add it to CucumberOptions:
 
-[source, xml]
-----
+```xml
 <project>
 ...
     <dependencies>
         <dependency>
-            <groupId>ru.yandex.qatools.allure</groupId>
-            <artifactId>allure-cucumber-jvm-adaptor</artifactId>
-            <version>1.5.1</version>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-cucumber-jvm</artifactId>
+            <version>2.0-BETA2</version>
         </dependency>
     </dependencies>
         <build>
@@ -28,34 +26,29 @@ Simply add `allure-allure-cucumber-jvm-adaptor` as dependency to your project an
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.18.1</version>
+                <version>2.19.1</version>
                 <configuration>
                     <testFailureIgnore>false</testFailureIgnore>
                     <argLine>
                         -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar
+                        -Dcucumber.options="--plugin io.qameta.allure.cucumberjvm.AllureCucumberJvm"
                     </argLine>
-                    <properties>
-                        <property>
-                            <name>listener</name>
-                            <value>ru.yandex.qatools.allure.cucumberjvm.AllureRunListener</value>
-                        </property>
-                    </properties>
                 </configuration>
                 <dependencies>
                     <dependency>
                         <groupId>org.aspectj</groupId>
                         <artifactId>aspectjweaver</artifactId>
-                        <version>1.7.4</version>
+                        <version>1.8.4</version>
                     </dependency>
                 </dependencies>
             </plugin>
         </plugins>
     </build>
 </project>
-----
+```
 
 Then execute `mvn clean test` goal. After tests executed allure xml files will be
-placed in `target/allure-results/` directory
+placed in `allure-results` directory
 
 == Features
 This adapter provides runtime integration allowing conversion of Gherkin dsl features into basic Allure features
@@ -64,15 +57,15 @@ This adapter provides runtime integration allowing conversion of Gherkin dsl fea
 Titles for tests and suites are extracted at runtime from  `.feature` files
 
 === Description
-WARNING: Description specifications are not supported
+Feature's description appears on every scenario
 
 === Steps
-WARNING: Allure @Step annotations are not supported, cucumber steps are used as is.
+All scenario steps are automatically translated into allure steps
 
 === Attachments
 An attachment in Java code is simply a method annotated with *@Attachment* that returns either
 a **String** or **byte[]**, which should be added to the report. You can call this method from
-the one of the `Given`/`When`/`Then` step methods.
+the one of the step definition methods or in after/before methods.
 
 [source, java]
 ----
@@ -87,28 +80,39 @@ public byte[] saveScreenshot(byte[] screenShot) {
 }
 ----
 
-If return type in a method annotated with *@Attachment* differs from *String* or *byte[]* we call *toString()*
-on return value to get attachment contents.
+If return type in a method annotated with *@Attachment* differs from *String* or *byte[]* we call *toString()* +
+on return value to get attachment contents. +
 
-You can specify exact MIME type for each attached file using *type* parameter of *@Attachment* annotation
-like shown above. However there's no need to explicitly specify attachment type for all attached files as Allure
-by default analyses attachment contents and can determine attachment type automatically. You usually need to
+You can specify exact MIME type for each attached file using *type* parameter of *@Attachment* annotation +
+like shown above. However, there's no need to explicitly specify attachment type for all attached files as Allure +
+by default analyses attachment contents and can determine attachment type automatically. You usually need to +
 specify attachment type when working with plain text files.
 
 === Issues Tracker
-WARNING: Bug tracker integration is not supported
+To pass issues to report, just add `@issue=<ISSUE-NUMBER>` on top of Scenario on Feature in your .feature file.
 
 === Test Management System
-WARNING: Test management system is not supported
-
-=== Parameters
-WARNING: Additional annotations for parameters are not supported
+To pass TMS links to report, just add `@tmsLink=<TEST-CASE-ID>` on top of Scenario on Feature in your .feature file.
 
 === Severity
-WARNING: Severity annotations are not supported
+To set severity, add `@severity=blocker` on top of Scenario on Feature in your .feature file. +
+If severity has wrong value it will be forced to normal (default).
+
+Supported severity values: `blocker`, `critical`, `normal`, `minor`, `trivial`.
+
+=== Scenario Attributes
+Every Feature or Scenario can be annotated by following tags: `@flaky`, `@muted`, `@known`
+
+=== Before/After
+All methods annotated by `@import cucumber.api.java.After` or `@cucumber.api.java.Before` annotations +
+will appear in the report as steps with method names. +
+If @Before execution fails, the scenario will be marked as skipped. +
+If @After execution fails, the scenario will be marked as passed, and only `After` method's step +
+will be marked as failed.
+
 
 === Behaviours Mapping
 In some development approaches tests are classified by
-https://github.com/allure-framework/allure-core/wiki/Glossary#user-story[stories]
-and https://github.com/allure-framework/allure-core/wiki/Glossary#feature[features].
+https://github.com/allure-framework/allure-core/wiki/Glossary#feature[features]
+and https://github.com/allure-framework/allure-core/wiki/Glossary#user-story[stories]. +
 Allure report for cucumber jvm uses information extracted from `Feature:` section
