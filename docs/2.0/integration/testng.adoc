@@ -1,8 +1,8 @@
 = TestNG
 An Allure report can be generated for any TestNG test. In order to get test results, you need to:
 
-* Download and uzip latest link:https://dl.bintray.com/qameta/generic/io/qameta/allure/allure/2.0-BETA5/allure-2.0-BETA5.zip[allure-commandline]
-* Add **allure-java** dependency.
+* Download and uzip the latest link:https://dl.bintray.com/qameta/generic/io/qameta/allure/allure/2.0-BETA6/allure-2.0-BETA6.zip[allure-commandline]
+* Add **allure-java** dependency. Note, you may need to build link:https://github.com/allure-framework/allure-java[allure-java] manually to get a SNAPSHOT version of the artefact
 * Add **aspectjweaver** dependency and its properties.
 * Run tests.
 
@@ -19,7 +19,7 @@ You need to add the following to your **pom.xml**:
     <compiler.plugin.version>3.6.0</compiler.plugin.version>
     <java.version>1.8</java.version>
     <surefire.plugin.version>2.19.1</surefire.plugin.version>
-    <allure.version>1.0-SNAPSHOT</allure.version>
+    <allure.version>2.0-SNAPSHOT</allure.version>
     <aspectj.version>1.8.10</aspectj.version>
     <allure.results.directory>
         ${project.build.directory}/allure-results
