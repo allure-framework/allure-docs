@@ -1,0 +1,71 @@
+== Report structure
+
+Once you've got the idea what the report does look like. You will probably want to get more data-rich reports.
+You might have to consider using one of the Allure adaptors for your testing framework, which will allow to collect
+much more information. Jump to the integrations section to learn more about integration with testing frameworks.
+
+Typical report consists of 'Overview' tab, navigation bar, several tabs for different kinds of
+test data representation and test case pages for each individual test.
+Each Allure report is backed by a tree-like data structure, that represents a test execution process. Different tabs
+allow to switch between the views of the original data structure thus giving a different perspective.
+Note that all tree-like representations including Behaviors, Categories, xUnit and Packages support filtering and
+are sortable.
+
+=== Overview page
+
+Entry point for every report would be the 'Overview' page with dashboards and widgets:
+
+image::overview_report_overview.png["Report overview"]
+
+Overview page hosts several default widgets representing basic characteristics of your project and test environment.
+
+ * Statistics - overall report statistics
+ * Launches - if this report represents several test launches, statistics per launch will be shown here
+ * Behaviors - information on results aggregated according to stories and features
+ * Executors - information on test executors that were used to run the tests
+ * History Trend - if tests accumulated some historical data, it's trend will be calculated and shown on the graph.
+
+Home page widgets are draggable and configurable. Also, Allure supports it's own plugin system, so quite different
+ widget layouts are possible.
+
+Navigation bar is collapsible and enables you to switch into several of the basic results overview modes.
+
+=== xUnit
+
+On the xUnit tab a standard structural representation of executed tests, grouped by suites and classes can be found.
+
+image::overview_xunit.png["X Unit tab"]
+
+=== Graph
+
+Graphs allow you to see different statistics collected from the test data: statuses breakdown or
+severity and duration diagrams.
+
+image::overview_dashboards.png["Dashboards tab overview"]
+
+=== Timeline
+
+Timeline tab visualizes retrospective of tests execution, allure adaptors collect precise timings of tests,
+and here on this tab they are arranged accordingly to their sequential or parallel timing structure.
+
+image::overview_timeline.png["Timeline tab overview"]
+
+=== Behaviors
+
+For Behavior-driven approach, this tab groups test results according to Feature and Story tags.
+
+image::overview_behaviors.png["Behaviors tab overview"]
+
+=== Packages
+
+Packages tab represents a tree-like layout of test results, grouped by different packages.
+
+image::overview_packages.png["Packages tab overview"]
+
+=== Test case page
+
+From some of the results overview pages described above you can go to the test case page after clicking on the
+individual tests. This page will typically contain a lot of individual data related to the test case: steps
+executed during the test, timings, attachments, test categorization labels, descriptions and links.
+
+image::overview_test_case.png["Test case result page"]
