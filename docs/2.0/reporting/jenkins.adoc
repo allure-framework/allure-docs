@@ -12,7 +12,7 @@ from "Plugin Manager" page.
 . Click "Check Updates" button on the bottom right corner of the page.
 . Configure Allure Commandline from "Global Tools Configuration".
 
-=== Build agents have connection to maven repository with Allure distribution
+=== Build agents have connection to Maven repository with Allure distribution
 . Open "Global Tool Configuration".
 . Find "Allure Commandline" configuration block.
 +
