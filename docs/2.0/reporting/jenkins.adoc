@@ -12,7 +12,7 @@ from "Plugin Manager" page.
 . Click "Check Updates" button on the bottom right corner of the page.
 . Configure Allure Commandline from "Global Tools Configuration".
 
-=== Build agents have connection to maven central
+=== Build agents have connection to maven repository with Allure distribution
 . Open "Global Tool Configuration".
 . Find "Allure Commandline" configuration block.
 +
@@ -22,7 +22,7 @@ image::jenkins_plugin_find_cmd.jpeg[Find Allure Commandline]
 image::jenkins_plugin_install.jpeg[Install Allure Commandline]
 . Fill the name and choose the version in the "From Maven Central" dropdown.
 
-=== Build agents are NOT connected to maven central
+=== Downloading and installing Allure from archive
 . Download latest version of allure-commandline.zip from the
 link:https://github.com/allure-framework/allure2/releases[github releases page].
 . Upload downloaded file to any file server. Build agents must have access to the file by url.
