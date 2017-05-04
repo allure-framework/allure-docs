@@ -28,7 +28,6 @@ link:https://github.com/allure-framework/allure2/releases[github releases page].
 . Upload downloaded file to any file server. Build agents must have access to the file by url.
 . Open "Global Tool Configuration". and find "Allure Commandline" configuration block.
 +
-image::jenkins_plugin_find_cmd.jpeg[Find Allure Commandline]
 . Click "Add Allure Commandline" button.
 +
 image::jenkins_plugin_install_cmd.jpeg[Install Allure Commandline]
@@ -87,6 +86,13 @@ Generated Allure report is stored in the artifacts folder of the build and can b
 the same way as all the other artifacts, or downloaded as .zip archive.
 
 image::jenkins_plugin_allure_report.png[install allure commanline]
+
+== History files
+
+Allure since version 2 supports history for tests in the report [Learn more about History plugin].
+At the every report generation during the build Jenkins Allure Plugin will try to access working directory of the previous
+build and copy contents of `allure-report\history` folder to the current report contents. At the moment history entry for
+test case stores information about up to 5 previous results.
 
 == Extensions
 
