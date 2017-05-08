@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Demo') {
             steps {
-                publishHTML([reportName  : 'Demo', reportDir: ${env.SITE_DIRECTORY}, reportFiles: 'index.html',
+                publishHTML([reportName  : 'Demo', reportDir: env.SITE_DIRECTORY, reportFiles: 'index.html',
                              reportTitles: '', allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false])
             }
         }
