@@ -47,7 +47,7 @@ Simply add `allure-cucumber-jvm` plugin as dependency to your project and add it
 </project>
 ```
 
-Then execute `mvn clean test` goal. After tests executed allure xml files will be +
+Then execute `mvn clean test` goal. After tests executed allure JSON files will be +
 placed in `allure-results` directory by default. It can be overridden by setting `allure.results.directory` +
 system property.
 
