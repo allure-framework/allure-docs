@@ -1,0 +1,20 @@
+= Flaky tests
+
+In a real life not all of your tests are stable and always green or always red.  A test might start to "blink" i.e. it fails from time-to-time without any obvious reason.
+You could disable such a test, that is a trivial solution. However what if you do not want to do that?
+Say you would like to get more details on possible reasons or the test is so critical that even being flaky it provides helpful information?
+You have an option now to mark such tests in a special way, so resulting report will clearly show them as unstable:
+
+[source, java]
+----
+@Flaky
+public void aTestWhichFailsFromTimeToTime {
+     ...
+}
+----
+
+Here is what you get in the report in case if such test failed:
++
+image::flaky_failed.png[A failed test marked as flaky]
+
+Additional note - you could mark a whole test class as flaky as well.
