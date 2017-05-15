@@ -4,3 +4,5 @@ For example, you can group your tests by stories or features, attach files, and 
 set of custom steps, among other features. All features are supported by Java test frameworks, so we only provide
 Java examples here. For details on how a particular adapter works with the test framework of your choice,
 refer to the adapter guide.
+
+include::features/flaky.adoc[leveloffset=+1]
