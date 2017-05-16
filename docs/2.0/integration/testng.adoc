@@ -1,7 +1,7 @@
 = TestNG
 An Allure report can be generated for any TestNG test. In order to get test results, you need to:
 
-* Download and uzip the latest link:https://dl.bintray.com/qameta/generic/io/qameta/allure/allure/2.0.1/allure-2.0.1.zip[allure-commandline]. Or you can use the following link:https://github.com/qameta/homebrew-allure[brew formula] to simplify the process.
+* Setup latest link:https://docs.qameta.io/allure/latest/#_installing_a_commandline[allure-commandline] version.
 * Add **allure-testng** dependency.
 * Add **aspectjweaver** dependency and its properties.
 * Run tests.

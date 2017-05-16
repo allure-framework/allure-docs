@@ -2,19 +2,19 @@
 Using Allure command line tool you can generate the report from existing Allure results.
 
 == Installation
-Allure CLI is a Java application so it's available for all platforms. You have to manually install Java 1.7+ before using Allure CLI
+Allure CLI is a Java application so it's available for all platforms. You have to manually install Java 1.8 before using Allure CLI
 
 === Mac OS
 You can install Allure CLI via http://brew.sh[Homebrew].
 
 [source,bash]
 ----
-$ brew tap qatools/formulas
-$ brew install allure-commandline
+$ brew tap qameta/allure
+$ brew install allure
 ----
 
 After installation you will have *allure* command available.
-Read more about https://github.com/allure-framework/homebrew-allure[Allure Homebrew Formula].
+Read more about https://github.com/qameta/homebrew-allure[Allure Homebrew Formula].
 
 === Debian
 For Debian-based repositories we provide a PPA so the installation is straightforward:
@@ -31,10 +31,11 @@ After installation you will have allure command available.
 Read more about https://github.com/allure-framework/allure-debian[Allure Debian Package].
 
 === Windows and other Unix
-* Download the latest version as zip archive from https://github.com/allure-framework/allure-core/releases/latest[GitHub].
+* Download the latest version as zip archive from link:https://bintray.com/qameta/generic/allure2[bintray].
 * Unpack the archive to *allure-commandline* directory.
 * Navigate to *bin* directory.
 * Use *allure.bat* for Windows and *allure* for other Unix platforms.
+* Add **allure** to system PATH.
 
 == Configuration
 To configure the Allure report you should create *allure.properties* file
