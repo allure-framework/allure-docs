@@ -18,12 +18,12 @@ sudo apt-get install allure-commandline
 ----
 
 === Mac OS X
-For Mas OS, automated installation is available via Homebrew
+For Mas OS, automated installation is available via link:https://brew.sh[Homebrew]
 [source, bash]
 ----
-brew tap qatools/formulas
-brew install allure-commandline
+brew install allure
 ----
+Confirm with `allure --version` in a new shell.
 
 === Windows
 Windows and other Unix distributions require manual installation:
