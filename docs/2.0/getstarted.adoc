@@ -21,17 +21,18 @@ sudo apt-get install allure-commandline
 For Mas OS, automated installation is available via Homebrew
 [source, bash]
 ----
-brew tap qatools/formulas
-brew install allure-commandline
+brew tap qameta/allure
+brew install allure
 ----
 
 === Windows
 Windows and other Unix distributions require manual installation:
 
-. Download the latest version as zip archive from link:https://github.com/allure-framework/allure2/releases[releases page].
+. Download the latest version as zip archive from link:https://bintray.com/qameta/generic/allure2[bintray].
 . Unpack the archive to allure-commandline directory.
 . Navigate to *bin* directory.
 . Use *allure.bat* for Windows or *allure* for other Unix platforms.
+. Add **allure** to system PATH.
 
 [WARNING]
 ====
@@ -44,7 +45,7 @@ available. Current version must be printed out:
 [source, bash]
 ----
 $ allure --version
-2.0-SNAPSHOT
+2.0.1
 ----
 
 == Test execution

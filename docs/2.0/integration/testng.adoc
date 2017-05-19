@@ -1,8 +1,8 @@
 = TestNG
 An Allure report can be generated for any TestNG test. In order to get test results, you need to:
 
-* Download and uzip the latest link:https://dl.bintray.com/qameta/generic/io/qameta/allure/allure/2.0-BETA6/allure-2.0-BETA6.zip[allure-commandline]
-* Add **allure-java** dependency. Note, you may need to build link:https://github.com/allure-framework/allure-java[allure-java] manually to get a SNAPSHOT version of the artefact
+* Setup latest link:https://docs.qameta.io/allure/latest/#_installing_a_commandline[allure-commandline] version.
+* Add **allure-testng** dependency.
 * Add **aspectjweaver** dependency and its properties.
 * Run tests.
 
@@ -19,7 +19,7 @@ You need to add the following to your **pom.xml**:
     <compiler.plugin.version>3.6.0</compiler.plugin.version>
     <java.version>1.8</java.version>
     <surefire.plugin.version>2.19.1</surefire.plugin.version>
-    <allure.version>2.0-SNAPSHOT</allure.version>
+    <allure.version>2.0-BETA6</allure.version>
     <aspectj.version>1.8.10</aspectj.version>
     <allure.results.directory>
         ${project.build.directory}/allure-results
@@ -127,7 +127,7 @@ configurations {
 
 dependencies {
     agent "org.aspectj:aspectjweaver:1.8.10"
-    compile "io.qameta.allure:allure-testng:1.0-SNAPSHOT"
+    compile "io.qameta.allure:allure-testng:2.0-BETA6"
 }
 
 test.doFirst {
@@ -167,22 +167,35 @@ They can: be parametrized, make checks, have nested steps, and create attachment
 
 In order to define steps in Java code, you need to annotate the respective methods with **@Step** annotation.
 When not specified, the step name is equal to the annotated method name converted to human-readable format.
-To define an explicit step name, pass your own **String** argument:
+
+Note that steps' mechanics was revised and now it supports smart fields' analysis.
+In Allure 1 users had to specify indexes to refer which args' values they want to inject into step.
+Allure 2 uses reflection-based approach, which provides deep fields' extraction by their names.
+
+Assuming that you have the following entity:
 
 [source, java]
 ----
-@Step("Open page")
-public void openPageByAddress(String pageAddress) {
+public class User {
+
+     private String name;
+     private String password;
      ...
 }
 ----
 
-Method's arguments will be automatically parsed and displayed next to the step name:
+You can access these fields' values directly by name:
 
-[source, txt]
+[source, java]
 ----
-Open page [ pageAddress: value ]
+@Step("Type {user.name} / {user.password}.")
+public void loginWith(User user) {
+     ...
+}
 ----
+
+**Arrays** and **Collections** are supported as well.
+So you don't need to explicitly override **toString()** for your custom objects anymore.
 
 === Attachments
 An attachment in Java code is simply an utility method **addAttachment** that accepts different arguments such as name, MIME type, content and file extension.
@@ -215,6 +228,45 @@ public class BaseListener implements IInvokedMethodListener {
     }
 }
 ----
+
+Note that Allure 2 also supports async attachments, which are especially useful with heavy files, like videos or HARs.
+So you don't need to block test execution and wait until resources are finalized.
+
+[source, java]
+.BaseListener.java
+----
+public class BaseListener implements IInvokedMethodListener, ISuiteListener {
+
+	private static final List<CompletableFuture<InputStream>> VIDEOS =
+	        new CopyOnWriteArrayList<>();
+
+	@Override
+	public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
+	}
+
+	@Override
+	public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
+		if (method.isTestMethod()) {
+			VIDEOS.add(addStreamAttachmentAsync("Async", "video/mp4",
+					() -> getClass().getResourceAsStream("/video.mp4")));
+		}
+	}
+
+	@Override
+	public void onStart(ISuite suite) {
+	}
+
+	@Override
+	public void onFinish(ISuite suite) {
+		CompletableFuture.allOf(VIDEOS.stream()
+		        .toArray(CompletableFuture[]::new)).join();
+	}
+}
+----
+
+You can call the following methods to perform async attachments: **addStreamAttachmentAsync** and **addByteAttachmentAsync**.
+Both return link:https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html[CompletableFuture],
+which could be then easily managed on client side.
 
 === Issues Tracker
 To link a https://github.com/allure-framework/allure-core/wiki/Glossary#test-case[test case] or a
