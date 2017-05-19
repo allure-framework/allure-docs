@@ -19,7 +19,7 @@ pipeline {
             when { branch "master" }
             steps {
                 withCredentials([string(credentialsId: 'qameta-ci_github_token', variable: 'GRGIT_USER')]) {
-                    sh './gradlew publishGhPages'
+                    sh './gradlew gitPublishPush'
                 }
             }
         }
