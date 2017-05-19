@@ -27,10 +27,11 @@ brew install allure
 === Windows
 Windows and other Unix distributions require manual installation:
 
-. Download the latest version as zip archive from link:https://github.com/allure-framework/allure2/releases[releases page].
+. Download the latest version as zip archive from link:https://bintray.com/qameta/generic/allure2[bintray].
 . Unpack the archive to allure-commandline directory.
 . Navigate to *bin* directory.
 . Use *allure.bat* for Windows or *allure* for other Unix platforms.
+. Add **allure** to system PATH.
 
 [WARNING]
 ====
@@ -41,7 +42,7 @@ To run commandline application, Java Runtime Environment must be installed.
 Execute `allure --version` in console to make sure that allure is now available:
 [source, bash]
 ----
-allure --version
+$ allure --version
 2.0.1
 ----
 

@@ -1,0 +1,11 @@
+apply plugin: 'org.ajoberstar.git-publish'
+
+gitPublish {
+    repoUri = 'https://github.com/allure-framework/allure-docs.git'
+    branch = 'gh-pages'
+
+    contents {
+        from 'build/docs/html5'
+    }
+
+}

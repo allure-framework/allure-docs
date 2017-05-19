@@ -1,0 +1,22 @@
+apply plugin: 'org.asciidoctor.convert'
+
+asciidoctorj {
+    version = '1.5.4'
+}
+
+asciidoctor {
+    sourceDir = file('docs')
+    sources {
+        include '**/index.adoc'
+    }
+    resources {
+        from(sourceDir) {
+            include 'index.html', '**/images/**'
+        }
+    }
+
+    attributes docinfo: '', imagesdir: 'images', icons: 'font', numbered: '', toc: 'right', toclevels: 2,
+            'source-highlighter': 'coderay'
+
+    outputDir = file('build/docs')
+}

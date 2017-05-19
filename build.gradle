@@ -5,30 +5,11 @@ buildscript {
 
     dependencies {
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
+        classpath 'org.ajoberstar:gradle-git-publish:0.2.1'
     }
 }
 
-apply plugin: 'org.asciidoctor.convert'
-
-asciidoctorj {
-    version = '1.5.4'
-}
-
-asciidoctor {
-    sourceDir = file('docs')
-    sources {
-        include '**/index.adoc'
-    }
-    resources {
-        from(sourceDir) {
-            include 'index.html', '**/images/**'
-        }
-    }
-
-    attributes docinfo: '', imagesdir: 'images', icons: 'font', numbered: '', toc: 'right', toclevels: 2,
-            'source-highlighter': 'coderay'
-
-    outputDir = file('build/docs')
-}
+apply from: "${rootProject.projectDir}/gradle/asciidoctor.gradle"
+apply from: "${rootProject.projectDir}/gradle/git-publish.gradle"
 
 build.finalizedBy(asciidoctor)
