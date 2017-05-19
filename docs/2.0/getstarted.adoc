@@ -23,7 +23,6 @@ For Mas OS, automated installation is available via link:https://brew.sh[Homebre
 ----
 brew install allure
 ----
-Confirm with `allure --version` in a new shell.
 
 === Windows
 Windows and other Unix distributions require manual installation:
@@ -38,13 +37,12 @@ Windows and other Unix distributions require manual installation:
 To run commandline application, Java Runtime Environment must be installed.
 ====
 
-When finished with installation, execute `allure --version` in console to make sure that allure is now
-available. Current version must be printed out:
-
+=== Check the installation
+Execute `allure --version` in console to make sure that allure is now available:
 [source, bash]
 ----
-$ allure --version
-2.0-SNAPSHOT
+allure --version
+2.0.1
 ----
 
 == Test execution
