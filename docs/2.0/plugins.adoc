@@ -143,8 +143,9 @@ Here in `plugins` folder plugins distributions to use at the report generation r
 are already added to the Allure. Their usage is managed by default build profile configuration file`/config/allure.yml`.
 In this file, under the section `plugins` plugin folders to use are listed, so it's contents should look like this:
 
+[[app-listing]]
 [source, yml]
-allure.yml
+.allure.yml
 ----
 plugins:
   - behaviors-plugin
@@ -169,8 +170,9 @@ and then add the folder's name to the corresponding build profile configuration:
         /my-plugin
 ----
 
+[[app-listing]]
 [source, yml]
-allure.yml
+.allure.yml
 ----
 plugins:
   - behaviors-plugin
@@ -366,8 +368,9 @@ the data to be stored in the `widgets.json` file.
 
 Suppose you have a java class that implements `getData` that outputs some list of key-value pairs:
 
+[[app-listing]]
 [source, java]
-MyPlugin.java
+.MyPlugin.java
 ----
 public class MyPlugin implements Widget {
 
@@ -393,8 +396,9 @@ public class MyPlugin implements Widget {
 
 That gives you an entry in the `widgets.json` when the report is generated:
 
+[[app-listing]]
 [source, json]
-widgets.json
+.widgets.json
 ----
 {
  "mywidget" : [ {
@@ -409,8 +413,9 @@ widgets.json
 
 Then you are ready for the front-end side.
 
+[[app-listing]]
 [source, javascript]
-index.js
+.index.js
 ----
 class MyWidget extends Backbone.Marionette.View {
 
@@ -451,8 +456,9 @@ Internally, many Allure features are implemented using plugin api, let's see how
 test case page.
 
 A View class:
+[[app-listing]]
 [source, javascript]
-LinksView.js
+.LinksView.js
 ----
 import './styles.css';
 import {View} from 'backbone.marionette';
@@ -473,8 +479,9 @@ class LinksView extends View {
 
 Handlebars is used as a template engine:
 
+[[app-listing]]
 [source, html]
-LinksView.hbs
+.LinksView.hbs
 ----
 {{#if links}}
     <h3 class="pane__section-title">{{t 'testCase.links.name'}}</h3>
@@ -492,8 +499,9 @@ LinksView.hbs
 {{/if}}
 ----
 
+[[app-listing]]
 [source, javascript]
-index.js
+.index.js
 ----
 import LinksView from './LinksView';
 
@@ -530,9 +538,9 @@ plugin sources directory structure:
     build.gradle
 ----
 
-Contents of `allure-plugin.yml`:
-
+[[app-listing]]
 [source, yml]
+.allure-plugin.yml
 ----
 id: custom-logo
 name: Custom logo aggregator
@@ -544,9 +552,10 @@ cssFiles:
 * *custom-logo.svg* - is a vector graphics file with a logo to use
 * *styles.css* - a css file that adds the style, that will override default logotype.
 
-Contents of `styles.css`:
 
+[[app-listing]]
 [source, css]
+.styles.css
 ----
 .side-nav__brand {
   background: url('custom-logo.svg') no-repeat left center;
