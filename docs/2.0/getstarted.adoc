@@ -18,10 +18,9 @@ sudo apt-get install allure-commandline
 ----
 
 === Mac OS X
-For Mas OS, automated installation is available via Homebrew
+For Mas OS, automated installation is available via link:https://brew.sh[Homebrew]
 [source, bash]
 ----
-brew tap qameta/allure
 brew install allure
 ----
 
@@ -39,9 +38,8 @@ Windows and other Unix distributions require manual installation:
 To run commandline application, Java Runtime Environment must be installed.
 ====
 
-When finished with installation, execute `allure --version` in console to make sure that allure is now
-available. Current version must be printed out:
-
+=== Check the installation
+Execute `allure --version` in console to make sure that allure is now available:
 [source, bash]
 ----
 $ allure --version
