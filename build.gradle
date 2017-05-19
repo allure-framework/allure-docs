@@ -5,9 +5,11 @@ buildscript {
 
     dependencies {
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
+        classpath 'org.ajoberstar:gradle-git:1.7.1'
     }
 }
 
+apply plugin: 'org.ajoberstar.github-pages'
 apply plugin: 'org.asciidoctor.convert'
 
 asciidoctorj {
@@ -30,5 +32,14 @@ asciidoctor {
 
     outputDir = file('build/docs')
 }
+
+githubPages {
+    repoUri = 'https://github.com/allure-framework/allure-docs.git'
+
+    pages {
+        from file(asciidoctor.outputDir.path + '/html5')
+    }
+}
+
 
 build.finalizedBy(asciidoctor)
