@@ -9,7 +9,65 @@ To be precise, all of the basic functionality is modularized into plugins, and i
 them all here. But nearly every feature described in the features section [link to allure features section]
  is implemented internally as a plugin.
 
-=== Plugin structure
+=== Java Plugin API overview
+
+Let's take a look into the class diagram of the top classes in the Allure plugins system.
+
+image::plugins_api_uml_diagram.png[Top interfaces hierarchy]
+
+Plugin classes can extend 3 basic interfaces that provide different aspects of functionality:
+
+ * *Reader* allows to implement a `readResults` method, which defines the logic of reading results with `ResultsVisitor`
+ instance from the directory with test results.
+ * *Aggregator* allows to implement `aggregate` method, which defines the logic of aggregating processed results across
+ all the results folders, and write resulting data to the report directory.
+ * *Widget* this interface allows to implement `getData` method which again defines the logic of processed results aggregation
+ but this time resulting data is saved into the `widget.json` file to be used by the widget named accordingly to the value
+ supplied in `getName`.
+ * *Context<T>* interface with `T getValue()` method enables to create some utility class to be used for all
+ plugins via a method `Configuration.requireContext(Class<T>)` available from a Configuration instance, provided as
+ a parameter in all of the 3 methods above.
+
+=== JS Plugin API overview
+
+Front-end side of the Allure is built using link:http://backbonejs.org/[BackboneJS] framework. So some basic
+understanding of it's internal mechanisms may sometimes be necessary.
+
+Api is accessible from the `allure.api` global object. Let's take a look at the list of functions it provides:
+
+* `addTab(tabName, {title, icon, route, onEnter = notFound} = {})` - can be used to define a new tab for the report
+which will appear on the left pane menu with name *tabName*, it's icon will be defined by a css styles provided
+in the *icon* string, *route* will define an address for a new tab page. *onEnter* should be a function, that
+instantiates a View class managing your new tab's representation.
+
+* `addTranslation(lang, json)` - gives you an ability to support multiple languages for naming in tabs, widgets or
+test case blocks you've created. *lang* is a language key, and *json* is a json object that contains mappings for string
+values in the specified language.
+
+* `translate(name, options)` - is needed if you generate html code in your plugin and don't use existing components,
+provided in `allure.components`. In the tab example above you have to wrap strings in the template in this function call
+to enable string translation to be picked up from the global registry.
+See more in the docs for link:https://www.npmjs.com/package/i18next-text[i18next].
+
+* `addWidget(name, Widget)` - is a way to create a new widget on the Overview page of the report. *name* will define
+it's displayed name, and *Widget* is a `View` to be added to the widgets grid.
+Api provides you with a base class for a widget at `allure.components.WidgetStatusView`, which we will examine
+later in the Behaviors plugin section. But you may design a widget for your own needs extending from
+`Backbone.Marionette.View`, just keep in mind that this widget definition is designed to pop up the data
+to fill the Model for this View from the `widgets.json` file, by the key you supplied in *name* parameter.
+
+* `addTestcaseBlock(view, {position})` - allows to add a View class to the Test Case page, in the one of 3 possible
+block groups, determined by a *position* argument. Position can be one of this values: `tag`, `after` or `before`.
+To understand what kind of information you may attach to the test case page, jump to the section with related
+features [jump to the features list]
+
+=== Writing a skeleton code for a new plugin.
+
+Here we will cover the steps that it usually takes to build a new plugin.
+
+==== Step 1: Create a new plugin project
+
+*Plugin structure*
 
 Basically, any plugin will be constituted of two main parts:
 
@@ -35,12 +93,14 @@ Typical structure of a plugin module would look like this:
 Here in `src\dist\static` all the static `.js` and `.css` files are stored, and everything under `src\main\java`
 is a data processing Java code. `allure-plugin.yml` - is a configuration file.
 
-=== Contents of allure-plugin.yml file
+*Contents of allure-plugin.yml file*
 
 This file contains directives in human-readable format that plugin loader will further use to locate resources
  and connect the plugin.
 
+[[app-listing]]
 [source, yml]
+.allure-plugin.yml
 ----
 id: my-plugin
 name: Plugin name goes here
@@ -54,7 +114,7 @@ cssFiles:
 - styles.css
 ----
 
-=== Adding allure-plugin-api dependency
+*Adding allure-plugin-api dependency*
 
 To be able to use the API you should simply download the `allure-plugin-api` dependency
 link:https://mvnrepository.com/artifact/io.qameta.allure/allure-plugin-api[from] the jcenter repository.
@@ -80,7 +140,351 @@ in Maven:
         </dependency>
 ----
 
-=== Plugin distribution
+==== Step 2: Writing a Java class that processes test results
+
+Let's consider we have some very simple set of parameterized tests, where typical result will contain captured
+arguments of test case in the `parameters` section.
+
+[source, json]
+----
+{
+  "uuid":"0edd28b1-3c7f-4593-8dda-db9aa004891f",
+  "fullName":"io.qameta.allure.animals.AnimalsTest.angryCat",
+  "name":"angryCat",
+  "status":"passed",
+  "stage":"finished",
+  "start":1495467840415,
+  "stop":1495467840416,
+  "parameters":[
+    {
+      "name":"arg0",
+      "value":"Hiss!"
+    }
+  ]
+}
+----
+
+We are preparing to write a fully-fledged new plugin that adds a new tab with
+some test results representation and creates a widget to place on Overview tab with some digested data.
+For example, let's consider a plugin that extracts passed and failed parameters from this parameterized tests,
+creates a new tab, and a widget where only recent failures are displayed.
+
+We should start with writing a Java class that implements `Aggregator` and `Widget` interfaces.
+
+[[app-listing]]
+[source, java]
+.MyPlugin.java
+----
+public class MyPlugin implements Aggregator, Widget {
+
+    @Override
+    public void aggregate(final Configuration configuration,
+                          final List<LaunchResults> launches,
+                          final Path outputDirectory) throws IOException {
+    final JacksonContext jacksonContext = configuration
+        .requireContext(JacksonContext.class);
+    final Path dataFolder = Files.createDirectories(outputDirectory.resolve("data"));
+    final Path dataFile = dataFolder.resolve("myplugindata.json");
+    final Stream<TestResult> resultsStream = launches.stream()
+        .flatMap(launch -> launch.getAllResults().stream());
+    try (OutputStream os = Files.newOutputStream(dataFile)) {
+        jacksonContext.getValue().writeValue(os, extractData(resultsStream));
+    }
+    }
+
+    private Collection<Map> extractData(final Stream<TestResult> testResults) {
+        //extraction logic
+    }
+
+    @Override
+    public Object getData(Configuration configuration, List<LaunchResults> launches) {
+        Stream<TestResult> filteredResults = launches.stream().flatMap(launch -> launch.getAllResults().stream())
+                .filter(result -> result.getStatus().equals(Status.FAILED));
+        return extractData(filteredResults);
+    }
+
+    @Override
+    public String getName() {
+        return "mywidget";
+    }
+}
+----
+
+What is happening in the code above?
+
+ . In `aggregate` method, data that is extracted from test results in the `extractData` method is written to the
+  `myplugindata.json` file that is stored in the report's `data` folder. To create a proper .json file a
+  `JacksonContext` is used to obtain a mapper instance. This data will be displayed on the new tab.
+
+ . `getData` method implementation creates data to be used in the new widget, and `getName` method defines
+  name of the entry for the `widgets.json` file where this data will be stored.
+
+
+[[app-listing]]
+[source, json]
+.myplugindata.json
+----
+[ {
+  "sounds" : [ "Growl!", "Hiss!" ],
+  "name" : "angryCat"
+}, {
+  "sounds" : [ "Oink!", "Meow!" ],
+  "name" : "hungryCat"
+}, {
+  "sounds" : [ "Bark!", "Woof!", "Moo!" ],
+  "name" : "bigDog"
+} ]
+----
+
+[[app-listing]]
+[source, json]
+.widgets.json
+----
+...
+"mywidget" : [ {
+    "sounds" : [ "Oink!" ],
+    "name" : "hungryCat"
+  }, {
+    "sounds" : [ "Moo!" ],
+    "name" : "bigDog"
+  } ],
+...
+----
+
+==== Adding an utility Context class
+
+Your plugins may require to share some common utilities that would be wise to make available in on-demand manner.
+A quick example of such an utility class would be `JacksonContext`, which can be used to obtain a mapper
+ to serialize Java objects with data into the report JSON files.
+
+[source, java]
+----
+public class JacksonContext implements Context<ObjectMapper> {
+
+    private final ObjectMapper mapper;
+
+    public JacksonContext() {
+        this.mapper = new ObjectMapper()
+                .configure(MapperFeature.USE_WRAPPER_NAME_AS_PROPERTY_NAME, true)
+                .setAnnotationIntrospector(new JaxbAnnotationIntrospector(TypeFactory.defaultInstance()))
+                .enable(SerializationFeature.INDENT_OUTPUT)
+                .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+                .setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    }
+
+    @Override
+    public ObjectMapper getValue() {
+        return mapper;
+    }
+}
+----
+
+Then, from a plugin class it can be accessed from `Configuration` instance as in the Step 2.
+
+==== Step 3: Adding a new tab for the report
+
+Here we switch to the front-end side of the Allure report and start with adding some JavaScript code to the `index.js`
+file.
+
+Backbone manages data with link:http://backbonejs.org/#Model[Models] or
+ link:http://backbonejs.org/#Collection[Collections], on the previous step we saved the data for our page as
+ a Collection<Map>, so the model for the tab should extend `Backbone.Collection`. This object will contain the data from
+ the file, specified in the `url`. Then, for your new tab you need to extend a link:http://backbonejs.org/#View[View]
+ class from the base `AppLayout` class that already contains report's left navigational menu.
+  It is provided in the global `allure` object:
+
+[source, javascript]
+----
+var MyTabModel = Backbone.Collection.extend({
+    url: 'data/myplugindata.json'
+})
+
+class MyLayout extends allure.components.AppLayout {
+
+    initialize() {
+        this.model = new MyTabModel();
+    }
+
+    loadData() {
+        return this.model.fetch();
+    }
+
+    getContentView() {
+        return new MyView({items: this.model.models});
+    }
+}
+----
+
+In `MyLayout` class you can override a `getContentView` method to define some other View class that will manage the
+contents of your tab. Below is some simplistic implementation of the View class, `template` is some template
+function that returns html template with added data.
+
+[source, javascript]
+----
+const template = function (data) {
+    html = '<h3 class="pane__title">My Tab</h3>';
+    for (var item of data.items) {
+        html += '<p>' + item.attributes.name + ' says: ' + item.attributes.sounds + '</p>';
+    }
+    return html;
+}
+
+var MyView = Backbone.Marionette.View.extend({
+    template: template,
+
+    render: function () {
+        this.$el.html(this.template(this.options));
+        return this;
+    }
+})
+----
+
+After all that add `addTab` function call would look like this:
+
+[source, javascript]
+----
+allure.api.addTab('mytab', {
+    title: 'My Tab', icon: 'fa fa-trophy',
+    route: 'mytab',
+    onEnter: (function () {
+        return new MyLayout()
+    })
+});
+----
+
+Which will finally give you a new tab:
+
+image::plugins_add_tab_example.png[Hello world tab example]
+
+==== Step 4: Adding a new widget on the Overview page
+
+To create a new widget you need to implement a small View class that manages data that you put into `widgets.json` on
+the step 2. Note, that if you return the data from `getData` as a collection, it will subsequently be provided to
+ the widget as an array, that can be obtained as `this.model.get('items')`. In the code below `template` function
+ defines the actual html to be displayed in the widget.
+
+[[app-listing]]
+[source, javascript]
+.index.js
+----
+class MyWidget extends Backbone.Marionette.View {
+
+    template(data) {
+            return widgetTemplate(data)
+    }
+
+    serializeData() {
+        return {
+            items: this.model.get('items'),
+        }
+    }
+}
+
+allure.api.addWidget('mywidget', MyWidget);
+----
+
+This finally gives us a new widget on the Overview dashboard.
+
+image::plugins_add_widget_example.png[A new widget on the Overview]
+
+==== Step 5: Adding translation for strings
+
+Returning to the tab example, it's very easy to enable translated strings in it. In templates you need
+to substitute plain text strings for placeholders and use `translate` function, and also you need to register
+translations via `addTranslation`.
+
+[source, javascript]
+----
+
+const template = function (data) {
+    html = '<h3 class="pane__title">' + allure.api.translate(mytab.name) + '</h3>';
+    for (var item of data.items) {
+        html += '<p>' + item.attributes.name + ' says: ' + item.attributes.sounds + '</p>';
+    }
+    return html;
+}
+
+allure.api.addTranslation('en', {
+    mytab: {
+        name: 'My Tab',
+    }
+},
+});
+
+allure.api.addTranslation('ru', {
+    mytab: {
+        name: 'Моя Вкладка',
+    }
+},
+});
+----
+
+==== Step 6: Adding new sections for test case page
+
+Internally, many Allure features are implemented using plugin api, let's see how for example links are added to the
+test case page.
+
+With `addTestcaseBlock` method you can define a View that you can assume will have a test case object as a Model
+available at `this.model`.
+
+A View class:
+[[app-listing]]
+[source, javascript]
+.LinksView.js
+----
+import './styles.css';
+import {View} from 'backbone.marionette';
+import {className} from '../../decorators';
+import template from './LinksView.hbs';
+
+@className('pane__section')
+class LinksView extends View {
+    template = template;
+
+    serializeData() {
+        return {
+            links: this.model.get('links')
+        };
+    }
+}
+----
+
+Handlebars is used as a template engine:
+
+[[app-listing]]
+[source, html]
+.LinksView.hbs
+----
+{{#if links}}
+    <h3 class="pane__section-title">{{t 'testCase.links.name'}}</h3>
+    {{#each links}}
+        <span class="testcase-link">
+        {{#if (eq type "issue")}}
+            <span class="fa fa-bug"></span>
+        {{/if}}
+        {{#if (eq type "tms")}}
+            <span class="fa fa-database"></span>
+        {{/if}}
+        <a class="link" href="{{this.url}}" target="_blank">{{name}}</a>
+    </span>
+    {{/each}}
+{{/if}}
+----
+
+[[app-listing]]
+[source, javascript]
+.index.js
+----
+import LinksView from './LinksView';
+
+allure.api.addTestcaseBlock(LinksView, {position: 'before'});
+----
+
+Which adds a links section to the test case:
+
+image::plugins_add_testcase_block_example.png[New test case block]
+
+==== Step 7: Plugin distribution
 
 When you build a plugin, you should come up with the following structure, which then can be copied into `plugins` folder
 of the commandline distribution.
@@ -105,7 +509,9 @@ Here is a template of gradle build script for a plugin project that uses
 link:https://docs.gradle.org/current/userguide/javaLibraryDistribution_plugin.html[Java Library Distribution Plugin]
 to package plugin classes and copy files and dependencies into one .zip archive.
 
+[[app-listing]]
 [source, groovy]
+.build.gradle
 ----
 repositories {
     jcenter()
@@ -122,7 +528,7 @@ dependencies {
 }
 ----
 
-=== Enabling a plugin
+==== Step 8: Enabling a plugin
 
 Allure commandline distribution has a following folder structure:
 
@@ -180,336 +586,6 @@ plugins:
   - screen-diff-plugin
   - my-plugin
 ----
-
-=== Java Plugin API overview
-Let's take a look into the class diagram of the top classes in the Allure plugins system.
-
-image::plugins_api_uml_diagram.png[Top interfaces hierarchy]
-
-Plugin classes can extend 3 basic interfaces that provide different aspects of functionality:
-
- * *Reader* allows to implement a `readResults` method, which defines the logic of reading results with `ResultsVisitor`
- instance from the directory with test results.
- * *Aggregator* allows to implement `aggregate` method, which defines the logic of aggregating processed results across
- all the results folders, and write resulting data to the report directory.
- * *Widget* this interface allows to implement `getData` method which again defines the logic of processed results aggregation
- but this time resulting data is saved into the `widget.json` file to be used by the widget named accordingly to the value
- supplied in `getName`.
-
-A fourth, *Context<T>* interface with `T getValue()` method enables to create some utility class to be used for all
- plugins via a method `Configuration.requireContext(Class<T>)` available from a Configuration instance, provided as
- a parameter in all of the 3 methods above.
-
-A quick example of such an utility class would be `JacksonContext`, which is used to obtain an `ObjectMapper` instance
- allowing to serialize Java objects with data into the report JSON files.
-
-[source, java]
-----
-public class JacksonContext implements Context<ObjectMapper> {
-
-    private final ObjectMapper mapper;
-
-    public JacksonContext() {
-        this.mapper = new ObjectMapper()
-                .configure(MapperFeature.USE_WRAPPER_NAME_AS_PROPERTY_NAME, true)
-                .setAnnotationIntrospector(new JaxbAnnotationIntrospector(TypeFactory.defaultInstance()))
-                .enable(SerializationFeature.INDENT_OUTPUT)
-                .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-                .setSerializationInclusion(JsonInclude.Include.NON_NULL);
-    }
-
-    @Override
-    public ObjectMapper getValue() {
-        return mapper;
-    }
-}
-----
-
-Then, from a plugin class it can be used as follows:
-
-[source, java]
-----
-@Override
-public void aggregate(final Configuration configuration,
-                      final List<LaunchResults> launchesResults,
-                      final Path outputDirectory) throws IOException {
-       final JacksonContext context = configuration.requireContext(JacksonContext.class);
-       final Path file = outputDirectory.resolve(FILE_NAME);
-       try (OutputStream os = Files.newOutputStream(file)) {
-           context.getValue().writeValue(os, getData(launchesResults));
-       }
- }
-----
-
-We will cover all other classes by examples down below.
-
-=== JS Plugin API overview
-
-Front-end side of the Allure is built using link:http://backbonejs.org/[BackboneJS] framework. So some basic
-understanding of it's internal mechanisms may sometimes be necessary.
-
-Api is accessible from the `allure.api` global object. Let's take a look at the list of functions it provides:
-
-* `addTab(tabName, {title, icon, route, onEnter = notFound} = {})` - can be used to define a new tab for the report
-which will appear on the left pane menu with name *tabName*, it's icon will be defined by a css styles provided
-in the *icon* string, *route* will define an address for a new tab page. *onEnter* should be a function, that
-instantiates a View class managing your new tab's representation.
-
-In the following example we will add a new tab with a 'Hello World' text for a report:
-
-Firstly, you need to extend a View class from the base `AppLayout` class that already contains report's left
-navigational menu, for your new tab. It is provided in the global `allure` object:
-
-[source, javascript]
-----
-class MyLayout extends allure.components.AppLayout {
-    initialize(data) {
-        this.data = data
-    }
-
-    getContentView() {
-        return new MyView(this.data);
-    }
-}
-----
-
-In this class you can override a `getContentView` method to define some other View class that will manage the
-contents of your tab. Here is some simplistic implementation of a View with a title and some text.
-
-[source, javascript]
-----
-var MyView = Backbone.Marionette.View.extend({
-    template: function (data) {
-        return '<h3 class="pane__title">' + data.name + '</h3>' +
-            '<div>' + data.text + '</div>';
-    },
-    render: function () {
-        this.$el.html(this.template(this.options));
-        return this;
-    }
-});
-----
-
-After all that add `addTab` function call would look like this:
-
-[source, javascript]
-----
-allure.api.addTab('mytab', {
-    title: 'My Tab', icon: 'fa fa-trophy',
-    route: 'mytab',
-    onEnter: (function () {
-        return new MyLayout({name: 'My Tab', text: 'Hello World!'})
-    })
-});
-----
-
-Which will finally give you a new tab:
-
-image::plugins_add_tab_example.png[Hello world tab example]
-
-* `addTranslation(lang, json)` - gives you an ability to support multiple languages for naming in tabs, widgets or
-test case blocks you've created. *lang* is a language key, and *json* is a json object that contains mappings for string
-values in the specified language.
-
-Returning to the tab example, it's very easy to make it start using translated strings.
-
-[source, javascript]
-----
-
-allure.api.addTranslation('en', {
-    tab: {
-        mytab: {
-            name: 'New tab',
-            text: 'Hello World!
-        }
-    },
-});
-
-allure.api.addTranslation('ru', {
-    tab: {
-        mytab: {
-            name: 'Новая вкладка',
-            text: 'Здравствуй, мир!'
-        }
-    },
-});
-
-allure.api.addTab('mytab', {
-    title: 'My Tab', icon: 'fa fa-trophy',
-    route: 'mytab',
-    onEnter: (function () {
-        return new MyLayout({name: 'tab.mytab.name', text: 'tab.mytab.name'})
-    })
-});
-----
-
-* `translate(name, options)` - is needed if you generate html code in your plugin and don't use existing components,
-provided in `allure.components`. In the tab example above you have to wrap strings in the template in this function call
-to enable string translation to be picked up from the global registry.
-See more in the docs for link:https://www.npmjs.com/package/i18next-text[i18next].
-
-[source, javascript]
-----
-template: function (data) {
-        return '<h3 class="pane__title">' + allure.api.translate(data.name) + '</h3>' +
-            '<div>' + allure.api.translate(data.text) + '</div>';
-    },
-----
-
-* `addWidget(name, Widget)` - is a way to create a new widget on the Overview page of the report. *name* will define
-it's displayed name, and *Widget* is a `View` to be added to the widgets grid.
-Api provides you with a base class for a widget at `allure.components.WidgetStatusView`, which we will examine
-later in the Behaviors plugin section. But you may design a widget for your own needs extending from
-`Backbone.Marionette.View`, just keep in mind that this widget definition is designed to pop up the data
-to fill the Model for this View from the `widgets.json` file, by the key you supplied in *name* parameter.
-
-So designing your widget should require writing a Java plugin class that implements `Widget` interface, that produces
-the data to be stored in the `widgets.json` file.
-
-Suppose you have a java class that implements `getData` that outputs some list of key-value pairs:
-
-[[app-listing]]
-[source, java]
-.MyPlugin.java
-----
-public class MyPlugin implements Widget {
-
-    @Override
-        public Object getData(Configuration configuration, List<LaunchResults> launches) {
-            Map<String, String> catData = new HashMap<>();
-            catData.put("animal", "cat");
-            catData.put("sound", "meow");
-
-            Map<String, String> dogData = new HashMap<>();
-            dogData.put("animal", "dog");
-            dogData.put("sound", "woof");
-
-            return Arrays.asList(catData, dogData);
-        }
-
-    @Override
-    public String getName() {
-        return "mywidget";
-    }
-}
-----
-
-That gives you an entry in the `widgets.json` when the report is generated:
-
-[[app-listing]]
-[source, json]
-.widgets.json
-----
-{
- "mywidget" : [ {
-    "sound" : "meow",
-    "animal" : "cat"
-  }, {
-    "sound" : "woof",
-    "animal" : "dog"
-  } ]
-}
-----
-
-Then you are ready for the front-end side.
-
-[[app-listing]]
-[source, javascript]
-.index.js
-----
-class MyWidget extends Backbone.Marionette.View {
-
-    template(data) {
-        var html = '<h2 class="widget__title">My Widget</h2>';
-        for(var item of data.items){
-            html += '<span>' + item.animal + '</span>  :' + '<span>' + item.sound + '</span>' + '<br>'
-        }
-        return html;
-    }
-
-    serializeData() {
-        return {
-            items: this.model.get('items'),
-        }
-    }
-}
-
-allure.api.addWidget('mywidget', MyWidget);
-----
-
-Note, that if you return the data from `getData` as a collection, it will subsequently be provided to the widget
- as an array, that can be obtained as `this.model.get('items')`.
-
-That all finally gives us a new widget on the Overview dashboard.
-
-image::plugins_add_widget_example.png[A new widget on the Overview]
-
-* `addTestcaseBlock(view, {position})` - allows to add a View class to the Test Case page, in the one of 3 possible
-block groups, determined by a *position* argument. Position can be one of this values: `tag`, `after` or `before`.
-To understand what kind of information you may attach to the test case page, jump to the section with related
-features [jump to the features list]
-
-With this method you can define a View that you can assume will have a test case object as a Model available
- at `this.model`.
-
-Internally, many Allure features are implemented using plugin api, let's see how for example links are added to the
-test case page.
-
-A View class:
-[[app-listing]]
-[source, javascript]
-.LinksView.js
-----
-import './styles.css';
-import {View} from 'backbone.marionette';
-import {className} from '../../decorators';
-import template from './LinksView.hbs';
-
-@className('pane__section')
-class LinksView extends View {
-    template = template;
-
-    serializeData() {
-        return {
-            links: this.model.get('links')
-        };
-    }
-}
-----
-
-Handlebars is used as a template engine:
-
-[[app-listing]]
-[source, html]
-.LinksView.hbs
-----
-{{#if links}}
-    <h3 class="pane__section-title">{{t 'testCase.links.name'}}</h3>
-    {{#each links}}
-        <span class="testcase-link">
-        {{#if (eq type "issue")}}
-            <span class="fa fa-bug"></span>
-        {{/if}}
-        {{#if (eq type "tms")}}
-            <span class="fa fa-database"></span>
-        {{/if}}
-        <a class="link" href="{{this.url}}" target="_blank">{{name}}</a>
-    </span>
-    {{/each}}
-{{/if}}
-----
-
-[[app-listing]]
-[source, javascript]
-.index.js
-----
-import LinksView from './LinksView';
-
-allure.api.addTestcaseBlock(LinksView, {position: 'before'});
-----
-
-Which adds a links section to the test case:
-image::plugins_add_testcase_block_example.png
 
 === Existing plugins
 Several important Allure features are implemented as decoupled plugins that are stored independently under
@@ -570,6 +646,93 @@ Test cases should have Feature and Story labels, that plugin will aggregate and 
 showing statistics of stories results per every feature, and a new tab, where all test results are
 grouped by their features and stories.
 
+ - In Java-based adaptors you can mark your tests with `@Feature` and `@Story` annotations.
+
+ - In JS-based adaptors you can use `allure.feature(featureName)` and `allure.story(storyName)` methods
+
+ - In CucumberJVM Features and Stories are extracted exactly as the tests are organized in Features and Scenarios.
+
+Once your tests are properly labeled, you can start using Behaviors plugin right away since it is included in
+Allure distribution by default. You can find plugin sources in the
+link:https://github.com/allure-framework/allure2/tree/master/plugins[plugins folder of the Allure 2 project]
+
+Behaviors plugin structure:
+
+[source]
+----
+/src
+    /dist
+        allure-plugin.yml
+        /static
+            index.js
+    /main
+        /java
+            /io.qameta.allure.behaviors
+                BehaviorsPlugin.java
+    build.gradle
+----
+
+*BehavioursPlugin.java*
+
+This plugin creates a different representation for the test results tree, that is why it's `BehaviorsPlugin` class
+ inherits from a base class providing tree aggregation - `AbstractTreeAggregator` and implements a `Widget`
+ interface to prepare the data for a widget on the Overview report dashboard.
+
+
+ * To provide aggregation classifier, plugin should implement a method
+ `List<TreeGroup> getGroups(final TestResult result)`
+
+[source, java]
+----
+@Override
+    protected List<TreeGroup> getGroups(final TestResult result) {
+        return Arrays.asList(
+                TreeGroup.allByLabel(result, LabelName.FEATURE, DEFAULT_FEATURE),
+                TreeGroup.allByLabel(result, LabelName.STORY, DEFAULT_STORY)
+        );
+    }
+----
+
+This groups will determine a placement for every `TestResult` when building a tree of regrouped results to store in the
+ `behaviors.json` file.
+
+ * Another part of `BehaviorsPlugin` class is a `getData` method that comprises implementation of `Widget` interface.
+This method prepares aggregated information on amount of passed stories per every feature,
+that will be put into the `widget.json` file.
+
+*index.js*
+
+After that, in the `index.js` api calls for creation of a new tab and creation of a new widget are as follows:
+
+[source, javascript]
+----
+allure.api.addTab('behaviors', {
+    title: 'tab.behaviors.name', icon: 'fa fa-list',
+    route: 'behaviors(/:testcaseId)',
+    onEnter: (function () {
+        var routeParams = Array.prototype.slice.call(arguments);
+        return new allure.components.TreeLayout({
+            routeParams: routeParams,
+            tabName: 'tab.behaviors.name',
+            baseUrl: 'behaviors',
+            url: 'data/behaviors.json'
+        });
+    })
+});
+
+allure.api.addWidget('behaviors', allure.components.WidgetStatusView.extend({
+    title: 'widget.behaviors.name',
+    baseUrl: 'behaviors',
+    showLinks: false,
+    showAllText: 'widget.behaviors.showAll'
+}));
+----
+
+Note a special `TreeLayout` component that can be used for displaying all types of data, produced by
+implementations of `AbstractTreeAggregator`. Also, a `route` attribute defines a pattern for links to the test case
+ pages.
+
+image::plugins_behaviors.png[Behaviors tab]
 
 ==== Junit
 
@@ -577,5 +740,4 @@ Junit plugin works without a front-end part, it is created to enable Allure gene
 into the Allure test results, this plugin is enabled by default, so when you use `allure generate` command for a folder
 with junit test results, a report will be generated.
 
-==== Screen Diff
 
