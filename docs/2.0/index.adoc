@@ -11,6 +11,8 @@ developers and testers will have all information at hand. From the managers pers
 and many other convenient things. Modularity and extensibility of Allure guarantees that you will always be able to
 fine-tune something to make Allure suit you better.
 
+include::aboutdoc.adoc[leveloffset=+1]
+
 include::getstarted.adoc[leveloffset=+1]
 
 include::overview.adoc[leveloffset=+1]
