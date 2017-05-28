@@ -24,3 +24,5 @@ include::features.adoc[leveloffset=+1]
 include::integration.adoc[leveloffset=+1]
 
 include::reporting.adoc[leveloffset=+1]
+
+include::plugins.adoc[leveloffset=0]
