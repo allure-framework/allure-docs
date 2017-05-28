@@ -14,13 +14,13 @@ in print or electronically.
 There are several places to getting help:
 
  * Contact the community on https://gitter.im/allure-framework/allure-core[Gitter].
- Also we have special russian https://gitter.im/allure-framework/allure-ru[room]
+ Also we have separate russian https://gitter.im/allure-framework/allure-ru[room]
  * Ask a question on stackoverflow.com, the tag is http://stackoverflow.com/questions/tagged/allure[allure]
- * Report bugs (or ask questions) in github https://github.com/allure-framework/allure2/issues[issues]
+ * Report bugs in github https://github.com/allure-framework/allure2/issues[issues]
 
 == Where to go from here
 
- * Open the https://ci.qameta.io/job/allure2_build/job/master/Demo_Report/[demo version], if you just want to see
+ * Open the https://qameta.io/allure/demo[demo version], if you just want to see
  what the report looks like
  * Go to https://docs.qameta.io/allure/latest/#_get_started[Getting started] to build report for existing project
  * Learn more about report structure and features in this
