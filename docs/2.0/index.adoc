@@ -17,7 +17,7 @@ include::getstarted.adoc[leveloffset=+1]
 
 include::overview.adoc[leveloffset=+1]
 
-include::glossary.adoc[leveloffset=+1]
+//include::glossary.adoc[leveloffset=+1]
 
 include::features.adoc[leveloffset=+1]
 

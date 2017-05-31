@@ -1,6 +1,6 @@
-= About the documentation
+= About
 
-== Latest version & Copyright Notice
+== Copyright
 
 The Allure reference guide is available as html documents. The latest copy is available at
 https://docs.qameta.io/allure/latest
@@ -9,7 +9,7 @@ Copies of this document may be made for your own use and for distribution to oth
 any fee for such copies and further provided that each copy contains this Copyright Notice, whether distributed
 in print or electronically.
 
-== Getting help
+== Get help
 
 There are several places to getting help:
 
@@ -18,11 +18,11 @@ There are several places to getting help:
  * Ask a question on stackoverflow.com, the tag is http://stackoverflow.com/questions/tagged/allure[allure]
  * Report bugs in github https://github.com/allure-framework/allure2/issues[issues]
 
-== Where to go from here
+== How to proceed
 
  * Open the https://qameta.io/allure/demo[demo version], if you just want to see
  what the report looks like
- * Go to https://docs.qameta.io/allure/latest/#_get_started[Getting started] to build report for existing project
+ * Go to https://docs.qameta.io/allure/latest/#_get_started[Get started] to build report for existing project
  * Learn more about report structure and features in this
  https://docs.qameta.io/allure/latest/#_report_structure[section]
  * https://docs.qameta.io/allure/latest/#_integration[Integrate] Allure with your testing framework

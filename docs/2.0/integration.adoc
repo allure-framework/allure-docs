@@ -1,37 +1,51 @@
-= Integration
-
-include::integration/testng.adoc[leveloffset=+1]
+= Java
 
 include::integration/junit4.adoc[leveloffset=+1]
 
+include::integration/testng.adoc[leveloffset=+1]
+
+include::integration/cucumberjvm.adoc[leveloffset=+1]
+
+= Python
+
 include::integration/pytest.adoc[leveloffset=+1]
+
+include::integration/nose.adoc[leveloffset=+1]
+
+= PHP
 
 include::integration/phpunit.adoc[leveloffset=+1]
 
+include::integration/codeception.adoc[leveloffset=+1]
+
+= JavaScript
+
 include::integration/jasmine.adoc[leveloffset=+1]
 
-include::integration/cucumber.adoc[leveloffset=+1]
-
 include::integration/cucumberjs.adoc[leveloffset=+1]
-
-include::integration/cucumberjvm.adoc[leveloffset=+1]
 
 include::integration/karma.adoc[leveloffset=+1]
 
 include::integration/mocha.adoc[leveloffset=+1]
 
-include::integration/mstest.adoc[leveloffset=+1]
+= Groovy
 
-include::integration/nose.adoc[leveloffset=+1]
+include::integration/spock.adoc[leveloffset=+1]
+
+= Ruby
+
+include::integration/cucumber.adoc[leveloffset=+1]
+
+include::integration/rspec.adoc[leveloffset=+1]
+
+= .Net
+
+include::integration/mstest.adoc[leveloffset=+1]
 
 include::integration/nunit.adoc[leveloffset=+1]
 
-include::integration/rspec.adoc[leveloffset=+1]
+= Scala
 
 include::integration/scalatest.adoc[leveloffset=+1]
 
 include::integration/specs.adoc[leveloffset=+1]
-
-include::integration/spock.adoc[leveloffset=+1]
-
-include::integration/codeception.adoc[leveloffset=+1]
