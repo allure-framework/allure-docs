@@ -12,12 +12,6 @@ include::integration/pytest.adoc[leveloffset=+1]
 
 include::integration/nose.adoc[leveloffset=+1]
 
-= PHP
-
-include::integration/phpunit.adoc[leveloffset=+1]
-
-include::integration/codeception.adoc[leveloffset=+1]
-
 = JavaScript
 
 include::integration/jasmine.adoc[leveloffset=+1]
@@ -28,15 +22,21 @@ include::integration/karma.adoc[leveloffset=+1]
 
 include::integration/mocha.adoc[leveloffset=+1]
 
-= Groovy
-
-include::integration/spock.adoc[leveloffset=+1]
-
 = Ruby
 
 include::integration/cucumber.adoc[leveloffset=+1]
 
 include::integration/rspec.adoc[leveloffset=+1]
+
+= Groovy
+
+include::integration/spock.adoc[leveloffset=+1]
+
+= PHP
+
+include::integration/phpunit.adoc[leveloffset=+1]
+
+include::integration/codeception.adoc[leveloffset=+1]
 
 = .Net
 
