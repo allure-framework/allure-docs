@@ -26,5 +26,5 @@ There are several places to getting help:
  * Learn more about report structure and features in this
  https://docs.qameta.io/allure/latest/#_report_structure[section]
  * Choose your favorite testing framework and integrate it with Allure.
- Supported frameworks are divided into language-based sections: <<java,Java>>, <<python,Python>>,
- <<javascript,JavaScript>>, <<ruby,Ruby>>, <<groovy,Groovy>>, <<php,PHP>>, <<_net,.Net>>, <<scala,Scala>>.
+ Supported frameworks are divided into language-based sections: <<java,Java>>, <<_python,Python>>,
+ <<_javascript,JavaScript>>, <<_ruby,Ruby>>, <<_groovy,Groovy>>, <<_php,PHP>>, <<__net,.Net>>, <<_scala,Scala>>.
