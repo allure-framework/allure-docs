@@ -38,6 +38,9 @@ Read more about https://github.com/allure-framework/allure-debian[Allure Debian 
 * Add **allure** to system PATH.
 
 == Configuration
+
+=== Properties file
+
 To configure the Allure report you should create *allure.properties* file
 [source]
 .allure.properties
@@ -48,6 +51,14 @@ allure.tests.management.pattern=https://bugtracker/issue-%s
 
 and simply generate the report. By default command line tool looking for config in directory you run the command.
 **You can use ALLURE_CONFIG** environment variable to specify the path to configuration.
+
+=== Command line arguments
+
+There are an options you can use directly from command line. To show them, execute the command
+[source, bash]
+----
+$ allure help
+----
 
 === Usage
 There is few commands available.
