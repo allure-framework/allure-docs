@@ -23,8 +23,8 @@ image::jenkins_plugin_install.jpeg[Install Allure Commandline]
 . Fill the name and choose the version in the "From Maven Central" dropdown.
 
 === Downloading and installing Allure from archive
-. Download latest version of allure-commandline.zip from the
-link:https://github.com/allure-framework/allure2/releases[github releases page].
+. Go to the
+link:https://bintray.com/qameta/generic/allure2[Bintray page], click the latest released version, and download the allure-[version].zip file
 . Upload downloaded file to any file server. Build agents must have access to the file by url.
 . Open "Global Tool Configuration". and find "Allure Commandline" configuration block.
 +
