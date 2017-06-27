@@ -19,8 +19,8 @@ $ behave -f allure_behave.formatter:AllureFormatter -o %allure_result_folder% ./
 
 === Severity
 Tags that matched to severity names, like critical, trivial, etc, will be interpreted as feature or scenario severity.
-Scenario inherite a feature severity, the same way, scenario severity is overdride a feature severity. When situated more
-than one severity definition tag, last one is used.
+Scenario inherite a feature severity, the same way, scenario severity is overdride a feature severity. When situated
+more than one severity definition tag, last one is used.
 
 === Steps and Scenarious status
 Steps with assert exceptions will be mark as a failed. All other exceptions are reason for broken status.
