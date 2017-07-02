@@ -1,22 +1,20 @@
 = Maven
 
+This plugin generates Allure report by https://github.com/allure-framework/allure-core/wiki#gathering-information-about-tests[existing XML files] during Maven build process.
+
 == Installation
-Add allure-maven-plugin to your pom.xml file.
+Add allure-maven-plugin to your pom.xml file build section.
 
 [source, xml]
 .pom.xml
 ----
 <project>
     ...
-    <reporting>
-        <excludeDefaults>true</excludeDefaults>
-        <plugins>
-            <plugin>
-                <groupId>ru.yandex.qatools.allure</groupId>
-                <artifactId>allure-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </reporting>
+    <plugin>
+        <groupId>io.qameta.allure</groupId>
+        <artifactId>allure-maven</artifactId>
+        <version>2.9</version>
+    </plugin>
     ...
 </project>
 ----
@@ -34,11 +32,15 @@ Both compile *class* path and *test class* path are supported.
 [source, xml]
 .pom.xml
 ----
-<configuration>
-   <properties>
-       <allure.issues.tracker.pattern>http://example.com/%s</allure.issues.tracker.pattern>
-   </properties>
-</configuration>
+<plugin>
+    <groupId>io.qameta.allure</groupId>
+    <artifactId>allure-maven</artifactId>
+    <configuration>
+       <properties>
+           <allure.issues.tracker.pattern>http://example.com/%s</allure.issues.tracker.pattern>
+       </properties>
+    </configuration>
+</plugin>
 ----
 
 ==== Or specify the *propertiesFilePath*
@@ -49,11 +51,34 @@ Both compile *class* path and *test class* path are supported.
    <propertiesFilePath>path/to/your/allure.properties</propertiesFilePath>
 </configuration>
 ----
+=== Report version
+Since 2.6 to construct a reports the plagin uses Allure which is downloaded from the default
+https://dl.bintray.com/qameta/generic/io/qameta/allure/allure[url],
+extracts and put it into the *.allure* folder created in your project directory.
+
+The default Allure version is *2.0.1*
+[source, xml]
+.pom.xml
+----
+<configuration>
+    <reportVersion>2.0.1</reportVersion>
+</configuration>
+----
+
+
+You can specify your own url for the downloading or a file path with using system property **allure.download.url**.
+[source, xml]
+.pom.xml
+----
+<configuration>
+    <allureDownloadUrl>https://example.com/allure/allure-2.0.1.zip</allureDownloadUrl>
+</configuration>
+----
 
 === Results Directory
 The path to Allure results directory. In general it is the directory created by allure adaptor and contains allure
-xml files and attachments. This path can be relative from build directory (for maven it is the target directory)
-or absolute (absolute only for report mojo). Will be ignored for bulk mojo.
+files and attachments. This path can be relative from the build directory (for maven it is the target directory)
+or absolute (absolute only for report mojo).
 
 Default value is *"allure-results"*. 
 
@@ -61,31 +86,18 @@ System property **allure.results.directory**.
 [source, xml]
 .pom.xml
 ----
-<plugin>
-    <groupId>ru.yandex.qatools.allure</groupId>
-    <artifactId>allure-maven-plugin</artifactId>
-    <configuration>
-        <reportDirectory>allure-report</reportDirectory>
-    </configuration>
-</plugin>
+<configuration>
+    <reportDirectory>allure-report</reportDirectory>
+</configuration>
 ----
 
 == Usage
-The Allure Maven Plugin has three goals:
+You can generate a report using one of the following command:
 
-* *allure:report*
-* *allure:aggregate*
-* *allure:bulk*
+* *mvn allure:serve*
 
-=== Generate the Allure report as Part of Project Reports
-[source, bash]
-----
-$ mvn site
-----
+Report will be generated into temp folder. Web server with results will start.
 
-=== Generate the Allure Report in a Standalone Fashion
-The plugin can also generate the report using its standalone goal:
-[source, bash]
-----
-$ mvn allure:report
-----
+* *mvn allure:report*
+
+Report will be generated tо directory: *target/site/allure-maven/index.html*
