@@ -1,136 +1,223 @@
 = Gradle
-Gradle Allure Plugin allows you to integrate http://allure.qatools.ru/[Allure] into spock, testng and junit tests.
+Allure plugin for Gradle allows integration of Allure listeners into TestNG,
+ Junit4, Cucumber JVM and Spock frameworks in your Gradle-based projects, and also
+provides several tasks for building a single-project or multi-project report.
 
-https://github.com/d10xa/gradle-allure-plugin-examples[Examples]
+== Autoconfiguration for Junit4 and TestNG
 
-== Basic usage
+Plugin is able to use Gradle integration for Junit4 and TestNG, so in case you
+are using one of this frameworks, configuration will look very simple:
 
 [source, groovy]
 ----
 buildscript {
+
     repositories {
         jcenter()
     }
+
     dependencies {
-        classpath "ru.d10xa:gradle-allure-plugin:0.5.5"
+        classpath "io.qameta.allure:allure-gradle:2.3"
     }
 }
 
-apply plugin: 'ru.d10xa.allure'
+    plugins {
+        id 'io.qameta.allure'
+    }
+
+    allure {
+        version = '2.2.1'
+        autoconfigure = true
+     }
+----
+
+Here you will need only two parameters: `autoconfigure` - it is a flag that enables framework detection.
+If you enable it, plugin will automatically add the right listener and a dependency for aspectjweaver
+runtime agent and `version` - parameter that specifies the Allure Commandline to download and build a report with.
+
+After you apply automatic configuration, Allure results obtained after the `test` task execution will
+be stored in `build/allure-results`.
+
+To build a report execute the `allure` Gradle task:
+
+`./gradlew clean build allure`
+
+Note, that if you don't specify the version, plugin will not create any Allure-related tasks.
+So if you only want to create results for further processing, omit the `version` parameter.
+
+== Configuration for a specific testing framework
+
+Plugin provides a configuration closure parameter for 4 different frameworks: Junit4, TestNG,
+Cucumber JVM and Spock.
+
+Let's see how the Spock-based build script will look:
+
+[source, groovy]
+----
+buildscript {
+
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath "io.qameta.allure:allure-gradle:2.3"
+    }
+}
+
+plugins {
+        id 'io.qameta.allure'
+}
 
 allure {
+    version = '2.2.1'
     aspectjweaver = true
-    
-    // Choose your test framework. 
-    junit = true
-    testNG = false
-    spock = false
-    
-    // Choose if you're using Geb for web tests
-    geb = true
+
+    useSpock {
+        version = '2.0-BETA12'
+    }
 }
+
 ----
+
+Here `aspectjweaver` flag is used to add a corresponding dependency for runtime agent to your project, and `useSpock`
+configures a version for Allure Spock adaptor dependency.
 
 == Full configuration
 
 [source, groovy]
 ----
 allure {
+    version = '2.2.1'
+
+    autoconfigure = false
+
+    String allureJavaVersion = '2.0-BETA9'
+
     aspectjweaver = true
-    
-    junit = true
-    testNG = false
-    spock = false
-    
-    geb = false
-    
-    allureResultsDir = "$buildDir/allure-results"
-    allureReportDir = "$buildDir/allure-report"
-    
-    allureVersion = "1.4.24.RC3"
-    aspectjVersion = "1.8.9"
-    allureSpockGebExtensionVersion = "0.2.1"
-    allureJunitAspectjAdaptorVersion = "0.1.1"
- 
-    clean = true
+
+    boolean clean = true
+
+    resultsDir = file('/path/to/project/module/build/allure-results')
+
+    reportDir = file('build/reports/allure-report')
+
+    String configuration = 'testCompile'
+
+    useJunit4 {
+       version = '2.0-BETA12'
+    }
+
+    useTestNG {
+       version = '2.0-BETA12'
+       spi-off = false
+    }
+
+    useCucumberJVM {
+       version = '2.0-BETA12'
+    }
+
+    useSpock {
+       version = '2.0-BETA12'
+    }
+
+    downloadLink = 'https://dl.bintray.com/qameta/generic/io/qameta/allure/allure/2.2.1/allure-2.2.1.zip'
 }
 ----
 
-== Configuration
+ - *boolean* `autoconfigure` (`default = *false*`) - a flag to specify usage of autoconfiguration, plugin
+ will attempt to find test platform integration provided by Gradle (currently works only for Junit4 and TestNG).
 
-* `aspectjweaver` (boolean) default false. Adds `-javaagent` to tests
+ - *boolean* `aspectjveaver` - a flag to specify inclusion/exclusion of aspectjweaver runtime agent
 
-* `junit` (boolean) default false. Enables allure for junit without @RunWith usage. 
-(Adds https://github.com/d10xa/allure-junit-aspectj-adaptor[allure-junit-aspectj-adaptor]) based on AspectJ. Require `aspectjweaver`
+ - *boolean* `clean` (`default = *true*`) - enable `--clean` option for the Allure commandline tool, `true` by default.
 
-* `testNG` (boolean) default false. Enables allure for testNG. Require `aspectjweaver`
+ - *String* `version` - specify report generator version, note, this property is necessary to enable `allure` and
+`aggregatedAllureReport` tasks
 
-* `spock` (boolean) default false. Enables allure for spock. 
+ - *String* `configuration` (`default = *'testCompile'*`) - configuration name where to bind plugin dependencies
 
-* `geb` (boolean) default false. Adds https://github.com/d10xa/allure-spock-geb[allure-spock-geb] dependency for
-screenshot and html attachments. Specifications must extend geb.spock.GebReportingSpec class
+ - *File* `resultsDir` - directory for Allure results in the current project, `build\allure-results` by default
 
-* `allureResultsDir` (string) default "$buildDir/allure-results". Test results will be placed to this directory. 
+ - *File* `reportDir` - directory for Allure report in the current project, `build\reports\allure-report` by default
 
-* `allureReportDir` (string) default "$buildDir/allure-report". Html report will be generated to this directory 
-(if task's property `to` not defined) 
+ - *String* `allureJavaVersion` (`default = *'2.0-BETA9'*`) - version of allure java release to be used for
+ autoconfiguration
 
-* `allureVersion` (string).  Version of allure-bundle and allure-adaptors
-
-* `aspectjVersion` (string). Version of `org.aspectj:aspectjweaver`
-
-* `allureSpockGebExtensionVersion` (string). Version of https://github.com/d10xa/allure-spock-geb[allure-spock-geb]
-
-* `allureJunitAspectjAdaptorVersion` (string). Version of
-https://github.com/d10xa/allure-junit-aspectj-adaptor[allure-junit-aspectj-adaptor]
-
-* `configuration` (string) default 'testCompile'. Apply adaptors to this configuration. For example, you can select
-the configuration 'compile' and use the adaptor classes in your source code.
-
-* `clean` (boolean) default true. Execute appropriate clean tasks before tests and report generation.
+ - *String* `downloadLink` - custom location of Allure distribution to download from, by default allure is downloaded
+ from bintray by specified version and installed into `.allure` folder in the project root.
 
 == Tasks
 
-=== `allureReport`
+You can use some of the tasks that are defined in the plugin for your own convenience.
 
-Creates html report for tests.
+=== allure
 
-Add following snippet to build script if you want to create allure report after every test execution
+Creates Allure report for a given list of input directories
+
+Parameters:
+
+ - *File* `reportDir` - destination directory for Allure report
+
+ - *boolean* `clean` - enable `--clean` option for the Allure commandline tool
+
+ - *String* `version` - Allure Commandline version, will attempt to discover an installation of
+   commandline with this version in the `.allure` folder in the root of your project.
+
+ - *List<File>* `resultsDirs` - list of directories with Allure results.
+
+So to generate an Allure report for a multi-module project you will have to define your own
+`allureAggregatedReport` task, for example:
 
 [source, groovy]
 ----
-tasks.withType(Test)*.finalizedBy allureReport
-----
-
-If you don't need this task(for example in child modules) - just delete it
-[source, groovy]
-----
-tasks.remove allureReport
-----
-
-Customize task's parameters
-[source, groovy]
-----
-allureReport {
-    from(
-            "${project(':moduleA').buildDir}/allure-results",
-            "${project(':moduleB').buildDir}/my-allure-results",
-    )
-    to '$buildDir/nice-report'
+plugins {
+    id 'io.qameta.allure'
 }
-----
 
-Or create your own task
-[source, groovy]
-----
-task customAllureReport(type: ru.d10xa.allure.AllureReportTask){
+allprojects { project ->
+
+    apply plugin: 'io.qameta.allure'
+
+    allure {
+        version = '2.1.0'
+    }
 }
+
+import io.qameta.allure.gradle.task.AllureReport
+
+task allureAggregatedReport(type: AllureReport) {
+    resultsDirs = subprojects.allure.resultsDir
+}
+
 ----
 
-=== `cleanAllureReport`
+And invoke it like: `./gradlew clean build allureAggregatedReport`
 
-Deletes directory declared in `allureReportDir` parameter
+=== downloadAllure
 
-=== `cleanTest` or `cleanYourOwnTest`
+Downloads Allure Commandline from provided url and saves it into `.allure` folder in your project's root
+directory.
 
-Deletes the test results and allure results created by `test` or `yourOwnTest` task
+ - *String* `src` - url specifying download location for Allure Commandline.
+
+ - *String* `version` - version parameter is needed to find the right version of Allure in the downloaded
+ archive.
+
+ - *File* `dest` - destination folder to install downloaded Allure Commandline.
+
+`allure` task depends on `downloadAllure`, so in the default case there is no need to invoke it manually,
+whenever `allure` task is invoked, it will call `downloadAllure` first.
+
+=== serve
+
+Can be used to generate and open report in the default browser after the build.
+
+ - *String* `version` - version to discover Allure Commandline installation in the `.allure/*version*`
+
+ - *List<File>* `resultsDirs` - list of folders with results.
+
+By default `serve` task is configured by plugin for a single-module report and when executed will open it
+in the default browser.
+
+usage example: `./gradlew clean build serve`
