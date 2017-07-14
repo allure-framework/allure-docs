@@ -29,7 +29,8 @@ Put **allure.properties** (**report.properties** for Allure 1.5 or above) to cla
 Both compile *class* path and *test class* path are supported.
 
 ==== Or specify the *properties* in configuration
-[source, xml]
+[[allure-maven-plugin-configuration]]
+[source, xml, linenums]
 .pom.xml
 ----
 <plugin>
@@ -44,20 +45,21 @@ Both compile *class* path and *test class* path are supported.
 ----
 
 ==== Or specify the *propertiesFilePath*
-[source, xml]
+[source, xml, linenums]
 .pom.xml
 ----
 <configuration>
    <propertiesFilePath>path/to/your/allure.properties</propertiesFilePath>
 </configuration>
 ----
+
 === Report version
 Since 2.6 to construct a reports the plagin uses Allure which is downloaded from the default
 https://dl.bintray.com/qameta/generic/io/qameta/allure/allure[url],
 extracts and put it into the *.allure* folder created in your project directory.
 
 The default Allure version is *2.0.1*
-[source, xml]
+[source, xml, linenums]
 .pom.xml
 ----
 <configuration>
@@ -67,7 +69,7 @@ The default Allure version is *2.0.1*
 
 
 You can specify your own url for the downloading or a file path with using system property **allure.download.url**.
-[source, xml]
+[source, xml, linenums]
 .pom.xml
 ----
 <configuration>
@@ -83,7 +85,7 @@ or absolute (absolute only for report mojo).
 Default value is *"allure-results"*. 
 
 System property **allure.results.directory**.
-[source, xml]
+[source, xml, linenums]
 .pom.xml
 ----
 <configuration>
