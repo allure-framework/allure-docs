@@ -1,0 +1,39 @@
+For Gradle users there is `allure-gradle` plugin available, that can autoconfigure all the required dependencies:
+
+[source, groovy, linenums]
+.build.gradle
+----
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "io.qameta.allure:allure-gradle:2.3"
+    }
+}
+
+plugins {
+    id 'io.qameta.allure'
+}
+
+allure {
+    version = '2.2.1'
+    autoconfigure = true
+    aspectjweaver = true
+    allureJavaVersion = LATEST_VERSION
+}
+
+----
+
+Then run the build as usual:
+
+[source, bash]
+----
+$ ./gradlew clean test
+----
+
+Allure results will appear in **build/allure-results** folder. To generate html report and automatically open it in a web browser, run the following command:
+[source, bash]
+----
+$ ./gradlew allureServe build/allure-results
+----

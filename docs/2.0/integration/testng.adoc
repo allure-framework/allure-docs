@@ -1,42 +1,27 @@
 = TestNG
-An Allure report can be generated for any TestNG test. In order to get test results, you need to:
-
-* Setup latest link:https://docs.qameta.io/allure/latest/#_installing_a_commandline[allure-commandline] version.
-* Add **allure-testng** dependency.
-* Add **aspectjweaver** dependency and its properties.
-* Run tests.
 
 == Installation
+
+The available latest version of `allure-testng`:
+
+image::https://img.shields.io/maven-central/v/io.qameta.allure/allure-testng.svg[Allure TestNG]
 
 === Maven
 You need to add the following to your **pom.xml**:
 
-[source, xml]
+[source, xml, linenums]
 .pom.xml
 ----
 <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <compiler.plugin.version>3.6.0</compiler.plugin.version>
-    <java.version>1.8</java.version>
-    <surefire.plugin.version>2.19.1</surefire.plugin.version>
-    <allure.version>2.0-BETA6</allure.version>
     <aspectj.version>1.8.10</aspectj.version>
-    <allure.results.directory>
-        ${project.build.directory}/allure-results
-    </allure.results.directory>
-    <tms>
-        https://github.com/allure-framework/allure-docs/issues/{}
-    </tms>
-    <issues.tracker>
-        https://github.com/allure-framework/allure-docs/issues/{}
-    </issues.tracker>
 </properties>
 
 <dependencies>
     <dependency>
         <groupId>io.qameta.allure</groupId>
         <artifactId>allure-testng</artifactId>
-        <version>${allure.version}</version>
+        <version>LAST_VERSION</version>
+        <scope>test</scope>
     </dependency>
 </dependencies>
 
@@ -44,45 +29,11 @@ You need to add the following to your **pom.xml**:
     <plugins>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>${compiler.plugin.version}</version>
-            <configuration>
-                <source>${java.version}</source>
-                <target>${java.version}</target>
-            </configuration>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>${surefire.plugin.version}</version>
+            <version>2.20</version>
             <configuration>
-                <properties>
-                    <property>
-                        <name>usedefaultlisteners</name>
-                        <value>false</value>
-                    </property>
-                </properties>
-                <systemProperties>
-                    <property>
-                        <name>allure.results.directory</name>
-                        <value>${allure.results.directory}</value>
-                    </property>
-                    <property>
-                        <name>allure.link.issue.pattern</name>
-                        <value>${issues.tracker}</value>
-                    </property>
-                    <property>
-                        <name>allure.link.tms.pattern</name>
-                        <value>${tms}</value>
-                    </property>
-                </systemProperties>
-                <suiteXmlFiles>
-                    <suiteXmlFile>
-                        src/test/resources/testng.xml
-                    </suiteXmlFile>
-                </suiteXmlFiles>
                 <argLine>
-                    -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar
+                    -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                 </argLine>
             </configuration>
             <dependencies>
@@ -111,305 +62,58 @@ $ allure serve target/allure-results
 ----
 
 === Gradle
-You need to add the following to **build.gradle**:
 
-[source, groovy]
-.build.gradle
-----
-apply plugin: 'java'
-
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
-
-configurations {
-    agent
-}
-
-dependencies {
-    agent "org.aspectj:aspectjweaver:1.8.10"
-    compile "io.qameta.allure:allure-testng:2.0-BETA6"
-}
-
-test.doFirst {
-    jvmArgs "-javaagent:${configurations.agent.singleFile}"
-}
-
-test {
-    useTestNG() {
-        suites 'src/test/resources/testng.xml'
-    }
-
-    systemProperty 'allure.results.directory', 'build/allure-results'
-    systemProperty 'allure.link.issue.pattern', 'https://github.com/allure-framework/allure-docs/issues/{}'
-    systemProperty 'allure.link.tms.pattern', 'https://github.com/allure-framework/allure-docs/issues/{}'
-}
-----
-
-Then run the build as usual:
-
-[source, bash]
-----
-$ ./gradlew clean test
-----
-
-Allure results will appear in **build/allure-results** folder. To generate html report and automatically open it in a web browser, run the following command:
-[source, bash]
-----
-$ allure serve build/allure-results
-----
+include::../reporting/gradle-autoconfigure.adoc[]
 
 == Features
 This adapter comes with a set of Java annotations and traits allowing to use main Allure features.
 
+=== DisplayName
+
+In order to add human-readable name to any test method you need to use `description` property of `@Test` annotation:
+
+[source, java, linenums]
+----
+package my.company.tests;
+
+import org.testng.annotations.Test;
+
+public class MyTests {
+
+    @BeforeMethod(description = "Configure something before test")
+    public void setUp() {
+        //...
+    }
+
+    @Test(description = "Human-readable test name")
+    public void testSomething() throws Exception {
+        //...
+    }
+
+}
+----
+
+=== Description
+
+include::../features/java-descriptions.adoc[]
+
 === Steps
-Steps are any actions that constitute a testing scenario. Steps can be used in different testing scenarios.
-They can: be parametrized, make checks, have nested steps, and create attachments. Each step has a name.
 
-In order to define steps in Java code, you need to annotate the respective methods with **@Step** annotation.
-When not specified, the step name is equal to the annotated method name converted to human-readable format.
-
-Note that steps' mechanics was revised and now it supports smart fields' analysis.
-In Allure 1 users had to specify indexes to refer which args' values they want to inject into step.
-Allure 2 uses reflection-based approach, which provides deep fields' extraction by their names.
-
-Assuming that you have the following entity:
-
-[source, java]
-----
-public class User {
-
-     private String name;
-     private String password;
-     ...
-}
-----
-
-You can access these fields' values directly by name:
-
-[source, java]
-----
-@Step("Type {user.name} / {user.password}.")
-public void loginWith(User user) {
-     ...
-}
-----
-
-**Arrays** and **Collections** are supported as well.
-So you don't need to explicitly override **toString()** for your custom objects anymore.
+include::../features/java-steps.adoc[]
 
 === Attachments
-An attachment in Java code is simply an utility method **addAttachment** that accepts different arguments such as name, MIME type, content and file extension.
-Attachments could be added to either individual steps or the entire test case.
 
-[source, java]
-----
-@Step
-public MyPage doSomething() {
-    ...
-    Allure.addAttachment("Log", "text/plain", "additionalStepLog");
-    return this;
-}
-----
+include::../features/java-attachments.adoc[]
 
-[source, java]
-.BaseListener.java
-----
-public class BaseListener implements IInvokedMethodListener {
+=== Links
 
-    @Override
-    public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
-    }
-
-    @Override
-    public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
-        if (method.isTestMethod())
-            Allure.addAttachment("Screenshot", "image/png",
-                new ByteArrayInputStream(getDriver().getScreenshotAs(OutputType.BYTES)), "png");
-    }
-}
-----
-
-Note that Allure 2 also supports async attachments, which are especially useful with heavy files, like videos or HARs.
-So you don't need to block test execution and wait until resources are finalized.
-
-[source, java]
-.BaseListener.java
-----
-public class BaseListener implements IInvokedMethodListener, ISuiteListener {
-
-	private static final List<CompletableFuture<InputStream>> VIDEOS =
-	        new CopyOnWriteArrayList<>();
-
-	@Override
-	public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
-	}
-
-	@Override
-	public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
-		if (method.isTestMethod()) {
-			VIDEOS.add(addStreamAttachmentAsync("Async", "video/mp4",
-					() -> getClass().getResourceAsStream("/video.mp4")));
-		}
-	}
-
-	@Override
-	public void onStart(ISuite suite) {
-	}
-
-	@Override
-	public void onFinish(ISuite suite) {
-		CompletableFuture.allOf(VIDEOS.stream()
-		        .toArray(CompletableFuture[]::new)).join();
-	}
-}
-----
-
-You can call the following methods to perform async attachments: **addStreamAttachmentAsync** and **addByteAttachmentAsync**.
-Both return link:https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html[CompletableFuture],
-which could be then easily managed on client side.
-
-=== Issues Tracker
-To link a https://github.com/allure-framework/allure-core/wiki/Glossary#test-case[test case] or a
-https://github.com/allure-framework/allure-core/wiki/Glossary#test-suite[test suite] to such issues,
-you can use *@Issue* annotation. Simply specify the issue key as shown below:
-
-[source, java]
-----
-@Issue("MYISSUE-1")
-public void testSomething() {
-     ...
-}
-----
-
-To add multiple issues, you can use repeatable *@Issue* annotation:
-
-[source, java]
-----
-@Issue("MYISSUE-1")
-@Issue("MYISSUE-2")
-public void testSomething() {
-     ...
-}
-----
-
-To specify the issue tracker URL, use the **allure.link.issue.pattern** property during tests execution
-(either as a system or your build tool property):
-
-[source, xml]
-.pom.xml
-----
-<build>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>${surefire.plugin.version}</version>
-            <configuration>
-                ...
-                <systemProperties>
-                    <property>
-                        <name>allure.link.issue.pattern</name>
-                        <value>https://github.com/allure-framework/allure-docs/issues/{}</value>
-                    </property>
-                </systemProperties>
-            </configuration>
-        </plugin>
-    </plugins>
-</build>
-----
-
-[source, bash]
-----
-$ mvn clean test -Dallure.link.issue.pattern=https://github.com/allure-framework/allure-docs/issues/{}
-----
-
-Where **{}** is a placeholder for keys, specified in *@Issue* annotations.
-
-=== Test Management System
-To link a https://github.com/allure-framework/allure-core/wiki/Glossary#test-case[test case] to Test Management System,
-you can use *@TmsLink* annotation. Simply specify the test case ID as shown below:
-
-[source, java]
-----
-@TmsLink("TMS-1")
-public void testSomething() {
-     ...
-}
-----
-
-To specify the test management system URL, use the **allure.link.tms.pattern** property during tests execution
-(either as a system or your build tool property):
-
-[source, xml]
-.pom.xml
-----
-<build>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>${surefire.plugin.version}</version>
-            <configuration>
-                ...
-                <systemProperties>
-                    <property>
-                        <name>allure.link.tms.pattern</name>
-                        <value>https://github.com/allure-framework/allure-docs/issues/{}</value>
-                    </property>
-                </systemProperties>
-            </configuration>
-        </plugin>
-    </plugins>
-</build>
-----
-
-[source, bash]
-----
-$ mvn clean test -Dallure.link.tms.pattern=https://github.com/allure-framework/allure-docs/issues/{}
-----
-
-Where **{}** is a placeholder for keys, specified in *@TmsLink* annotations.
+include::../features/java-links.adoc[]
 
 === Severity
-*@Severity* annotation is used in order to prioritize test methods by severity:
 
-[source, java]
-----
-@Test
-@Severity(SeverityLevel.CRITICAL)
-public void testSomething() {
-     ...
-}
-----
+include::../features/java-severity.adoc[]
 
 === Behaviours Mapping
-In some development approaches tests are classified by
-https://github.com/allure-framework/allure-core/wiki/Glossary#user-story[stories]
-and https://github.com/allure-framework/allure-core/wiki/Glossary#feature[features].
-If you're using this then you can annotate your test with *@Story* and *@Feature* annotations:
 
-[source, java]
-----
-@Test
-@Feature("test-case-feature")
-@Story("test-case-story")
-public void testSomething() {
-     ...
-}
-----
+include::../features/java-bdd-annotations.adoc[]
 
-Note that a single test may have multiple *@Story* and *@Feature* annotations.
-You will then be able to filter tests by specified features and stories in generated Allure report.
-
-=== Flaky tests
-In order to attract developers' / QA's attention to unstable tests, you can mark them with special **@Flaky** annotation.
-Such tests will have a **bomb icon** in generated html report.
-
-[source, java]
-----
-@Test
-@Flaky
-public void testSomething() {
-     ...
-}
-----

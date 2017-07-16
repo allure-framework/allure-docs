@@ -15,7 +15,7 @@ are sortable.
 
 Entry point for every report would be the 'Overview' page with dashboards and widgets:
 
-image::overview_tab.png["Report overview"]
+image::tab_overview.png["Overview"]
 
 Overview page hosts several default widgets representing basic characteristics of your project and test environment.
 
@@ -34,39 +34,39 @@ Navigation bar is collapsible and enables you to switch into several of the basi
 
 Categories tab gives you the way to create custom defects classification to apply for test results.
 
-image::categories_tab.png["Categories tab"]
+image::tab_categories.png["Categories"]
 
-== xUnit
+== Suites
 
-On the xUnit tab a standard structural representation of executed tests, grouped by suites and classes can be found.
+On the Suites tab a standard structural representation of executed tests, grouped by suites and classes can be found.
 
-image::xunit_tab.png["X Unit tab"]
+image::tab_suites.png["Suites"]
 
-== Graph
+== Graphs
 
 Graphs allow you to see different statistics collected from the test data: statuses breakdown or
 severity and duration diagrams.
 
-image::dashboards_tab.png["Dashboards tab overview"]
+image::tab_graphs.png["Graphs"]
 
 == Timeline
 
 Timeline tab visualizes retrospective of tests execution, allure adaptors collect precise timings of tests,
 and here on this tab they are arranged accordingly to their sequential or parallel timing structure.
 
-image::timeline_tab.png["Timeline tab overview"]
+image::tab_timeline.png["Timeline"]
 
 == Behaviors
 
-For Behavior-driven approach, this tab groups test results according to Feature and Story tags.
+For Behavior-driven approach, this tab groups test results according to Epic, Feature and Story tags.
 
-image::behaviors_tab.png["Behaviors tab overview"]
+image::tab_behaviors.png["Behaviors"]
 
 == Packages
 
 Packages tab represents a tree-like layout of test results, grouped by different packages.
 
-image::packages_tab.png["Packages tab overview"]
+image::tab_packages.png["Packages"]
 
 == Test case page
 
@@ -74,4 +74,4 @@ From some of the results overview pages described above you can go to the test c
 individual tests. This page will typically contain a lot of individual data related to the test case: steps
 executed during the test, timings, attachments, test categorization labels, descriptions and links.
 
-image::testcase.png["Test case result page"]
+image::testcase.png["Test result page"]

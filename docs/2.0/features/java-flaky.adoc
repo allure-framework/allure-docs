@@ -14,7 +14,7 @@ public void aTestWhichFailsFromTimeToTime {
 ----
 
 Here is what you get in the report in case if such test failed:
-+
+
 image::flaky_failed.png[A failed test marked as flaky]
 
-Additional note - you could mark a whole test class as flaky as well.
+NOTE: you could mark a whole test class as flaky as well.
