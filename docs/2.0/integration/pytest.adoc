@@ -47,7 +47,7 @@ Can also be used as decorators. By default step name is generated from method na
 import pytest
 
 @pytest.allure.step
-def make_test_data_foo():
+def make_some_data_foo():
     # do stuff
 
 def test_foo():
