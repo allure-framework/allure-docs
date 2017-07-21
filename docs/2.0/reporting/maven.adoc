@@ -1,6 +1,6 @@
 = Maven
 
-This plugin generates Allure report by https://github.com/allure-framework/allure-core/wiki#gathering-information-about-tests[existing XML files] during Maven build process.
+This plugin generates Allure report by https://github.com/allure-framework/allure-core/wiki#gathering-information-about-tests[existing XML files] during the Maven build process.
 
 == Installation
 Add allure-maven-plugin to your pom.xml file build section.
@@ -22,7 +22,7 @@ Add allure-maven-plugin to your pom.xml file build section.
 == Configuration
 === Properties handling
 
-Since 2.5 there is ability to configure report generation. There is few ways to do it:
+Since 2.5 report generation is configurable. There are a few ways to do it:
 
 ==== Directly from source code
 Put **allure.properties** (**report.properties** for Allure 1.5 or above) to classpath.
@@ -54,9 +54,9 @@ Both compile *class* path and *test class* path are supported.
 ----
 
 === Report version
-Since 2.6 to construct a reports the plagin uses Allure which is downloaded from the default
-https://dl.bintray.com/qameta/generic/io/qameta/allure/allure[url],
-extracts and put it into the *.allure* folder created in your project directory.
+Since 2.6, the plugin constructs a report using Allure which is downloaded from the default
+https://dl.bintray.com/qameta/generic/io/qameta/allure/allure[url].
+Allure is extracted and placed into the *.allure* folder created in your project directory.
 
 The default Allure version is *2.0.1*
 [source, xml, linenums]
@@ -68,7 +68,7 @@ The default Allure version is *2.0.1*
 ----
 
 
-You can specify your own url for the downloading or a file path with using system property **allure.download.url**.
+You can specify your own url for the download, or you can specify a file path using the system property **allure.download.url**.
 [source, xml, linenums]
 .pom.xml
 ----
