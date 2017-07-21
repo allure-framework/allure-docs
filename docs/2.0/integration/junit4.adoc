@@ -2,13 +2,13 @@
 
 == Installation
 
-The available latest version of `allure-junit4`:
+The latest available version of `allure-junit4`:
 
 image::https://img.shields.io/maven-central/v/io.qameta.allure/allure-junit4.svg[Allure JUnit4]
 
 === Maven
 
-You need to add the following to your *pom.xml*:
+Add the following to your *pom.xml*:
 [source, xml, linenums]
 .pom.xml
 ----
@@ -68,10 +68,10 @@ $ mvn clean test
 include::../reporting/gradle-autoconfigure.adoc[]
 
 == Features
-This integration comes with a set of Java annotations and traits allowing to use main Allure features.
+Java annotations and traits are available to use the main Allure features.
 
 === DisplayName
-In order to add human-readable name to any test method you need to annotate it with *@DisplayName* annotation:
+In order to add a human-readable name to any test method, annotate it with *@DisplayName* annotation:
 
 [source, java, linenums]
 ----

@@ -1,4 +1,4 @@
-For Gradle users there is `allure-gradle` plugin available, that can autoconfigure all the required dependencies:
+For Gradle users, the `allure-gradle` plugin is available. The plugin autoconfigures all of the required dependencies:
 
 [source, groovy, linenums]
 .build.gradle
