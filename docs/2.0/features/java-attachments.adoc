@@ -29,7 +29,7 @@ import io.qameta.allure.Allure;
 Allure.addAttachment("My attachment", "My attachment content");
 
 Path content = Paths.get("path-to-my-attachment-contnet");
-try (InputSteam is = Files.newInputStream(content)) {
+try (InputStream is = Files.newInputStream(content)) {
     Allure.addAttachemnt("My attachment", is);
 }
 ----
