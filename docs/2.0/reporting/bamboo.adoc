@@ -2,23 +2,61 @@
 
 == Installation
 . Install https://confluence.atlassian.com/display/UPM/Installing+add-ons[Allure Plugin] from "Plugin Manager Page".
-. Download the latest version of allure-commandline.zip from github and extract to the desired directory.
-. https://confluence.atlassian.com/bamboo/defining-a-new-executable-capability-289277164.html[Defining a new executable capability] with using the extraction directory.
+. You can either:
+.. download the latest version of allure-commandline.zip from github and extract it on your Bamboo server
+.. or allow Bamboo plugin to download Allure binary automatically for you.
+. Allure Plugin will add the new executable server capability upon the installation. However you may decide to change the
+Allure version or to have multiple versions of Allure executable.
++
+To https://confluence.atlassian.com/bamboo/defining-a-new-executable-capability-289277164.html[define a new executable
+capability] with using the extraction directory, you need to open "Executables" admin menu item and then select "add an
+executable as a server capability" link in the description. You need to select "Allure Report" as a capability type.
++
+image::bamboo_add_capability.png[Add capability]
++
+Executable label defines the version of Allure executable, that will be downloaded automatically. Version should be set
+at the end of the label name (e.g. "Allure 2.3.1" or "allure 2.4-BETA1").
 
 == Configuration
-. Open the build **configuration settings**.
-. Ensure that your build https://github.com/allure-framework/allure-core/wiki#gathering-information-about-tests)[generates Allure XML files].
-. Add Allure task to your job.
+. Open "Allure Report" administration menu item under "PLANS" group.
 +
-image::bamboo_add_task.png[Add Task in Bamboo]
-. Configure task - specify glob pattern to the folder where Allure should search for XML files.
+image::bamboo_admin_allure_report.png[Allure Report Config]
+. Configure "Allure local storage" if necessary. This defines a directory where built Allure reports will be stored.
 +
-image::bamboo_task_fields.png[Task configuration]
+**Please note** that Allure Plugin does not clean this directory automatically. So you might need to configure clean up
+manually.
+. You may decide to enable Allure Plugin for all of your builds. In this case it will be trying to build a report for
+every failed build in your Bamboo instance by default. You can always turn it off/on for each particular plan later:
++
+image::bamboo_plan_configuration.png[Plan configuration]
+. Ensure that your build https://github.com/allure-framework/allure-core/wiki#gathering-information-about-tests)[generates Allure result files].
+. For each correctly configured plan you should be able to see the "Allure Report" tab in the results:
++
+image::bamboo_allure_tab.png[Allure Report Tab]
 
 
-== Usage
-When the build is done you will get Allure Report as a part of build artifacts.
-Сlick on *Allure report* artifact on the *Artifacts* tab:
+== Troubleshooting
+=== No artifacts configured
+If you haven't configured allure artifacts or a build does not generate allure results correctly, you should see the
+following error:
 
-image::bamboo_view_artifact.png[Allure artifact]
+image::bamboo_no_artifacts.png[Allure no artifacts]
 
+=== Empty report tab
+If report has been generated successfully, but later has been removed, you should see the empty report tab.
+
+=== Unknown error
+If something went wrong during the Allure report generation, you should see the exception in the Allure tab. This is
+the important information if you decide to raise an issue in allure-bamboo issue tracker:
+
+image::bamboo_unknown_error.png[Allure unknown error]
+
+== Storing Allure reports in AWS S3
+You may decide to store your artifacts and also Allure reports in Amazon S3 storage, which isn't available in Bamboo by
+default. However you can enable this feature by adding "-Dbamboo.darkfeature.artifacthandlers=true" to the command line
+that you use to start up Bamboo instance. This will give you the ability to configure artifact handlers using
+"Artifact handlers" admin menu item and allow to configure AWS S3 as a primary storage for all of your artifacts
+(including built Allure reports).
+
+=== Warning
+"Artifact handlers" dark feature is not officially supported by Atlassian, so you'd be using it on your own risk.
