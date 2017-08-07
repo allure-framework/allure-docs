@@ -5,8 +5,8 @@
 . You can either:
 .. download the latest version of allure-commandline.zip from github and extract it on your Bamboo server
 .. or allow Bamboo plugin to download Allure binary automatically for you.
-. Allure Plugin will add the new executable server capability upon the installation. However you may decide to change the
-Allure version or to have multiple versions of Allure executable.
+. Allure Bamboo Plugin will add the new executable server capability upon the installation. However you may decide to
+change the Allure version or to have multiple versions of Allure executable.
 +
 To https://confluence.atlassian.com/bamboo/defining-a-new-executable-capability-289277164.html[define a new executable
 capability] with using the extraction directory, you need to open "Executables" admin menu item and then select "add an
@@ -23,10 +23,11 @@ at the end of the label name (e.g. "Allure 2.3.1" or "allure 2.4-BETA1").
 image::bamboo_admin_allure_report.png[Allure Report Config]
 . Configure "Allure local storage" if necessary. This defines a directory where built Allure reports will be stored.
 +
-**Please note** that Allure Plugin does not clean this directory automatically. So you might need to configure clean up
-manually.
-. You may decide to enable Allure Plugin for all of your builds. In this case it will be trying to build a report for
-every failed build in your Bamboo instance by default. You can always turn it off/on for each particular plan later:
+**Please note** that Allure Bamboo Plugin stores reports on a same filesystem where Bamboo server is running, and
+it does not clean the directory automatically. So you might need to configure the removal of the old reports manually.
+. You may decide to enable Allure Bamboo Plugin for all of your builds. In this case it will be trying to build a
+report for every failed build in your Bamboo instance by default. You can always turn it off/on for each particular
+plan later:
 +
 image::bamboo_plan_configuration.png[Plan configuration]
 . Ensure that your build https://github.com/allure-framework/allure-core/wiki#gathering-information-about-tests)[generates Allure result files].
@@ -37,13 +38,13 @@ image::bamboo_allure_tab.png[Allure Report Tab]
 
 == Troubleshooting
 === No artifacts configured
-If you haven't configured allure artifacts or a build does not generate allure results correctly, you should see the
+If you haven't configured Allure artifacts correctly or a build does not generate allure results, you should see the
 following error:
 
 image::bamboo_no_artifacts.png[Allure no artifacts]
 
 === Empty report tab
-If report has been generated successfully, but later has been removed, you should see the empty report tab.
+If a report has been generated successfully, but later has been removed, you should see the empty report tab.
 
 === Unknown error
 If something went wrong during the Allure report generation, you should see the exception in the Allure tab. This is
