@@ -36,6 +36,18 @@ image::bamboo_plan_configuration.png[Plan configuration]
 image::bamboo_allure_tab.png[Allure Report Tab]
 
 
+== Storing Allure reports in AWS S3
+You may decide to store your artifacts and also Allure reports in Amazon S3 storage, which isn't available in Bamboo by
+default. However you can enable this feature by adding "-Dbamboo.darkfeature.artifacthandlers=true" to the command line
+that you use to start up Bamboo instance. This will give you the ability to configure artifact handlers using
+"Artifact handlers" admin menu item and allow to configure AWS S3 as a primary storage for all of your artifacts
+(including built Allure reports).
+
+[WARNING]
+====
+"Artifact handlers" dark feature is not officially supported by Atlassian, so you'd be using it on your own risk.
+====
+
 == Troubleshooting
 === No artifacts configured
 If you haven't configured Allure artifacts correctly or a build does not generate allure results, you should see the
@@ -51,13 +63,3 @@ If something went wrong during the Allure report generation, you should see the 
 the important information if you decide to raise an issue in allure-bamboo issue tracker:
 
 image::bamboo_unknown_error.png[Allure unknown error]
-
-== Storing Allure reports in AWS S3
-You may decide to store your artifacts and also Allure reports in Amazon S3 storage, which isn't available in Bamboo by
-default. However you can enable this feature by adding "-Dbamboo.darkfeature.artifacthandlers=true" to the command line
-that you use to start up Bamboo instance. This will give you the ability to configure artifact handlers using
-"Artifact handlers" admin menu item and allow to configure AWS S3 as a primary storage for all of your artifacts
-(including built Allure reports).
-
-=== Warning
-"Artifact handlers" dark feature is not officially supported by Atlassian, so you'd be using it on your own risk.
