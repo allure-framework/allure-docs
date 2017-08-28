@@ -12,7 +12,7 @@ Several options for Allure installation are currently supported:
 For debian-based repositories a PPA is provided:
 [source, bash]
 ----
-sudo apt-add-repository ppa:qametaio/allure-framework #not published yet
+sudo apt-add-repository ppa:qameta/allure
 sudo apt-get update 
 sudo apt-get install allure-commandline
 ----
