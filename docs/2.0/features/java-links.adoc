@@ -1,4 +1,4 @@
-ou can link your tests to some resources such as TMS (test management system) or but tracker.
+ou can link your tests to some resources such as TMS (test management system) or bug tracker.
 
 [source, java, linenums]
 ----
