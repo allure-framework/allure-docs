@@ -1,0 +1,38 @@
+ou can link your tests to some resources such as TMS (test management system) or bug tracker.
+
+[source, java, linenums]
+----
+import io.qameta.allure.Link;
+import io.qameta.allure.Issue;
+import io.qameta.allure.TmsLink;
+
+@Link("https://example.org")
+@Link(name = "allure", type = "mylink")
+public void testSomething() {
+     ...
+}
+
+@Issue("123")
+@Issue("432")
+public void testSomething() {
+     ...
+}
+
+@TmsLink("test-1")
+@TmsLink("test-2")
+public void testSomething() {
+     ...
+}
+----
+
+In order to specify the link pattern you can use the system property in the following format:
+`allure.link.my-link-type.pattern=https://example.org/custom/{}/path`. Allure will replace `{}` placeholders with
+value specified in annotation. For example:
+
+[source, linenums]
+----
+
+allure.link.mylink.pattern=https://example.org/mylink/{}
+allure.link.issue.pattern=https://example.org/issue/{}
+allure.link.tms.pattern=https://example.org/tms/{}
+----

@@ -1,4 +1,4 @@
-== Report structure
+= Report structure
 
 Once you've got the idea what the report does look like. You will probably want to get more data-rich reports.
 You might have to consider using one of the Allure adaptors for your testing framework, which will allow to collect
@@ -11,11 +11,11 @@ allow to switch between the views of the original data structure thus giving a d
 Note that all tree-like representations including Behaviors, Categories, xUnit and Packages support filtering and
 are sortable.
 
-=== Overview page
+== Overview page
 
 Entry point for every report would be the 'Overview' page with dashboards and widgets:
 
-image::overview_tab.png["Report overview"]
+image::tab_overview.png["Overview"]
 
 Overview page hosts several default widgets representing basic characteristics of your project and test environment.
 
@@ -30,48 +30,48 @@ Home page widgets are draggable and configurable. Also, Allure supports it's own
 
 Navigation bar is collapsible and enables you to switch into several of the basic results overview modes.
 
-=== Categories
+== Categories
 
 Categories tab gives you the way to create custom defects classification to apply for test results.
 
-image::categories_tab.png["Categories tab"]
+image::tab_categories.png["Categories"]
 
-=== xUnit
+== Suites
 
-On the xUnit tab a standard structural representation of executed tests, grouped by suites and classes can be found.
+On the Suites tab a standard structural representation of executed tests, grouped by suites and classes can be found.
 
-image::xunit_tab.png["X Unit tab"]
+image::tab_suites.png["Suites"]
 
-=== Graph
+== Graphs
 
 Graphs allow you to see different statistics collected from the test data: statuses breakdown or
 severity and duration diagrams.
 
-image::dashboards_tab.png["Dashboards tab overview"]
+image::tab_graphs.png["Graphs"]
 
-=== Timeline
+== Timeline
 
 Timeline tab visualizes retrospective of tests execution, allure adaptors collect precise timings of tests,
 and here on this tab they are arranged accordingly to their sequential or parallel timing structure.
 
-image::timeline_tab.png["Timeline tab overview"]
+image::tab_timeline.png["Timeline"]
 
-=== Behaviors
+== Behaviors
 
-For Behavior-driven approach, this tab groups test results according to Feature and Story tags.
+For Behavior-driven approach, this tab groups test results according to Epic, Feature and Story tags.
 
-image::behaviors_tab.png["Behaviors tab overview"]
+image::tab_behaviors.png["Behaviors"]
 
-=== Packages
+== Packages
 
 Packages tab represents a tree-like layout of test results, grouped by different packages.
 
-image::packages_tab.png["Packages tab overview"]
+image::tab_packages.png["Packages"]
 
-=== Test case page
+== Test case page
 
 From some of the results overview pages described above you can go to the test case page after clicking on the
 individual tests. This page will typically contain a lot of individual data related to the test case: steps
 executed during the test, timings, attachments, test categorization labels, descriptions and links.
 
-image::testcase.png["Test case result page"]
+image::testcase.png["Test result page"]

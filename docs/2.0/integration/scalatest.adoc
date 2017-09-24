@@ -1,6 +1,7 @@
-= Scaltest
-This adapter allows to retrieve test execution data from [ScalaTest]() framework and convert it to the form suitable for
-[Allure report generation](https://github.com/allure-framework/allure-core/wiki#generating-report).
+= ScalaTest
+
+This adapter allows to retrieve test execution data from http://www.scalatest.org[ScalaTest] framework and convert it
+to the form suitable for https://github.com/allure-framework/allure-core/wiki#generating-report[Allure report generation].
 
 == Example project
 Example project is located at: https://github.com/allure-framework/allure-scalatest-example

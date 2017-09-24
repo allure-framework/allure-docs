@@ -1,0 +1,19 @@
+*@Severity* annotation is used in order to prioritize test methods by severity:
+[source, java, linenums]
+----
+package org.example.tests;
+
+import org.junit.Test;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+
+public class MyTest {
+
+    @Test
+    @Severity(SeverityLevel.CRITICAL)
+    public void testSomething() throws Exception {
+        // ...
+    }
+
+}
+----

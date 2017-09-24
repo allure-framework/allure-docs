@@ -15,7 +15,7 @@ asciidoctor {
         }
     }
 
-    attributes docinfo: '', imagesdir: 'images', icons: 'font', numbered: '', toc: 'right', toclevels: 2,
+    attributes docinfo: '', imagesdir: 'images', icons: 'font', numbered: '', toc: 'left', toclevels: 2,
             'source-highlighter': 'coderay'
 
     outputDir = file('build/docs')
