@@ -99,6 +99,10 @@ You can generate a report using one of the following command:
 * *mvn allure:serve*
 
 Report will be generated into temp folder. Web server with results will start.
+You can additionally configure the server timeout.
+The default value is *"3600"* (one hour).
+
+System property **allure.serve.timeout**.
 
 * *mvn allure:report*
 
