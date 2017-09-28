@@ -31,6 +31,9 @@ plan later:
 +
 image::bamboo_plan_configuration.png[Plan configuration]
 . Ensure that your build https://github.com/allure-framework/allure-core/wiki#gathering-information-about-tests)[generates Allure result files].
+. Also you should configure the Allure artifacts to be collected by each job. Just add the following artifact definition to the job:
++
+image::bamboo_artifacts_definition.png[Allure Artifacts Definition]
 . For each correctly configured plan you should be able to see the "Allure Report" tab in the results:
 +
 image::bamboo_allure_tab.png[Allure Report Tab]
