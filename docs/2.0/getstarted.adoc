@@ -14,7 +14,7 @@ For debian-based repositories a PPA is provided:
 ----
 sudo apt-add-repository ppa:qameta/allure
 sudo apt-get update 
-sudo apt-get install allure-commandline
+sudo apt-get install allure
 ----
 
 === Mac OS X
