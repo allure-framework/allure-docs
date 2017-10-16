@@ -74,6 +74,9 @@ in both patterns **%s** will be substituted for a string value obtained from the
  * jdk to use
  * build policy value
  * include environment flag  - *currently is not implemented*
+ * report path -
+ You can specify the report output folder. Currently it is strictly NOT recommend to modify this value.
+ You will lose the previous history information when change this value.
 
 image::jenkins_plugin_advanced_options.jpeg[Allure build step advanced options]
 
