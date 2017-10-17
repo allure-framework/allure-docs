@@ -2,9 +2,9 @@
 
 == Installation
 
-The available latest version of `allure-testng`:
+The available latest version of `allure-cucumber-jvm`:
 
-image::https://img.shields.io/maven-central/v/io.qameta.allure/allure-cucumberjvm.svg[Allure CucumberJVM]
+image::https://img.shields.io/maven-central/v/io.qameta.allure/allure-cucumber-jvm.svg[Allure CucumberJVM]
 
 === Maven
 Simply add `allure-cucumber-jvm` plugin as dependency to your project and add it to CucumberOptions:
