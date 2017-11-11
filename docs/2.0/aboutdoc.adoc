@@ -2,29 +2,29 @@
 
 == Copyright
 
-The Allure reference guide is available as html documents. The latest copy is available at
+The Allure reference guide is available as HTML documents. The latest copy is available at
 https://docs.qameta.io/allure/latest
 
 Copies of this document may be made for your own use and for distribution to others, provided that you do not charge
 any fee for such copies and further provided that each copy contains this Copyright Notice, whether distributed
 in print or electronically.
 
-== Get help
+== Get Help
 
-There are several places to getting help:
+There are several places to get help:
 
  * Contact the community on https://gitter.im/allure-framework/allure-core[Gitter].
- Also we have separate russian https://gitter.im/allure-framework/allure-ru[room]
- * Ask a question on stackoverflow.com, the tag is http://stackoverflow.com/questions/tagged/allure[allure]
- * Report bugs in github https://github.com/allure-framework/allure2/issues[issues]
+ We also have a https://gitter.im/allure-framework/allure-ru[Russian-speaking room].
+ * Ask a question on https://stackoverflow.com/questions/ask?tags=allure[Stack Overflow] or https://ru.stackoverflow.com/questions/ask?tags=allure[Stack Overflow in Russian].
+ * Report bugs in https://github.com/allure-framework/allure2/issues/new?[GitHub issues].
 
-== How to proceed
+== How to Proceed
 
- * Open the https://qameta.io/allure/demo[demo version], if you just want to see
- what the report looks like
- * Go to https://docs.qameta.io/allure/latest/#_get_started[Get started] to build report for existing project
- * Learn more about report structure and features in this
- https://docs.qameta.io/allure/latest/#_report_structure[section]
- * Choose your favorite testing framework and integrate it with Allure.
- Supported frameworks are divided into language-based sections: <<_java,Java>>, <<_python,Python>>,
- <<_javascript,JavaScript>>, <<_ruby,Ruby>>, <<_groovy,Groovy>>, <<_php,PHP>>, <<__net,.Net>>, <<_scala,Scala>>.
+ * Open the https://qameta.io/allure/demo[demo version] to see
+ what an Allure report looks like.
+ * Go to https://docs.qameta.io/allure/latest/#_get_started[Get started] to build a report for an existing project.
+ * Learn more about
+ https://docs.qameta.io/allure/latest/#_report_structure[report structure and features].
+ * Integrate your favorite testing framework with Allure.
+ Supported frameworks are grouped by language: <<_java,Java>>, <<_python,Python>>,
+ <<_javascript,JavaScript>>, <<_ruby,Ruby>>, <<_groovy,Groovy>>, <<_php,PHP>>, <<__net,.Net>>, and <<_scala,Scala>>.
