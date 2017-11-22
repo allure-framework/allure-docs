@@ -1,0 +1,70 @@
+For Gradle users, the `allure-gradle` plugin is available. The plugin autoconfigures all of the required dependencies:
+
+[source, groovy, linenums]
+.build.gradle
+----
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.2'
+        classpath 'io.qameta.allure:allure-gradle:2.4'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'base'
+apply plugin: 'org.junit.platform.gradle.plugin'
+apply plugin: 'io.qameta.allure'
+
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    compile 'io.qameta.allure:allure-gradle:2.4'
+    testCompile(
+            'org.junit.jupiter:junit-jupiter-api:5.0.1',
+            'io.qameta.allure:allure-gradle:2.4'
+    )
+    testRuntime(
+            'org.junit.jupiter:junit-jupiter-engine:5.0.1',
+            'org.junit.vintage:junit-vintage-engine:4.12.1',
+            'org.junit.platform:junit-platform-launcher:1.0.2',
+            'org.junit.platform:junit-platform-runner:1.0.2',
+            'io.qameta.allure:allure-gradle:2.4'
+    )
+}
+
+allure {
+    version = '2.4.1'
+    autoconfigure = true
+    aspectjweaver = true
+    aspectjVersion = '1.8.10'
+
+    useJunit5 {
+       version = '2.0-BETA21'
+    }
+
+    downloadLink = 'https://dl.bintray.com/qameta/generic/io/qameta/allure/allure/2.4.1/allure-2.4.1.zip'
+}
+
+----
+
+Then run the build as usual:
+
+[source, bash]
+----
+$ ./gradlew clean test
+----
+
+Allure results will appear in **allure-results** folder under the project root. To generate html report and automatically open it in a web browser, run the following command:
+[source, bash]
+----
+$ allure serve allure-results
+----
