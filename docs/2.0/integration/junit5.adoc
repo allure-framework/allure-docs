@@ -1,0 +1,133 @@
+= jUnit 5
+
+== Installation
+
+The latest available version of `allure-junit5`:
+
+image::https://img.shields.io/maven-central/v/io.qameta.allure/allure-junit5.svg[Allure JUnit5]
+
+=== Maven
+
+Add the following to your *pom.xml*:
+[source, xml, linenums]
+.pom.xml
+----
+<properties>
+        <allure-junit5.version>2.0-BETA19</allure-junit5.version>
+        <aspectj.version>1.8.10</aspectj.version>
+        <!-- Please note that according to Junit 5 documentation, it will only work with maven surefire-plugin 2.19.1 at this time -->
+        <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version> 
+        <allure-maven.version>2.9</allure-maven.version>
+
+        <!-- Java 8 -->
+        <java.version>1.8</java.version>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+
+        <!-- Encoding -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+</properties>
+
+<dependencies>
+    <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-junit-platform</artifactId>
+            <version>${allure-junit5.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-junit5</artifactId>
+            <version>${allure-junit5.version}</version>
+            <scope>test</scope>
+        </dependency>
+</dependencies>
+
+<build>
+    <plugins>
+        <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                <testFailureIgnore>false</testFailureIgnore>
+                        <argLine>
+                            -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                        </argLine>
+                    <systemProperties>
+                        <property>
+                            <name>junit.jupiter.extensions.autodetection.enabled</name>
+                            <value>true</value>
+                        </property>
+                    </systemProperties>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.junit.platform</groupId>
+                        <artifactId>junit-platform-surefire-provider</artifactId>
+                        <version>${junit.platform.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.junit.jupiter</groupId>
+                        <artifactId>junit-jupiter-engine</artifactId>
+                        <version>${junit.jupiter.version}</version>
+                    </dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${aspectj.version}</version>
+                    <dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>${allure-maven.version}</version>
+                <configuration>
+                    <reportVersion>2.4.1</reportVersion>
+                </configuration>
+            </plugin>
+    </plugins>
+</build>
+...
+----
+
+Then run the build as usual:
+
+[source, bash]
+----
+$ mvn clean test
+----
+
+=== Gradle
+
+include::../reporting/gradle-autoconfigure-junit5.adoc[]
+
+== Features
+Java annotations and traits are available to use the main Allure features.
+
+=== DisplayName
+*@DisplayName* annotation has been removed.
+
+=== Description
+
+include::../features/java-descriptions.adoc[]
+
+=== Steps
+
+include::../features/java-steps.adoc[]
+
+=== Attachments
+
+include::../features/java-attachments.adoc[]
+
+=== Links
+
+include::../features/java-links.adoc[]
+
+=== Severity
+
+include::../features/java-severity.adoc[]
+
+=== Behaviours Mapping
+
+include::../features/java-bdd-annotations.adoc[]
