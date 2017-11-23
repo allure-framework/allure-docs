@@ -28,17 +28,9 @@ repositories {
 
 dependencies {
     compile 'io.qameta.allure:allure-gradle:2.4'
-    testCompile(
-            'org.junit.jupiter:junit-jupiter-api:5.0.1',
-            'io.qameta.allure:allure-gradle:2.4'
-    )
-    testRuntime(
-            'org.junit.jupiter:junit-jupiter-engine:5.0.1',
-            'org.junit.vintage:junit-vintage-engine:4.12.1',
-            'org.junit.platform:junit-platform-launcher:1.0.2',
-            'org.junit.platform:junit-platform-runner:1.0.2',
-            'io.qameta.allure:allure-gradle:2.4'
-    )
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.1'
+    testCompile 'io.qameta.allure:allure-gradle:2.4'
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.0.1'
 }
 
 allure {
@@ -50,8 +42,6 @@ allure {
     useJunit5 {
        version = '2.0-BETA21'
     }
-
-    downloadLink = 'https://dl.bintray.com/qameta/generic/io/qameta/allure/allure/2.4.1/allure-2.4.1.zip'
 }
 
 ----
@@ -66,5 +56,5 @@ $ ./gradlew clean test
 Allure results will appear in **allure-results** folder under the project root. To generate html report and automatically open it in a web browser, run the following command:
 [source, bash]
 ----
-$ allure serve allure-results
+$ ./gradlew allureServe 
 ----
