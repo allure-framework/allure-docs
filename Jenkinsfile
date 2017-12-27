@@ -6,14 +6,12 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh './gradlew build'
+                sh './gradlew clean build'
             }
         }
         stage('Demo') {
             steps {
-                publishHTML([reportName  : 'Allure1', reportDir: env.SITE_DIRECTORY, reportFiles: '1.5/index.html',
-                             reportTitles: '', allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false])
-                publishHTML([reportName  : 'Allure2', reportDir: env.SITE_DIRECTORY, reportFiles: '2.0/index.html',
+                publishHTML([reportName  : 'Allure Docs', reportDir: env.SITE_DIRECTORY, reportFiles: 'index.html',
                              reportTitles: '', allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false])
             }
         }
