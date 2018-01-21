@@ -9,3 +9,5 @@ refer to the adapter guide.
 include::features/java-flaky.adoc[leveloffset=+1]
 
 include::features/environment.adoc[leveloffset=+1]
+
+include::features/categories.adoc[leveloffset=+1]

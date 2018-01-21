@@ -1,0 +1,45 @@
+= Categories
+
+There are two categories of defects by default:
+
+ * Product defects (failed tests)
+ * Test defects (broken tests)
+
+To create custom defects classification add `categories.json` file to `allure-results` directory before report generation.
+
+.categories.json
+[source, json]
+----
+[
+  {
+    "name": "Ignored tests", <1>
+    "matchedStatuses": ["skipped"] <2>
+  },
+  {
+    "name": "Infrastructure problems",
+    "matchedStatuses": ["broken", "failed"]
+    "messageRegex": ".*bye-bye.*", <3>
+  },
+  {
+    "name": "Outdated tests",
+    "matchedStatuses": ["broken"]
+    "traceRegex": ".*FileNotFoundException.*", <4>
+  },
+  {
+    "name": "Product defects",
+    "matchedStatuses": ["failed"]
+  },
+  {
+    "name": "Test defects",
+    "matchedStatuses": ["broken"]
+  }
+]
+----
+<1> (mandatory) category name
+<2> (optional) list of suitable test statuses. Default `["failed", "broken", "passed", "skipped", "unknown"]`
+<3> (optional) regex pattern to check test error message. Default `".*"`
+<3> (optional) regex pattern to check stack trace. Default `".*"`
+
+Test result falls into the category if its status is in the list and both error message and stack trace match the pattern.
+
+NOTE: `categories.json` file can be stored in test resources directory in case of using link:#_maven_5[allure-maven] or link:#_gradle_4[allure-gradle] plugins.

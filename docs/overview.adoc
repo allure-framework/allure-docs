@@ -33,7 +33,7 @@ Navigation bar is collapsible and enables you to switch into several of the basi
 
 == Categories
 
-Categories tab gives you the way to create custom defects classification to apply for test results.
+Categories tab gives you the way to link:#_categories_2[create custom defects classification] to apply for test results.
 
 image::tab_categories.png["Categories"]
 
