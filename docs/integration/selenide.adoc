@@ -1,0 +1,43 @@
+= Selenide
+
+== Installation
+
+The available latest version of `allure-selenide`:
+
+image::https://img.shields.io/maven-central/v/io.qameta.allure/allure-selenide.svg[Allure TestNG]
+
+=== Maven
+You need to add the following to your **pom.xml**:
+
+[source, xml, linenums]
+.pom.xml
+----
+<dependencies>
+    ...
+    <dependency>
+        <groupId>io.qameta.allure</groupId>
+        <artifactId>allure-selenide</artifactId>
+        <version>LAST_VERSION</version>
+        <scope>test</scope>
+    </dependency>
+    ...
+</dependencies>
+----
+
+=== Gradle
+[source, groovy, linenums]
+.build.gradle
+----
+...
+compile group: 'io.qameta.allure', name: 'allure-selenide', version: '2.0-BETA22'
+...
+----
+
+=== Listener
+And add listener to Selenide:
+[source, java, linenums]
+----
+import io.qameta.allure.selenide.AllureSelenide;
+...
+SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+----
