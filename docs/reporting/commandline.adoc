@@ -39,20 +39,6 @@ Read more about https://github.com/allure-framework/allure-debian[Allure Debian 
 
 == Configuration
 
-=== Properties file
-
-To configure the Allure report you should create *allure.properties* file
-[source]
-.allure.properties
-----
-allure.link.mylink.pattern=https://example.org/mylink/{}
-allure.link.issue.pattern=https://example.org/issue/{}
-allure.link.tms.pattern=https://example.org/tms/{}
-----
-
-and simply generate the report. By default command line tool looking for config in directory you run the command.
-**You can use ALLURE_CONFIG** environment variable to specify the path to configuration.
-
 === Command line arguments
 
 There are an options you can use directly from command line. To show them, execute the command
