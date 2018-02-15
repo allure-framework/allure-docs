@@ -55,13 +55,13 @@ To generate the report from existing Allure results you can use the following co
 
 [source, bash]
 ----
-$ allure generate directory-with-results/
+$ allure generate <directory-with-results>
 ----
 
 The report will be generated to **allure-report** folder. You can change the destination folder using **-o** flag:
 [source, bash]
 ----
-$ allure generate directory-with-results/ -o directory-with-report
+$ allure generate <directory-with-results> -o <directory-with-report>
 ----
 
 For more information use the *allure help generate* command.
@@ -70,8 +70,10 @@ For more information use the *allure help generate* command.
 When the report is generated you can open it in your default system browser. Simply run
 [source, bash]
 ----
-$ allure report open
+$ allure open <directory-with-report>
 ----
+
+NOTE: You can also use `allure serve` command, to generate the report to temporary folder and open it.
 
 === Clean the report
 If you want to remove the generated report data use *allure report clean* command.
