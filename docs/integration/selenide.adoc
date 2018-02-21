@@ -39,5 +39,5 @@ And add listener to Selenide:
 ----
 import io.qameta.allure.selenide.AllureSelenide;
 ...
-SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(false));
 ----
