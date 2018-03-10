@@ -1,8 +1,8 @@
 = TeamCity
 
 == Installation
-https://confluence.jetbrains.com/display/TCD9/Installing+Additional+Plugins[Install Allure TeamCity plugin].
-Copy the **allure.zip** from (https://bintray.com/qameta/generic/allure2[latest release]
+. https://confluence.jetbrains.com/display/TCD9/Installing+Additional+Plugins[Install Allure TeamCity plugin].
+. Copy the **allure.zip** from (https://bintray.com/qameta/generic/allure2[latest release]
 to the <https://confluence.jetbrains.com/display/TCD9/TeamCity+Data+Directory[TeamCity Data Directory]>/plugins/.tools directory.
 No server restart needed for this step.
 
