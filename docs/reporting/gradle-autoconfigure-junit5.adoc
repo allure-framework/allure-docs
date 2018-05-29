@@ -39,7 +39,7 @@ allure {
     aspectjweaver = true
     aspectjVersion = '1.8.10'
 
-    useJunit5 {
+    useJUnit5 {
        version = '2.0-BETA21'
     }
 }
