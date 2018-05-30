@@ -104,7 +104,7 @@ allure {
 
     String configuration = 'testCompile'
 
-    useJunit4 {
+    useJUnit4 {
        version = '2.0-BETA12'
     }
 
