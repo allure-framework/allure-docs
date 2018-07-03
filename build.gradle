@@ -1,15 +1,41 @@
+import de.undercouch.gradle.tasks.download.Download
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
+import com.bmuschko.gradle.docker.tasks.image.DockerRemoveImage
+
 buildscript {
     repositories {
+        mavenLocal()
         jcenter()
+        maven { url 'https://plugins.gradle.org/m2/' }
     }
 
     dependencies {
-        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
-        classpath 'org.ajoberstar:gradle-git-publish:0.2.1'
+        classpath 'com.bmuschko:gradle-docker-plugin:3.0.12'
+        classpath 'de.undercouch:gradle-download-task:3.3.0'
     }
 }
 
-apply from: "${rootProject.projectDir}/gradle/asciidoctor.gradle"
-apply from: "${rootProject.projectDir}/gradle/git-publish.gradle"
+ext {
+    gradleScriptDir = "${rootProject.projectDir}/gradle"
+}
+
+apply from: "${gradleScriptDir}/docker.gradle"
+apply from: "${gradleScriptDir}/asciidoctor.gradle"
 
 build.finalizedBy(asciidoctor)
+
+task buildDockerImage(type: DockerBuildImage) {
+    inputDir project.projectDir
+    tag "allure/${project.name}:${imageTag}"
+}
+
+task pushDockerImage(dependsOn: buildDockerImage, type: DockerPushImage) {
+    imageName "allure/${project.name}"
+    tag imageTag
+}
+
+task publishDockerImage() {
+    dependsOn buildDockerImage, pushDockerImage
+}

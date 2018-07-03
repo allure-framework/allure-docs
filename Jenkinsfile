@@ -1,8 +1,11 @@
 pipeline {
+    agent { label 'java' }
     environment {
         SITE_DIRECTORY = 'build/docs/html5'
     }
-    agent { label 'java' }
+    parameters {
+        string(name: 'IMAGE_TAG', defaultValue: 'latest', description: 'Docker Image Tag')
+    }
     stages {
         stage('Build') {
             steps {
@@ -19,7 +22,7 @@ pipeline {
             when { branch "master" }
             steps {
                 withCredentials([string(credentialsId: 'qameta-ci_github_token', variable: 'GRGIT_USER')]) {
-                    sh './gradlew gitPublishPush'
+                    sh './gradlew publishDockerImage -PimageTag=${IMAGE_TAG}'
                 }
             }
         }

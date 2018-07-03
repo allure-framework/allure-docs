@@ -1,0 +1,9 @@
+apply plugin: 'com.bmuschko.docker-remote-api'
+
+docker {
+    registryCredentials {
+        url = 'https://index.docker.io/v1/'
+        username = project.hasProperty('dockerUser') ? project.property('dockerUser') : System.getenv('DOCKER_USER')
+        password = project.hasProperty('dockerPass') ? project.property('dockerPass') : System.getenv('DOCKER_PASS')
+    }
+}
