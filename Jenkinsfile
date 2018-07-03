@@ -21,7 +21,8 @@ pipeline {
         stage('Deploy') {
             when { branch "master" }
             steps {
-                withCredentials([string(credentialsId: 'qameta-ci_github_token', variable: 'GRGIT_USER')]) {
+                withCredentials([usernamePassword(credentialsId: 'qameta-ci_docker',
+                        usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     sh './gradlew publishDockerImage -PimageTag=${IMAGE_TAG}'
                 }
             }
