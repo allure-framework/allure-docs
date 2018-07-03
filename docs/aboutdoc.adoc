@@ -20,7 +20,7 @@ There are several places to get help:
 
 == How to Proceed
 
- * Open the https://ci.qameta.in/job/allure2/job/master/Demo2_Report/[demo version] to see
+ * Open the http://demo.qameta.io/allure/latest/[demo version] to see
  what an Allure report looks like.
  * Go to https://docs.qameta.io/allure/latest/#_get_started[Get started] to build a report for an existing project.
  * Learn more about
