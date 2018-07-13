@@ -1,238 +1,211 @@
 = Pytest
-WARNING: This plugin currently supports only Allure 1.4.x series.
 
-== Installation and Usage
-[source, python]
+==Installation
+Pytest is available for installation from the https://pypi.python.org/pypi/allure-pytest[PyPI], therefore
+installation with pip is recommended. To install the latest version, execute from the command line:
+
+[source, bash]
 ----
-py.test --alluredir [path_to_report_dir]
-# WARNING [path_to_report_dir] will be purged at first run
-----
-
-This plugin gets automatically connected to `py.test` via `entry point` if installed.
-
-Connecting to IDE:
-
-[source, python]
-----
-pytest_plugins = 'allure.pytest_plugin',\
+$ pip install allure-pytest
 ----
 
-== Features
+That will install allure-pytest and allure-python-commons packages to produce report data compatible with Allure 2.
+If you are using a previous version of adapter for the
+https://pypi.python.org/pypi/pytest-allure-adaptor[first generation] of Allure reports then you will need to
+uninstall it first.
 
-=== Title
-IMPORTANT: Not implemented now
+==Usage
+To enable Allure listener to collect results during the test execution simply add `--alluredir` option and
+provide path to the folder where results should be stored. E.g.:
 
-=== Description
-IMPORTANT: Not implemented now
-
-=== Steps
-To divide a test into steps:
-
-[source, python]
+[source, bash]
 ----
-import pytest
-
-def test_foo():
-    with pytest.allure.step('step one'):
-        # do stuff
-
-    with pytest.allure.step('step two'):
-        # do more stuff
+$ pytest --alluredir=/tmp/my_allure_results
 ----
 
-Can also be used as decorators. By default step name is generated from method name:
+To see the actual report after your tests have finished, you need to use Allure commandline utility to generate report
+ from the results.
+
+[source, bash]
+----
+$ allure serve /tmp/my_allure_results
+----
+
+This command will show you generated report in your default browser.
+
+== Basic Reporting
+
+Your can see all default pytest statuses in the Allure report: only tests that were not succeeded due to one of the
+assertion errors will be marked as failed, any other exception will cause a test to have a broken status.
 
 [source, python]
 ----
 import pytest
 
-@pytest.allure.step
-def make_test_data_foo():
-    # do stuff
-
-def test_foo():
-    assert make_some_data_foo() is not None
-
-@pytest.allure.step('make_some_data_foo')
-def make_some_data_bar():
-    # do another stuff
-
-def test_bar():
-    assert make_some_data_bar() is not None
-----
-
-Steps can also be used without pytest. In that case instead of ``pytest.allure.step`` simply use ``allure.step``:
-
-[source, python]
-----
-import allure
-
-@allure.step('some operation')
-def do_operation():
-    # do stuff
-----
-
-`allure.step` decorator supports step name formatting with function parameters:
-
-[source, python]
-----
-import allure
-
-@allure.step('some operation for bar={0}')
-def do_operation(bar):
-    # do stuff
-     
-def test_foo():
-    assert do_operation('abcdef')
-----
-
-The step in the latter case will have name `some operation for bar=abcdef`. 
-Formatting is done via python's built-in `string.format` and supports it's options. 
-Arguments are passed to `format` method in the same way they are passed to the decorated function.
-
-Steps support is limited when used with fixtures.
-
-=== Attachments
-To attach some content to test report:
-
-[source, python]
-----
-import allure
-
-def test_foo():
-    allure.attach('my attach', 'Hello, World')
-----
+def test_success():
+    """this test succeeds"""
+    assert True
 
 
-=== Issues Tracker
-Issues can be set for test.
-
-[source, python]
-----
-import pytest
-
-@pytest.allure.issue('http://jira.lan/browse/ISSUE-1')
-def test_foo():
-    assert False
-----
-
-[source, python]
-----
-import allure
-
-@allure.issue('http://jira.lan/browse/ISSUE-2')
-class TestBar:
-
-    # test will have ISSUE-2, ISSUE-3 and ISSUE-4 label
-    @allure.issue('http://jira.lan/browse/ISSUE-3')
-    def test_bar1(self):
-        # You can use this feature like a function inside the test
-        allure.dynamic_issue('http://jira.lan/browse/ISSUE-4')
-        pass
-
-    # test will have only ISSUE-2 label
-    def test_bar2(self):
-        pass
-----
-
-=== Test Management System
-Test cases links can be set for test also.
-
-[source, python]
-----
-import pytest
-
-@pytest.allure.testcase('http://my.tms.org/TESTCASE-1')
-def test_foo():
-    assert False
-----
-
-[source, python]
-----
-import allure
-
-@allure.testcase('http://my.tms.org/browse/TESTCASE-2')
-class TestBar:
-
-    # test will have TESTCASE-2 and TESTCASE-3 label
-    @allure.testcase('TESTCASE-3')
-    def test_bar1(self):
-        pass
-
-    # test will have only TESTCASE-2 label
-    def test_bar2(self):
-        pass
-----
-
-=== Parameters
-IMPORTANT: Not implemented now
-
-=== Severity
-Any test, class or module can be marked with different severity:
-
-[source, python]
-----
-import pytest
-
-@pytest.allure.severity(pytest.allure.severity_level.MINOR)
-def test_minor():
+def test_failure():
+    """this test fails"""
     assert False
 
 
-@pytest.allure.severity(pytest.allure.severity_level.CRITICAL)
-class TestBar:
+def test_skip():
+    """this test is skipped"""
+    pytest.skip('for a reason!')
 
-    # will have CRITICAL priority
-    def test_bar(self):
-        pass
 
-    # will have BLOCKER priority via a short-cut decorator
-    @pytest.allure.BLOCKER
-    def test_bar(self):
-        pass
+def test_broken():
+    raise Exception('oops')
 ----
 
-To run tests with concrete priority:
+== Supported Pytest features
 
-[source, rest]
-----
-py.test my_tests/ --allure_severities=critical,blocker
-----
+Some of the common Pytest features that the Allure report supports include xfails, fixtures and
+finalizers, marks, conditional skips and parametrization.
 
-=== Behaviours Mapping
-Feature and Story can be set for test.
+=== Xfail
+
+This is pytest way of marking expected failures: (https://docs.pytest.org/en/latest/skipping.html[Pytest docs])
 
 [source, python]
 ----
-import allure
-
-
-@allure.feature('Feature1')
-@allure.story('Story1')
-def test_minor():
+@pytest.mark.xfail(condition=lambda: True, reason='this test is expecting failure')
+def test_xfail_expected_failure():
+    """this test is an xfail that will be marked as expected failure"""
     assert False
 
 
-@allure.feature('Feature2')
-@allure.story('Story2', 'Story3')
-@allure.story('Story4')
- class TestBar:
-
-    # will have 'Feature2 and Story2 and Story3 and Story4'
-    def test_bar(self):
-        pass
+@pytest.mark.xfail(condition=lambda: True, reason='this test is expecting failure')
+def test_xfail_unexpected_pass():
+    """this test is an xfail that will be marked as unexpected success"""
+    assert True
 ----
 
-To run tests by Feature or Story:
+Which results in test being skipped and marked with a special tag when it is expected to fail.
+image::pytest_xpass_expected_failure.png["Expected xpass failure"]
 
-[source, rest]
+And special marking in description and a special tag when it unexpectedly passed.
+image::pytest_xpass_unexpected_pass.png["Unexpected xpass pass"]
+
+=== Conditional mark
+
+In Pytest you can conditionally mark a test to not be executed under some specific conditions
+ (https://docs.pytest.org/en/latest/skipping.html[Pytest docs]):
+
+[source, python]
 ----
-py.test my_tests/ --allure_features=feature1,feature2
-py.test my_tests/ --allure_features=feature1,feature2 --allure_stories=story1,story2
+@pytest.mark.skipif('2 + 2 != 5', reason='This test is skipped by a triggered condition in @pytest.mark.skipif')
+def test_skip_by_triggered_condition():
+    pass
 ----
 
-=== Environment Parameters
-You can provide test environment parameters such as report name, browser or test server address to allure test report.
+When condition is evaluated to true, test receives a 'Skipped' status in report, a tag and a description from the
+annotation.
+image::pytest_conditional_skip.png["Conditional skip triggered"]
+
+=== Fixtures and Finalizers
+
+Fixtures and finalizers are the utility functions that will be invoked by Pytest before your test starts and after your
+test ends respectively. Allure tracks invocations of every fixture and shows in full details what methods with what
+arguments were invoked, preserving the correct sequence of the calls that were made.
+ (https://docs.pytest.org/en/latest/reference.html#id30[Pytest docs])
+
+You don't need to mark your fixtures to make them visible in the report, they will be detected automatically for
+different skopes.
+
+[source, python]
+----
+@pytest.fixture(params=[True, False], ids=['param_true', 'param_false'])
+def function_scope_fixture_with_finalizer(request):
+    if request.param:
+        print('True')
+    else:
+        print('False')
+    def function_scope_finalizer():
+        function_scope_step()
+    request.addfinalizer(function_scope_finalizer)
+
+
+@pytest.fixture(scope='class')
+def class_scope_fixture_with_finalizer(request):
+    def class_finalizer_fixture():
+        class_scope_step()
+    request.addfinalizer(class_finalizer_fixture)
+
+
+@pytest.fixture(scope='module')
+def module_scope_fixture_with_finalizer(request):
+    def module_finalizer_fixture():
+        module_scope_step()
+    request.addfinalizer(module_finalizer_fixture)
+
+
+@pytest.fixture(scope='session')
+def session_scope_fixture_with_finalizer(request):
+    def session_finalizer_fixture():
+        session_scope_step()
+    request.addfinalizer(session_finalizer_fixture)
+
+
+class TestClass(object):
+
+    def test_with_scoped_finalizers(self,
+                                    function_scope_fixture_with_finalizer,
+                                    class_scope_fixture_with_finalizer,
+                                    module_scope_fixture_with_finalizer,
+                                    session_scope_fixture_with_finalizer):
+        step_inside_test_body()
+----
+
+image::pytest_skoped_finalizers.png["Test with fixtures and finalizers executed within different scopes."]
+
+Depending on an outcome of a fixture execution, test that is dependent on it may receive a different status.
+Exception in the fixture would make all dependent tests broken, `pytest.skip()` call would make all dependent test
+skipped.
+
+[source, python]
+----
+import pytest
+
+@pytest.fixture
+def skip_fixture():
+    pytest.skip()
+
+
+@pytest.fixture
+def fail_fixture():
+    assert False
+
+
+@pytest.fixture
+def broken_fixture():
+    raise Exception("Sorry, it's broken.")
+
+
+def test_with_pytest_skip_in_the_fixture(skip_fixture):
+    pass
+
+
+def test_with_failure_in_the_fixture(fail_fixture):
+    pass
+
+
+def test_with_broken_fixture(broken_fixture):
+    pass
+----
+
+image::pytest_fixture_effect.png["Fixture execution outcome resulting in different statuses."]
+
+=== Parametrization
+
+You can generate many test cases from the sets of input parameters using `@pytest.mark.parametrize`.
+ (https://docs.pytest.org/en/latest/skipping.html[Pytest docs])
+
+All argument names and values will be captured in the report, optionally argument names will be replaced with
+provided string descriptions in the `ids` kwarg.
 
 [source, python]
 ----
@@ -240,26 +213,32 @@ import allure
 import pytest
 
 
-def pytest_configure(config):
-    allure.environment(report='Allure report', browser=u'Я.Браузер')
+@allure.step
+def simple_step(step_param1, step_param2 = None):
+    pass
 
 
-@pytest.fixture(scope="session")
-def app_host_name():
-    host_name = "my.host.local"
-    allure.environment(hostname=host_name)
-    return host_name
+@pytest.mark.parametrize('param1', [True, False], ids=['id explaining value 1', 'id explaining value 2'])
+def test_parameterize_with_id(param1):
+    simple_step(param1)
 
 
-@pytest.mark.parametrize('country', ('USA', 'Germany', u'Россия', u'Япония'))
-def test_minor(country):
-    allure.environment(country=country)
-    assert country
+@pytest.mark.parametrize('param1', [True, False])
+@pytest.mark.parametrize('param2', ['value 1', 'value 2'])
+def test_parametrize_with_two_parameters(param1, param2):
+    simple_step(param1, param2)
+
+
+@pytest.mark.parametrize('param1', [True], ids=['boolean parameter id'])
+@pytest.mark.parametrize('param2', ['value 1', 'value 2'])
+@pytest.mark.parametrize('param3', [1])
+def test_parameterize_with_uneven_value_sets(param1, param2, param3):
+    simple_step(param1, param3)
+    simple_step(param2)
 ----
 
-More details about allure environment you can know from https://github.com/allure-framework/allure-core/wiki/
-Environment[documentation]. 
+Example of captured test invocations with different sets of named and unnamed parameters.
+image::pytest_parameterized_tests.png["Multiple invocations of tests with different parameters."]
 
-
-== Development
-Use `allure.common.AllureImpl` class to bind your logic to this adapter.
+Details of test execution for a parameterized test with a named parameter.
+image::pytest_parameterized_with_id.png["Multiple invocations of tests with different parameters."]
