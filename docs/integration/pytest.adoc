@@ -1,6 +1,6 @@
 = Pytest
 
-==Installation
+== Installation
 Pytest is available for installation from the https://pypi.python.org/pypi/allure-pytest[PyPI], therefore
 installation with pip is recommended. To install the latest version, execute from the command line:
 
@@ -14,7 +14,7 @@ If you are using a previous version of adapter for the
 https://pypi.python.org/pypi/pytest-allure-adaptor[first generation] of Allure reports then you will need to
 uninstall it first.
 
-==Usage
+== Usage
 To enable Allure listener to collect results during the test execution simply add `--alluredir` option and
 provide path to the folder where results should be stored. E.g.:
 
@@ -85,9 +85,11 @@ def test_xfail_unexpected_pass():
 ----
 
 Which results in test being skipped and marked with a special tag when it is expected to fail.
+
 image::pytest_xpass_expected_failure.png["Expected xpass failure"]
 
 And special marking in description and a special tag when it unexpectedly passed.
+
 image::pytest_xpass_unexpected_pass.png["Unexpected xpass pass"]
 
 === Conditional mark
@@ -103,7 +105,8 @@ def test_skip_by_triggered_condition():
 ----
 
 When condition is evaluated to true, test receives a 'Skipped' status in report, a tag and a description from the
-annotation.
+decorator.
+
 image::pytest_conditional_skip.png["Conditional skip triggered"]
 
 === Fixtures and Finalizers
@@ -238,7 +241,338 @@ def test_parameterize_with_uneven_value_sets(param1, param2, param3):
 ----
 
 Example of captured test invocations with different sets of named and unnamed parameters.
+
 image::pytest_parameterized_tests.png["Multiple invocations of tests with different parameters."]
 
 Details of test execution for a parameterized test with a named parameter.
+
 image::pytest_parameterized_with_id.png["Multiple invocations of tests with different parameters."]
+
+== Allure Features
+
+Allure currently supports almost every available feature except for environment with Pytest.
+
+=== Steps
+
+The first and probably most important aspect of the Allure report is that it allows to get a very detailed step-by-step
+representation of every test invocation. This is made possible with `@allure.step` decorator that adds invocation
+of the annotated method or function with provided arguments to the report.
+
+Methods annotated with `@step` can be stored aside from your tests and just imported when needed. Step methods can
+have an arbitrarily deep nested structure.
+
+[source, python]
+----
+import allure
+import pytest
+
+from .steps import imported_step
+
+
+@allure.step
+def passing_step():
+    pass
+
+
+@allure.step
+def step_with_nested_steps():
+    nested_step()
+
+
+@allure.step
+def nested_step():
+    nested_step_with_arguments(1, 'abc')
+
+
+@allure.step
+def nested_step_with_arguments(arg1, arg2):
+    pass
+
+
+def test_with_imported_step():
+    passing_step()
+    imported_step()
+
+
+def test_with_nested_steps():
+    passing_step()
+    step_with_nested_steps()
+----
+
+Status of every step is shown in a small icon on the right from the name. Nested steps are organized in a tree-like
+collapsible structure.
+
+image::pytest_nested_steps_and_args.png["Nested steps and steps with arguments."]
+
+Steps can have a description line that supports placeholders for passed positional and keyword arguments. Default
+parameters of the keyword arguments will be captured as well.
+
+[source, python]
+----
+import allure
+
+@allure.step('Step with placeholders in the title, positional: "{0}", keyword: "{key}"')
+def step_with_title_placeholders(arg1, key=None):
+    pass
+
+
+def test_steps_with_placeholders():
+    step_with_title_placeholders(1, key='something')
+    step_with_title_placeholders(2)
+    step_with_title_placeholders(3, 'anything')
+----
+
+image::pytest_step_arguments.png["Nested steps and steps with arguments."]
+
+Steps are supported in fixtures as well. Here is an example of a test using a fixture defined in `conftest.py` module
+(such fixtures will be resolved by Pytest even when not directly imported):
+
+[source, python]
+.conftest.py
+----
+import allure
+import pytest
+
+
+@allure.step('step in conftest.py')
+def conftest_step():
+    pass
+
+
+@pytest.fixture
+def fixture_with_conftest_step():
+    conftest_step()
+----
+
+[source, python]
+----
+import allure
+
+from .steps import imported_step
+
+
+@allure.step
+def passing_step():
+    pass
+
+
+def test_with_step_in_fixture_from_conftest(fixture_with_conftest_step):
+    passing_step()
+----
+
+Steps in fixtures are shown in separate trees for setup and teardown.
+
+image::pytest_step_in_fixture.png["Step in fixture resolved from conftest.py."]
+
+=== Attachments
+
+Reports can display many different types of provided attachments that can complement a test, step or fixture
+result. Attachments can be created either with invocation of `allure.attach(body, name, attachment_type, extension)`:
+
+. `body` - raw content to be written into the file.
+. `name` - a string with name of the file
+. `attachment_type` - one of the `allure.attachment_type` values
+. `extension` - is provided will be used as an extension for the created file.
+
+or `allure.attach.file(source, name, attachment_type, extension)`:
+
+. `source` - a string containing path to the file.
+
+(other arguments are the same)
+
+[source, python]
+----
+import allure
+import pytest
+
+
+@pytest.fixture
+def attach_file_in_module_scope_fixture_with_finalizer(request):
+    allure.attach('A text attacment in module scope fixture', 'blah blah blah', allure.attachment_type.TEXT)
+    def finalizer_module_scope_fixture():
+        allure.attach('A text attacment in module scope finalizer', 'blah blah blah blah',
+                      allure.attachment_type.TEXT)
+    request.addfinalizer(finalizer_module_scope_fixture)
+
+
+def test_with_attacments_in_fixture_and_finalizer(attach_file_in_module_scope_finalizer):
+    pass
+
+
+def test_multiple_attachments():
+    allure.attach.file('./data/totally_open_source_kitten.png', attachment_type=allure.attachment_type.PNG)
+    allure.attach('<head></head><body> a page </body>', 'Attach with HTML type', allure.attachment_type.HTML)
+----
+
+Attachments are shown in the context of a test entity they belong to. Attachments of HTML type are rendered and
+displayed on the report page. This is a convenient way to provide some customization for your own representation
+of a test result.
+
+image::pytest_attachments.png["Attachments in the test body."]
+
+=== Descriptions
+
+You can add a detailed description for tests to provide as much context to the report reader as you want.
+This can be done in several ways: you can add a `@allure.description` decorator providing a description string or
+you can use `@allure.description_html` to provide some HTML to be rendered in the 'Description' section of a test case.
+Alternatively description will be simply picked up from the docstring of a test method.
+
+[source, python]
+----
+import allure
+
+@allure.description_html("""
+<h1>Test with some complicated html description</h1>
+<table style="width:100%">
+  <tr>
+    <th>Firstname</th>
+    <th>Lastname</th>
+    <th>Age</th>
+  </tr>
+  <tr align="center">
+    <td>William</td>
+    <td>Smith</td>
+    <td>50</td>
+  </tr>
+  <tr align="center">
+    <td>Vasya</td>
+    <td>Jackson</td>
+    <td>94</td>
+  </tr>
+</table>
+""")
+def test_html_description():
+    assert True
+
+
+@allure.description("""
+Multiline test description.
+That comes from the allure.description decorator.
+
+Nothing special about it.
+""")
+def test_description_from_decorator():
+    assert 42 == int(6 * 7)
+
+
+def test_unicode_in_docstring_description():
+    """Unicode in description.
+
+    Этот тест проверяет юникод.
+
+    你好伙计.
+    """
+    assert 42 == int(6 * 7)
+----
+
+Description supports unicode strings:
+
+image::pytest_unicode_description_docstr.png["Description from docstring."]
+
+Rendered HTML from `description_html`:
+
+image::pytest_html_description.png["Description from html."]
+
+Also descriptions can be dynamically updated from within test body using `allure.dynamic.description`.
+
+[source, python]
+----
+import allure
+
+@allure.description("""
+This description will be replaced at the end of the test.
+""")
+def test_dynamic_description():
+    assert 42 == int(6 * 7)
+    allure.dynamic.description('A final description.')
+----
+
+=== Titles
+
+Test titles can be made more readable with special `@allure.title` decorator. Titles support placeholders for arguments
+ and support dynamic replacement.
+
+[source, python]
+----
+import allure
+import pytest
+
+
+@allure.title("This test has a custom title")
+def test_with_a_title():
+    assert 2 + 2 == 4
+
+
+@allure.title("This test has a custom title with unicode: Привет!")
+def test_with_unicode_title():
+    assert 3 + 3 == 6
+
+
+@allure.title("Parameterized test title: adding {param1} with {param2}")
+@pytest.mark.parametrize('param1,param2,expected', [
+    (2, 2, 4),
+    (1, 2, 5)
+])
+def test_with_parameterized_title(param1, param2, expected):
+    assert param1 + param2 == expected
+
+
+@allure.title("This title will be replaced in a test body")
+def test_with_dynamic_title():
+    assert 2 + 2 == 4
+    allure.dynamic.title('After a successful test finish, the title was replaced with this line.')
+----
+
+image::pytest_titles.png["Description from docstring."]
+
+
+=== Links
+
+To integrate report with a bugtracker or test management system Allure has `@allure.link`, `@allure.issue` and
+`@allure.testcase` descriptors.
+
+[source, python]
+----
+import allure
+
+TEST_CASE_LINK = 'https://github.com/qameta/allure-integrations/issues/8#issuecomment-268313637'
+
+
+@allure.link('https://www.youtube.com/watch?v=4YYzUTYZRMU')
+def test_with_link():
+    pass
+
+
+@allure.link('https://www.youtube.com/watch?v=Su5p2TqZxKU', name='Click me')
+def test_with_named_link():
+    pass
+
+
+@allure.issue('140', 'Pytest-flaky test retries shows like test steps')
+def test_with_issue_link():
+    pass
+
+
+@allure.testcase(TEST_CASE_LINK, 'Test case title')
+def test_with_testcase_link():
+    pass
+----
+
+`@allure.link` will provide a clickable link to provided url in 'Links' section:
+
+image::pytest_test_with_link.png["Description from docstring."]
+
+`@allure.issue` will provide a link with a small bug icon. This descriptor takes test case id as the input
+parameter to use it with provided link template for issue link type. Link templates are specified in
+ `--allure-link-pattern` configuration option for Pytest. Link templates and types have to be specified using a colon:
+
+[source, bash]
+----
+$ pytest directory_with_tests/ --alluredir=/tmp/my_allure_report \
+ --allure-link-pattern=issue:http://www.mytesttracker.com/issue/{}
+
+----
+
+Template keywords are `issue`, `link` and `test_case` to provide a template for the corresponding type of link.
+
+image::pytest_test_case_with_issue_link.png["Test with a link of issue type."]
