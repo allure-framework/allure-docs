@@ -576,3 +576,177 @@ $ pytest directory_with_tests/ --alluredir=/tmp/my_allure_report \
 Template keywords are `issue`, `link` and `test_case` to provide a template for the corresponding type of link.
 
 image::pytest_test_case_with_issue_link.png["Test with a link of issue type."]
+
+== Retries
+
+Allure allows you to aggregate information about test being re-executed during a single test run as well as history
+of test execution over some period of time.
+
+For retries you can use https://github.com/pytest-dev/pytest-rerunfailures[Pytest rerun failures plugin].
+
+For example if we have a very unreliable step method that fails often, after specifying `--reruns=5` in the
+Pytest startup options we would see all unsuccessful attempts to run this test displayed on the `Retries` tab.
+
+[source, python]
+----
+import allure
+import random
+import time
+
+
+@allure.step
+def passing_step():
+    pass
+
+
+@allure.step
+def flaky_broken_step():
+    if random.randint(1, 5) != 1:
+        raise Exception('Broken!')
+
+
+def test_broken_with_randomized_time():
+    passing_step()
+    time.sleep(random.randint(1, 3))
+    flaky_broken_step()
+----
+
+image::pytest_retry_tab.png["Retries tab for a test that was rerun."]
+
+Also such a test would receive 'flaky' bomb icon in the list of executed tests.
+
+image::pytest_flaky_icon.png["Flaky icon."]
+
+== Tags
+
+Sometimes you want to be flexible with tests that you want to be executed. Pytest allows that by using marker
+decorator `@pytest.mark` (https://docs.pytest.org/en/latest/example/markers.html[Pytest docs]).
+
+Allure allows to mark your tests in a similar way with 3 types of marking decorators that allow to structure
+representation of your report:
+
+. BDD-style markers denoting Epics, Features and Stories
+. Severity labels
+. Custom labels
+
+=== BDD markers
+
+There are two decorators: `@allure.feature` and `@allure.story` to mark your tests according to Feature/Story breakdown
+specific to your project
+(https://en.wikipedia.org/wiki/Behavior-driven_development[for background see BDD article on Wikipedia]). To mark that
+some feature or story belong to an epic, use a name that starts with `epic_` prefix.
+
+[source, python]
+.tests.py
+----
+import allure
+
+
+def test_without_any_annotations_that_wont_be_executed():
+    pass
+
+
+@allure.story('epic_1')
+def test_with_epic_1():
+    pass
+
+
+@allure.story('story_1')
+def test_with_story_1():
+    pass
+
+@allure.story('story_2')
+def test_with_story_2():
+    pass
+
+
+@allure.feature('feature_2')
+@allure.story('story_2')
+def test_with_story_2_and_feature_2():
+    pass
+----
+
+You can use following commandline options to specify different sets of tests to execute passing a list of
+comma-separated values:
+
+. `--allure-epics`
+. `--allure-features`
+. `--allure-stories`
+
+for example:
+
+[source, bash]
+----
+$ pytest tests.py --allure-stories story_1,story_2
+
+collected 5 items
+
+tests.py ...                                                                    [100%]
+
+============================== 3 passed in 0.01 seconds ==============================
+----
+
+
+[source, bash]
+----
+$ pytest tests.py --allure-features feature2 --allure-stories story2
+
+collected 5 items
+
+tests.py ...                                                                     [100%]
+
+=============================== 2 passed in 0.01 seconds ==============================
+----
+
+=== Severity markers
+
+To mark your tests by severity level you can use `@allure.severity` decorator. It takes a `allure.severity_level` enum
+value as an argument.
+
+[source, python]
+.tests.py
+----
+import allure
+
+
+def test_with_no_severity_label():
+    pass
+
+
+@allure.severity(allure.severity_level.TRIVIAL)
+def test_with_trivial_severity():
+    pass
+
+
+@allure.severity(allure.severity_level.NORMAL)
+def test_with_normal_severity():
+    pass
+
+
+@allure.severity(allure.severity_level.NORMAL)
+class TestClassWithNormalSeverity(object):
+
+    def test_inside_the_normal_severity_test_class(self):
+        pass
+
+    @allure.severity(allure.severity_level.CRITICAL)
+    def test_inside_the_normal_severity_test_class_with_overriding_critical_severity(self):
+        pass
+
+----
+
+Severity decorator can be applied to functions, methods or entire classes.
+
+By using `--allure-severities` commandline option with a list of comma-separated severity levels only tests with
+corresponding severities will be run.
+
+[source, bash]
+----
+$ pytest tests.py --allure-severities normal,critical
+
+collected 5 items
+
+bdd_annotations_demo/test_severity_labels.py ...                                [100%]
+
+================================ 3 passed in 0.01 seconds ============================
+----
