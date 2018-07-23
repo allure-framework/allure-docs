@@ -1,4 +1,4 @@
-= NUnit
+= NUnit 2
 
 == Installation and Usage
 1. Download NUnit **2.6.3** or **2.6.4** from http://www.nunit.org/[official site];
@@ -15,9 +15,9 @@ corresponding version (version specified in parentheses);
 This adapter only generates XML files containing information about tests. See
 https://github.com/allure-framework/allure-core/wiki#generating-report[wiki section] on how to generate report.
 
-== What about NUnit 3?
-It's still in alpha-stage, too early to develop an adapter for it. Adapter for NUnit 3 will be located in it's own repository.
-
 == Further reading
 * http://ilya-murzinov.github.io/articles/allure-csharp/)[Article] about configuring the adapter
 * https://github.com/allure-framework/allure-csharp-commons/wiki[Allure NUnit Wiki]
+* https://github.com/allure-framework/allure-csharp/wiki/Allure.Commons[Allure CSharp New]
+* https://github.com/allure-framework/allure-csharp/wiki/SpecFlow-Adapter[Allure SpecFlow]
+* https://github.com/unickq/allure-nunit/wiki[Allure NUnit 3] 
