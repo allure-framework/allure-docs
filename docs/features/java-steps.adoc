@@ -2,7 +2,7 @@ Steps are any actions that constitute a testing scenario. Steps can be used in d
 They can: be parametrized, make checks, have nested steps, and create attachments. Each step has a name.
 
 In order to define steps in Java code, you need to annotate the respective methods with **@Step** annotation.
-When not specified, the step name is equal to the annotated method name converted to human-readable format.
+When not specified, the step name is equal to the annotated method name.
 
 Note that steps' mechanics was revised and now it supports smart fields' analysis.
 In Allure 1 users had to specify indexes to refer which args' values they want to inject into step.
