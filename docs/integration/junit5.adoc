@@ -6,6 +6,10 @@ The latest available version of `allure-junit5`:
 
 image::https://img.shields.io/maven-central/v/io.qameta.allure/allure-junit5.svg[Allure JUnit5]
 
+The latest available version of `allure-maven`:
+
+image::https://img.shields.io/maven-central/v/io.qameta.allure/allure-maven.svg[Allure Maven]
+
 === Maven
 
 Add the following to your *pom.xml*:
@@ -30,7 +34,7 @@ Add the following to your *pom.xml*:
     <plugins>
         <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.20</version>
+                <version>2.21</version>
                 <configuration>
                 <testFailureIgnore>false</testFailureIgnore>
                         <argLine>
@@ -44,6 +48,11 @@ Add the following to your *pom.xml*:
                     </systemProperties>
                 </configuration>
                 <dependencies>
+                    <dependency>
+                        <groupId>org.junit.platform</groupId>
+                        <artifactId>junit-platform-surefire-provider</artifactId>
+                        <version>1.2.0</version>
+                    </dependency>
                     <dependency>
                         <groupId>org.aspectj</groupId>
                         <artifactId>aspectjweaver</artifactId>
