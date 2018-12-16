@@ -122,6 +122,8 @@ allure {
     }
 
     downloadLink = 'https://dl.bintray.com/qameta/generic/io/qameta/allure/allure/2.2.1/allure-2.2.1.zip'
+    // Allure >= 2.8.0 is no longer available on Bintray
+    // downloadLink = 'http://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.8.1/allure-commandline-2.8.1.zip'
 }
 ----
 
@@ -145,7 +147,8 @@ allure {
  autoconfiguration
 
  - *String* `downloadLink` - custom location of Allure distribution to download from, by default allure is downloaded
- from bintray by specified version and installed into `.allure` folder in the project root.
+ from bintray by specified version and installed into `.allure` folder in the project root. To use Allure >= 2.8.0,
+ download URL must be configured to use Maven Central as Allure is no longer available on Bintray.
 
 == Tasks
 

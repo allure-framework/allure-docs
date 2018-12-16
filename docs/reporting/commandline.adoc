@@ -31,7 +31,8 @@ After installation you will have allure command available.
 Read more about https://github.com/allure-framework/allure-debian[Allure Debian Package].
 
 === Windows and other Unix
-* Download the latest version as zip archive from link:https://bintray.com/qameta/generic/allure2[bintray].
+* Download the latest version as zip archive from link:http://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/[Maven Central].
+* (older releases, <= 2.8.0) Download the desired version as zip archive from link:https://bintray.com/qameta/generic/allure2[bintray].
 * Unpack the archive to *allure-commandline* directory.
 * Navigate to *bin* directory.
 * Use *allure.bat* for Windows and *allure* for other Unix platforms.
