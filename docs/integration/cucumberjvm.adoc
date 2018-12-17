@@ -2,7 +2,7 @@
 
 == Installation
 
-Each major version of Cucumber JVM requires particular version of Allure Cucumber JVM adapter.
+Each major version of Cucumber JVM requires a particular version of Allure Cucumber JVM adapter.
 
 The available latest version of adapters:
 
@@ -12,7 +12,7 @@ The available latest version of adapters:
 - Cucumber JVM 4.x - `allure-cucumber4-jvm` image:https://img.shields.io/maven-central/v/io.qameta.allure/allure-cucumber4-jvm.svg[Allure Cucumber JVM 4.x]
 
 === Maven
-Simply add `allure-cucumber4-jvm` plugin as dependency to your project and add it to CucumberOptions:
+Simply add `allure-cucumber4-jvm` plugin as a dependency to your project and add it to CucumberOptions:
 
 [source, xml, linenums]
 .pom.xml
