@@ -100,4 +100,4 @@ Allure Cucumber JVM integration uses information extracted from `Feature:` secti
 
 === Configuration
 
-include::../features/configuration.adoc[]
+include::../features/java-configuration.adoc[]

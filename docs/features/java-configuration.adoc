@@ -1,11 +1,13 @@
-Templates for Issue and Test Management links can be set by system properties:
+Location of `allure-results` directory, and patterns for `@TmsLink` and `@Issue` links can be set by placing
+`allure.properties` file with following properties to resources directory: `src/test/resources`
 
-- `allure.link.issue.pattern`
+[source, text, linenums]
+.allure.properties
+allure.results.directory=target/allure-results
+allure.link.issue.pattern=https://example.org/browse/{}
+allure.link.tms.pattern=https://example.org/browse/{}
 
-- `allure.link.tms.pattern`
-
-Default `allure-results` directory location can also be overridden by setting +
-`allure.results.directory` system property
+Or by setting system properties in `pom.xml`
 
 [source, xml, linenums]
 .pom.xml
@@ -30,12 +32,4 @@ Default `allure-results` directory location can also be overridden by setting +
 </build>
 ----
 
-Or by placing `allure.properties` file to resources folder: `src/test/resources`
 
-[source, properties, linenums]
-.allure.properties
- ----
-allure.results.directory=target/allure-results
-allure.link.issue.pattern=https://example.org/browse/{}
-allure.link.tms.pattern=https://example.org/browse/{}
- ----
