@@ -2,12 +2,17 @@
 
 == Installation
 
-The available latest version of `allure-cucumber-jvm`:
+Each major version of Cucumber JVM requires particular version of Allure Cucumber JVM adapter.
 
-image::https://img.shields.io/maven-central/v/io.qameta.allure/allure-cucumber-jvm.svg[Allure CucumberJVM]
+The available latest version of adapters:
+
+- Cucumber JVM 1.x - `allure-cucumber-jvm` image:https://img.shields.io/maven-central/v/io.qameta.allure/allure-cucumber-jvm.svg[Allure Cucumber JVM 1.x]
+- Cucumber JVM 2.x - `allure-cucumber2-jvm` image:https://img.shields.io/maven-central/v/io.qameta.allure/allure-cucumber2-jvm.svg[Allure Cucumber JVM 2.x]
+- Cucumber JVM 3.x - `allure-cucumber3-jvm` image:https://img.shields.io/maven-central/v/io.qameta.allure/allure-cucumber3-jvm.svg[Allure Cucumber JVM 3.x]
+- Cucumber JVM 4.x - `allure-cucumber4-jvm` image:https://img.shields.io/maven-central/v/io.qameta.allure/allure-cucumber4-jvm.svg[Allure Cucumber JVM 4.x]
 
 === Maven
-Simply add `allure-cucumber-jvm` plugin as dependency to your project and add it to CucumberOptions:
+Simply add `allure-cucumber4-jvm` plugin as dependency to your project and add it to CucumberOptions:
 
 [source, xml, linenums]
 .pom.xml
@@ -19,7 +24,7 @@ Simply add `allure-cucumber-jvm` plugin as dependency to your project and add it
 <dependencies>
     <dependency>
         <groupId>io.qameta.allure</groupId>
-        <artifactId>allure-cucumber-jvm</artifactId>
+        <artifactId>allure-cucumber4-jvm</artifactId>
         <version>LATEST_VERSION</version>
     </dependency>
 </dependencies>
@@ -33,7 +38,7 @@ Simply add `allure-cucumber-jvm` plugin as dependency to your project and add it
             <configuration>
                 <argLine>
                     -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                    -Dcucumber.options="--plugin io.qameta.allure.cucumberjvm.AllureCucumberJvm"
+                    -Dcucumber.options="--plugin io.qameta.allure.cucumber4jvm.AllureCucumber4Jvm"
                 </argLine>
             </configuration>
             <dependencies>
@@ -49,10 +54,9 @@ Simply add `allure-cucumber-jvm` plugin as dependency to your project and add it
 ----
 
 Then execute `mvn clean test` goal. After tests executed allure JSON files will be +
-placed in `allure-results` directory by default. It can be overridden by setting `allure.results.directory` +
-system property.
+placed in `allure-results` directory by default.
 
-== Features
+=== Features
 This adapter provides runtime integration allowing conversion of Gherkin dsl features into basic Allure features
 
 === Display Name
@@ -93,3 +97,7 @@ will be marked as failed.
 
 === Behaviours Mapping
 Allure Cucumber JVM integration uses information extracted from `Feature:` section.
+
+=== Configuration
+
+include::../features/configuration.adoc[]
