@@ -3,21 +3,20 @@ For Gradle users, the `allure-gradle` plugin is available. The plugin autoconfig
 [source, groovy, linenums]
 .build.gradle
 ----
-buildscript {
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.2'
-        classpath 'io.qameta.allure:allure-gradle:2.4'
-    }
+plugins {
+    id 'io.qameta.allure' version '2.5' // Latest Plugin Version
+    id 'java'
 }
 
-apply plugin: 'java'
-apply plugin: 'base'
-apply plugin: 'org.junit.platform.gradle.plugin'
-apply plugin: 'io.qameta.allure'
+allure {
+    autoconfigure = true
+    version = '2.7.0'  // Latest Allure Version
+
+    useJUnit5 {
+        version = '2.7.0' // Latest Allure Version
+    }
+
+}
 
 sourceCompatibility = 1.8
 
@@ -27,23 +26,17 @@ repositories {
 }
 
 dependencies {
-    compile 'io.qameta.allure:allure-gradle:2.4'
-    testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.1'
-    testCompile 'io.qameta.allure:allure-gradle:2.4'
-    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.0.1'
+    testImplementation(
+            'org.junit.jupiter:junit-jupiter-api:5.2.0'
+    )
+    testRuntimeOnly(
+            'org.junit.jupiter:junit-jupiter-engine:5.2.0'
+    )
 }
 
-allure {
-    version = '2.4.1'
-    autoconfigure = true
-    aspectjweaver = true
-    aspectjVersion = '1.8.10'
-
-    useJUnit5 {
-       version = '2.0-BETA21'
-    }
+test {
+    useJUnitPlatform()
 }
-
 ----
 
 Then run the build as usual:
