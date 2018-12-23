@@ -2,7 +2,7 @@
 
 == Installation
 . https://confluence.jetbrains.com/display/TCD10/Installing+Additional+Plugins[Install Allure TeamCity plugin].
-. Download the latest `allure-x.x.zip` from (https://bintray.com/qameta/generic/allure2[latest release]
+. Download the latest `allure-commandline-x.x.zip` from (http://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/[latest release]
 . Copy downloaded file
 to the <https://confluence.jetbrains.com/display/TCD10/TeamCity+Data+Directory[TeamCity Data Directory]>/plugins/.tools directory as `allure-commandline.zip`.
 No server restart needed for this step.

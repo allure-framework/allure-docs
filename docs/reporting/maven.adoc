@@ -58,22 +58,29 @@ Since 2.6, the plugin constructs a report using Allure which is downloaded from 
 https://dl.bintray.com/qameta/generic/io/qameta/allure/allure[url].
 Allure is extracted and placed into the *.allure* folder created in your project directory.
 
-The default Allure version is *2.0.1*
+The default Allure version is *2.7.0*
 [source, xml, linenums]
 .pom.xml
 ----
 <configuration>
-    <reportVersion>2.0.1</reportVersion>
+    <reportVersion>2.7.0</reportVersion>
 </configuration>
 ----
 
+You can use Allure >= 2.8.0 if you configure both *reportVersion* and *allureDownloadUrl* (see above) accordingly.
 
 You can specify your own url for the download, or you can specify a file path using the system property **allure.download.url**.
+(%s are replaced by *reportVersion* configuration)
 [source, xml, linenums]
 .pom.xml
 ----
 <configuration>
-    <allureDownloadUrl>https://example.com/allure/allure-2.0.1.zip</allureDownloadUrl>
+    <!-- Allure < 2.7.0 (default value): download from Bintray -->
+    <allureDownloadUrl>https://dl.bintray.com/qameta/generic/io/qameta/allure/allure/%s/allure-%s.zip</allureDownloadUrl>
+    <!-- Allure >= 2.8.0: download from Maven Central -->
+    <!-- <allureDownloadUrl>http://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/%s/allure-commandline-%s.zip</allureDownloadUrl> -->
+    <!-- Custom URL -->
+    <!-- <allureDownloadUrl>https://example.com/allure/allure-2.0.1.zip</allureDownloadUrl> -->
 </configuration>
 ----
 
