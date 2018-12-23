@@ -22,6 +22,32 @@ image::jenkins_plugin_find_cmd.jpeg[Find Allure Commandline]
 image::jenkins_plugin_install.jpeg[Install Allure Commandline]
 . Fill the name and choose the version in the "From Maven Central" dropdown.
 
+The same can be done with system groovy using this script:
+[source, groovy]
+----
+import ru.yandex.qatools.allure.jenkins.tools.*
+import hudson.tools.InstallSourceProperty
+import hudson.tools.ToolProperty
+import hudson.tools.ToolPropertyDescriptor
+import hudson.util.DescribableList
+
+def isp = new InstallSourceProperty()
+def autoInstaller = new AllureCommandlineInstaller("2.6.0")
+isp.installers.add(autoInstaller)
+
+def proplist = new DescribableList<ToolProperty<?>, ToolPropertyDescriptor>()
+proplist.add(isp)
+
+def installation = new AllureCommandlineInstallation("allure260", "", proplist)
+  
+
+def allureDesc = jenkins.model.Jenkins.instance.getExtensionList(AllureCommandlineInstallation.DescriptorImpl.class)[0]
+
+
+allureDesc.setInstallations(installation)
+allureDesc.save()
+----
+
 === Downloading and installing Allure from archive
 . Go to the
 link:http://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/[Maven Central page], click the latest released version, and download the allure-commandline-[version].zip file.
