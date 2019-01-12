@@ -14,7 +14,7 @@ $ brew install allure
 ----
 
 After installation you will have *allure* command available.
-Read more about https://github.com/qameta/homebrew-allure[Allure Homebrew Formula].
+Read more about https://formulae.brew.sh/formula/allure[Allure Homebrew Formula].
 
 === Debian
 For Debian-based repositories we provide a PPA so the installation is straightforward:
