@@ -17,13 +17,13 @@ To create custom defects classification add `categories.json` file to `allure-re
   },
   {
     "name": "Infrastructure problems",
-    "matchedStatuses": ["broken", "failed"]
-    "messageRegex": ".*bye-bye.*", <3>
+    "matchedStatuses": ["broken", "failed"],
+    "messageRegex": ".*bye-bye.*" <3>
   },
   {
     "name": "Outdated tests",
-    "matchedStatuses": ["broken"]
-    "traceRegex": ".*FileNotFoundException.*", <4>
+    "matchedStatuses": ["broken"],
+    "traceRegex": ".*FileNotFoundException.*" <4>
   },
   {
     "name": "Product defects",
