@@ -9,6 +9,8 @@ include::reporting/teamcity.adoc[leveloffset=+1]
 
 include::reporting/bamboo.adoc[leveloffset=+1]
 
+include::reporting/codefresh.adoc[leveloffset=+1]
+
 include::reporting/gradle.adoc[leveloffset=+1]
 
 include::reporting/maven.adoc[leveloffset=+1]
