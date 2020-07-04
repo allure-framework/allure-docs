@@ -2,11 +2,11 @@
 
 == Installation
 
-The latest available version of `allure-junit5`: image::https://img.shields.io/maven-central/v/io.qameta.allure/allure-junit5.svg[Allure JUnit5]
+The latest available version of `allure-junit5`: image:https://img.shields.io/maven-central/v/io.qameta.allure/allure-junit5.svg[Allure JUnit5]
 
-The latest available version of `allure-maven`: image::https://img.shields.io/maven-central/v/io.qameta.allure/allure-maven.svg[Allure Maven]
+The latest available version of `allure-maven`: image:https://img.shields.io/maven-central/v/io.qameta.allure/allure-maven.svg[Allure Maven]
 
-The latest available version of `allure-gradle`: image::https://img.shields.io/maven-central/v/io.qameta.allure/allure-gradle.svg[Allure Gradle]
+The latest available version of `allure-gradle`: image:https://img.shields.io/bintray/v/qameta/maven/allure-gradle.svg?style=flat[Allure Gradle]
 
 === Maven
 
