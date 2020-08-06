@@ -54,7 +54,7 @@ to install a newer version. (link:https://github.com/lukesampson/scoop/wiki/App-
 
 === Manual installation
 
-. Download the latest version as zip archive from link:http://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/[Maven Central].
+. Download the latest version as zip archive from link:https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/[Maven Central].
 . Unpack the archive to allure-commandline directory.
 . Navigate to *bin* directory.
 . Use *allure.bat* for Windows or *allure* for other Unix platforms.
