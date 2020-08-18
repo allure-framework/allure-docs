@@ -2,7 +2,7 @@
 
 == Installation
 . https://confluence.jetbrains.com/display/TCD18/Installing+Additional+Plugins[Install Allure TeamCity plugin].
-. Download the latest `allure-commandline-x.x.zip` from (http://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/[latest release]
+. Download the latest `allure-commandline-x.x.zip` from https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/[latest release]
 . Copy downloaded file
 to the <https://confluence.jetbrains.com/display/TCD18/TeamCity+Data+Directory[TeamCity Data Directory]>/plugins/.tools directory as `allure-commandline.zip`.
 No server restart needed for this step.
@@ -17,7 +17,7 @@ for every agent
 
 == Configuration
 . Open the build **configuration settings**.
-. Ensure that your build https://github.com/allure-framework/allure-core/wiki#gathering-information-about-tests)[generates Allure XML files].
+. Ensure that your build https://github.com/allure-framework/allure-core/wiki#gathering-information-about-tests[generates Allure XML files].
 . Go to **Build steps** and add the **Allure Report** build step.
 . (optional) In **Execute step:** select **Even if some of the previous steps failed** to generate report for failing tests as well.
 +

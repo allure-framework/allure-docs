@@ -42,4 +42,4 @@ To create custom defects classification add `categories.json` file to `allure-re
 
 Test result falls into the category if its status is in the list and both error message and stack trace match the pattern.
 
-NOTE: `categories.json` file can be stored in test resources directory in case of using link:#_maven_5[allure-maven] or link:#_gradle_4[allure-gradle] plugins.
+NOTE: `categories.json` file can be stored in test resources directory in case of using link:#_maven_6[allure-maven] or link:#_gradle_5[allure-gradle] plugins.

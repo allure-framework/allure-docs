@@ -45,8 +45,8 @@ javax.xml.bind.PropertyException: name: com.sun.xml.bind.marshaller.CharacterEsc
 This is related to incompatible JAXB versions used in Allure and Scalatest so you can safely ignore it.
 
 == How to generate report
-This adapter only generates XML files containing information about tests. See [wiki section]
-(https://github.com/allure-framework/allure-core/wiki#generating-report) on how to generate report.
+This adapter only generates XML files containing information about tests. See
+https://github.com/allure-framework/allure-core/wiki#generating-report[wiki section] on how to generate report.
 
 == Publishing to Sonatype (adapter development)
 A publicly available (on public keyserver) GPG key should be present in you default GPG keyring. You need to create

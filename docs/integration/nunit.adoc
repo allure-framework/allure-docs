@@ -19,5 +19,5 @@ https://github.com/allure-framework/allure-core/wiki#generating-report[wiki sect
 It's still in alpha-stage, too early to develop an adapter for it. Adapter for NUnit 3 will be located in it's own repository.
 
 == Further reading
-* http://ilya-murzinov.github.io/articles/allure-csharp/)[Article] about configuring the adapter
+* http://ilya-murzinov.github.io/articles/allure-csharp/[Article] about configuring the adapter
 * https://github.com/allure-framework/allure-csharp-commons/wiki[Allure NUnit Wiki]
