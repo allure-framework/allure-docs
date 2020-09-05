@@ -59,3 +59,7 @@ include::integration/mstest.adoc[leveloffset=+1]
 include::integration/scalatest.adoc[leveloffset=+1]
 
 include::integration/specs.adoc[leveloffset=+1]
+
+= Kotlin
+
+include::integration/kotest.adoc[leveloffset=+1]
