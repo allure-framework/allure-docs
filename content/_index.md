@@ -1,0 +1,24 @@
+---
+title: Allure Framework
+type: docs
+---
+
+# Allure Framework
+
+Allure Framework is a flexible lightweight multi-language test report
+tool that not only shows a very concise representation of what have been
+tested in a neat web report form, but allows everyone participating in
+the development process to extract maximum of useful information from
+everyday execution of tests.
+
+From the dev/qa perspective Allure reports shorten common defect
+lifecycle: test failures can be divided on bugs and broken tests, also
+logs, steps, fixtures, attachments, timings, history and integrations
+with TMS and bug-tracking systems can be configured, so the responsible
+developers and testers will have all information at hand.
+
+From the managers perspective Allure provides a clear 'big picture' of
+what features have been covered, where defects are clustered, how the
+timeline of execution looks like and many other convenient things.
+Modularity and extensibility of Allure guarantees that you will always
+be able to fine-tune something to make Allure suit you better.

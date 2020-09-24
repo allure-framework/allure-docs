@@ -2,6 +2,7 @@
 .idea
 *.iml
 
-# Gradle
-.gradle
-build
+# Hugo
+resources
+public
+/.vs

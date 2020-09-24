@@ -1,9 +1,0 @@
-= SpecFlow
-== Installation
-1. Download * https://www.nuget.org/packages/SpecFlow.Allure/[SpecFlow.Allure] NuGet package
-2. Configure App.config to use plugin
-3. Configure AllureConfig.json
-3. Run tests with any test runner
-
-
-* https://github.com/allure-framework/allure-csharp/wiki/SpecFlow-Adapter[Allure SpecFlow] wiki

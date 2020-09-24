@@ -1,0 +1,154 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+  'Oxygen-Sans', Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+}
+
+.container {
+  max-width: none;
+  margin: 0;
+  justify-content: space-between;
+}
+
+.book-menu nav {
+  background-color: $menu-background-color;
+  border-right: 1px solid $menu-border-color;
+}
+
+.book-brand img {
+  vertical-align: baseline;
+  width: 223px;
+  object-fit: contain;
+
+  & + span {
+    display: none;
+  }
+}
+
+.book-search input {
+  background-color: white;
+  border: 1px solid rgb(210, 216, 221);
+}
+
+figure {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+}
+
+.book-menu nav ul a:hover {
+  opacity: 1;
+}
+
+.book-menu > nav > ul > li {
+  margin: 0;
+  color: $text-color-2;
+  font-size: $font-size-base;
+}
+
+.book-menu > nav > ul > li > ul {
+  margin: 10px 0 10px;
+}
+
+.book-menu > nav > ul > li > ul > li {
+  color: $text-color-1;
+  font-size: $font-size-14;
+  margin: 0;
+  margin-left: -15px;
+  margin-right: -16px;
+}
+
+.book-menu nav ul a {
+  padding: 0.5em 20px;
+  border-right: 2px solid transparent;
+
+  &:hover {
+    background-color: $menu-hover-color;
+  }
+}
+
+.book-menu nav ul a.active {
+  //border-color: $color-link;
+  background-color: $menu-hover-color;
+}
+
+.book-page {
+  padding: 40px 80px 50px;
+  max-width: 60rem;
+  flex-grow: 1;
+}
+
+@media screen and (max-width: $mobile-breakpoint) {
+  .book-page {
+    padding: 20px;
+    overflow: hidden;
+    height: 100%;
+    transform: none;
+    will-change: unset;
+  }
+
+  .book-header {
+    position: fixed;
+    background-color: #f5f7f9;
+    border-bottom: 1px solid #e6ecf1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    z-index: 1;
+  }
+
+  .markdown {
+    margin-top: 80px;
+  }
+}
+
+.book-toc ul {
+  border-left: 1px solid $menu-border-color;
+  padding-left: 1rem;
+  margin-left: -1rem;
+}
+
+.book-toc ul li {
+  margin: 0.5rem 0;
+}
+
+.book-toc ul li a {
+  padding: 0.25rem 0;
+  padding-left: 1rem;
+  margin-left: -1rem;
+  color: $text-color-1;
+  line-height: 1.6em;
+
+  &:hover {
+    opacity: 1;
+    //color: $color-link;
+  }
+}
+
+.markdown h1 {
+  font-weight: 500;
+  margin-bottom: 1em;
+}
+
+.markdown h2 {
+  font-weight: 500;
+  position: relative;
+  margin-top: 3em;
+  margin-bottom: 1em;
+
+  &:before {
+    top: -32px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    content: ' ';
+    position: absolute;
+    background-color: $menu-hover-color;
+  }
+}
+
+.markdown img {
+  box-shadow: 0px 2px 15px 0px rgba(0, 0, 0, 0.1);
+}
