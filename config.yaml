@@ -1,0 +1,20 @@
+baseURL: "https://docs.qameta.io/allure/"
+
+title: Allure Framework
+languageCode: en-us
+
+theme: book
+
+enableGitInfo: false
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  tableOfContents:
+    startLevel: 2
+
+params:
+  BookMenuBundle: /menu
+#  BookSearch: true
+#  BookLogo: logo.png
