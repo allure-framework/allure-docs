@@ -50,5 +50,5 @@ Test result falls into the category if its status is in the list and
 both error message and stack trace match the pattern.
 
 `categories.json` file can be stored in test resources directory in case
-of using [allure-maven](/allure/reporting/maven) or [allure-gradle](/allure/reporting/gradle_4)
+of using [allure-maven](/allure/reporting/maven) or [allure-gradle](/allure/reporting/gradle)
 plugins.

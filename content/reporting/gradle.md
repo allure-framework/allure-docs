@@ -126,7 +126,7 @@ allure {
 
     downloadLink = 'https://dl.bintray.com/qameta/generic/io/qameta/allure/allure/2.2.1/allure-2.2.1.zip'
     // Allure >= 2.8.0 is no longer available on Bintray
-    // downloadLink = 'http://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.8.1/allure-commandline-2.8.1.zip'
+    // downloadLink = 'https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.8.1/allure-commandline-2.8.1.zip'
 }
 ```
 

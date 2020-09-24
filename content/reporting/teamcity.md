@@ -4,7 +4,7 @@
 
 1.  [Install Allure TeamCity plugin](https://confluence.jetbrains.com/display/TCD18/Installing+Additional+Plugins).
 
-2.  Download the latest `allure-commandline-x.x.zip` from [latest release](http://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/)
+2.  Download the latest `allure-commandline-x.x.zip` from [latest release](https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/)
 
 3.  Copy downloaded file to the [TeamCity Data Directory](https://confluence.jetbrains.com/display/TCD18/TeamCity+Data+Directory)&gt;/plugins/.tools)
     directory as `allure-commandline.zip`. No server restart needed for

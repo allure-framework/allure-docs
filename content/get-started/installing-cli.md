@@ -14,7 +14,7 @@ sudo apt-get install allure
 
 ## Mac OS X
 
-For Mas OS, automated installation is available via
+For Maс OS, automated installation is available via
 [Homebrew](https://brew.sh)
 
 ```shell script

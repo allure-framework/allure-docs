@@ -92,7 +92,7 @@ by **reportVersion** configuration)
     <!-- Allure < 2.7.0 (default value): download from Bintray -->
     <allureDownloadUrl>https://dl.bintray.com/qameta/generic/io/qameta/allure/allure/%s/allure-%s.zip</allureDownloadUrl>
     <!-- Allure >= 2.8.0: download from Maven Central -->
-    <!-- <allureDownloadUrl>http://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/%s/allure-commandline-%s.zip</allureDownloadUrl> -->
+    <!-- <allureDownloadUrl>https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/%s/allure-commandline-%s.zip</allureDownloadUrl> -->
     <!-- Custom URL -->
     <!-- <allureDownloadUrl>https://example.com/allure/allure-2.0.1.zip</allureDownloadUrl> -->
 </configuration>

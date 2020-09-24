@@ -60,7 +60,7 @@ allureDesc.save()
 
 ### Downloading and installing Allure from archive
 
-1.  Go to the [Maven Central page](http://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/),
+1.  Go to the [Maven Central page](https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/),
     click the latest released version, and download the
     allure-commandline-\[version\].zip file.
 

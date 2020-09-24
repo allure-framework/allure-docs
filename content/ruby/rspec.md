@@ -16,7 +16,7 @@ Add the dependency to your Gemfile. Choose the version carefully:
 
 -   0.5.x - for RSpec2.
 
--   ⇐ 0.6.7 - for RSpec &lt; 3.2.
+-   &lt;= 0.6.7 - for RSpec &lt; 3.2.
 
 -   &gt;= 0.6.9 - for RSpec &gt;= 3.2.
 
