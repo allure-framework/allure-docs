@@ -295,7 +295,7 @@ allure.api.addTab('mytab', {
 
 Which will finally give you a new tab:
 
-![Hello world tab example](../../images/plugins_add_tab_example.png)
+![Hello world tab example](../../static/images/plugins_add_tab_example.png)
 
 ## Step 4: Adding a new widget on the Overview page
 
@@ -327,7 +327,7 @@ allure.api.addWidget('mywidget', MyWidget);
 
 This finally gives us a new widget on the Overview dashboard.
 
-![A new widget on the Overview](../../images/plugins_add_widget_example.png)
+![A new widget on the Overview](../../static/images/plugins_add_widget_example.png)
 
 ## Step 5: Adding translation for strings
 
@@ -421,7 +421,7 @@ allure.api.addTestcaseBlock(LinksView, {position: 'before'});
 
 Which adds a links section to the test case:
 
-![New test case block](../../images/plugins_add_testcase_block_example.png)
+![New test case block](../../static/images/plugins_add_testcase_block_example.png)
 
 ## Step 7: Plugin distribution
 
