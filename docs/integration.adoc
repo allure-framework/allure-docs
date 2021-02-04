@@ -6,6 +6,8 @@ include::integration/junit5.adoc[leveloffset=+1]
 
 include::integration/testng.adoc[leveloffset=+1]
 
+include::integration/jdi.adoc[leveloffset=+1]
+
 include::integration/cucumberjvm.adoc[leveloffset=+1]
 
 include::integration/selenide.adoc[leveloffset=+1]
