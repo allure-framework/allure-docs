@@ -17,9 +17,7 @@ $ allure serve target/allure-results
 or use IntelliJIdea panel in Maven
 image::allure-serve-maven-idea.png["Allure Serve Maven"]
 or Gradle
-image::allure-serve-maven-idea.png["Allure Serve Maven"]
-
-
+image::allure-serve-gradle-idea.png["Allure Serve Gradle"]
 
 === Test Properties
 
