@@ -36,3 +36,29 @@ public void loginWith(User user) {
 
 **Arrays** and **Collections** are supported as well.
 So you don't need to explicitly override **toString()** for your custom objects anymore.
+
+*Masking sensitive data:*
+
+If you pass data to a @Step function that you don't want displayed in the Allure report,
+such as passwords or credit card info, you can add the *@Secret* annotation to the parameter:
+
+[source, java, linenums]
+----
+import io.qameta.allure.Secret;
+import io.qameta.allure.Step;
+
+...
+
+@Step("Type {username} / {password}.")
+public void loginWith(String username, @Secret String password) {
+     ...
+}
+----
+
+Now if you call `loginWith("user1", "pass1234");` the Allure report will record:
+
+[source, java]
+----
+username: "user1"
+password: "******"
+----
