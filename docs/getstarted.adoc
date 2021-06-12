@@ -18,7 +18,7 @@ sudo apt-get install allure
 ----
 
 === Mac OS X
-For Mas OS, automated installation is available via link:https://brew.sh[Homebrew]
+For Mac OS, automated installation is available via link:https://brew.sh[Homebrew]
 [source, bash]
 ----
 brew install allure
@@ -65,7 +65,7 @@ to install a newer version. (link:https://github.com/lukesampson/scoop/wiki/App-
 To run commandline application, Java Runtime Environment must be installed.
 ====
 
-NOTE: Older releases (<= 2.8.0) are available on link:https://bintray.com/qameta/generic/allure2[bintray].
+NOTE: Older releases (\<= 2.8.0) are available on link:https://bintray.com/qameta/generic/allure2[bintray].
 
 === Check the installation
 Execute `allure --version` in console to make sure that allure is now available:

@@ -50,8 +50,8 @@ allureDesc.save()
 
 === Downloading and installing Allure from archive
 . Go to the
-link:http://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/[Maven Central page], click the latest released version, and download the allure-commandline-[version].zip file.
-. (for older releases, <= 2.8.0) Go to the
+link:https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/[Maven Central page], click the latest released version, and download the allure-commandline-[version].zip file.
+. (for older releases, \<= 2.8.0) Go to the
 link:https://bintray.com/qameta/generic/allure2[Bintray page], click the desired version, and download the allure-[version].zip file.
 . Upload downloaded file to any file server. Build agents must have access to the file by url.
 . Open "Global Tool Configuration". and find "Allure Commandline" configuration block.

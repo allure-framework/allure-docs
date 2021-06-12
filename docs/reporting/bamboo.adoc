@@ -35,7 +35,7 @@ failed builds only (by checking the respective checkbox).
 . If your build plan produces many different types of the artifacts, you may want to select the specific name of the
 artifact with the Allure results, which Allure Bamboo plugin will use (by typing it in "Artifact name to use" textbox).
 The most common name for this is "allure-results".
-. Ensure that your build (https://github.com/allure-framework/allure-core/wiki#gathering-information-about-tests)[generates Allure result files].
+. Ensure that your build https://github.com/allure-framework/allure-core/wiki#gathering-information-about-tests[generates Allure result files].
 . Also you should configure the Allure artifacts to be collected by each job. Just add the following artifact definition to the job:
 +
 image::bamboo_artifacts_definition.png[Allure Artifacts Definition]

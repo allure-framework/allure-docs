@@ -10,7 +10,7 @@ See the https://github.com/allure-framework/allure-rspec/releases[releases] tab.
 Add the dependency to your Gemfile. Choose the version carefully:
 
 * 0.5.x - for RSpec2.
-* <= 0.6.7 - for RSpec < 3.2.
+* \<= 0.6.7 - for RSpec < 3.2.
 * >= 0.6.9 - for RSpec >= 3.2.
 
 [source, ruby]
