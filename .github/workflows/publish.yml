@@ -1,17 +1,14 @@
-name: Release
+name: Publish
 
 on:
-  push:
-    branches:
-      - '*'
+  release:
+    types: [ published ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: echo "::set-output name=version::${GITHUB_REF:10}"
-        id: release
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
@@ -26,8 +23,8 @@ jobs:
       - name: Docker Publish
         uses: docker/build-push-action@v1
         with:
-          username: ${{ secrets.PACKAGES_USER }}
-          password: ${{ secrets.PACKAGES_PASS }}
-          repository: allure-framework/allure-docs
           registry: ghcr.io
           tag_with_ref: true
+          repository: allure-framework/allure-docs
+          username: ${{ secrets.PACKAGES_USER }}
+          password: ${{ secrets.PACKAGES_PASS }}
