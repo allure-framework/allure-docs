@@ -28,5 +28,5 @@ jobs:
             helmv3 upgrade allure-docs allure/site \
                    --values $GITHUB_WORKSPACE/chart/config.yml \
                    --kubeconfig $GITHUB_WORKSPACE/.kubeconfig \
-                   --set image.tag=${{ github.event.inputs.stage }} \
+                   --set image.tag=${{ github.event.inputs.version }} \
                    --install
