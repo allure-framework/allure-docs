@@ -4,7 +4,7 @@ metadata:
   short_name: Allure Report
   description: Allure Report - Allure Framework is a flexible lightweight multi-language test report tool
   language: en
-  pathPrefix: "/"
+  pathPrefix: "/allure-report"
   siteImage:
   favicon: "/assets/favicon.png"
   themeColor: "#ff0000"
