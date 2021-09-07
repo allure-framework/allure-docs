@@ -264,6 +264,7 @@ module.exports = {
     description: config.metadata.description,
     docsLocation: config.features.editOnRepo.location,
     docsLocationType: config.features.editOnRepo.type,
+    docsLocationBranch: config.features.editOnRepo.branch,
     editable: config.features.editOnRepo.editable,
     siteImage: config.metadata.siteImage,
     favicon: config.metadata.favicon,

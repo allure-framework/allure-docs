@@ -117,9 +117,8 @@ export default class MDXRuntimeTest extends React.Component {
     const {
       mdx,
       site: {
-        siteMetadata: { docsLocation, docsLocationType, editable },
+        siteMetadata: { docsLocation, docsLocationType, docsLocationBranch, editable },
       },
-      gitBranch,
     } = data;
 
     // meta tags
@@ -135,7 +134,7 @@ export default class MDXRuntimeTest extends React.Component {
             {docsLocation && ((editable && mdx.frontmatter.editable !== false) || mdx.frontmatter.editable === true) ? (
               <EditOnRepo
                 location={docsLocation}
-                branch={gitBranch.name}
+                branch={docsLocationBranch}
                 path={mdx.parent.relativePath}
                 repoType={docsLocationType}
               />
@@ -185,6 +184,7 @@ export const pageQuery = graphql`
         title
         docsLocation
         docsLocationType
+        docsLocationBranch
         editable
       }
     }
