@@ -58,6 +58,7 @@ features:
   editOnRepo:
     location: https://github.com/allure-framework/allure-docs
     type: github
+    branch: master
     editable: true
   mermaid:
     language: "mermaid"
