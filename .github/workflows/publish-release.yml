@@ -19,7 +19,7 @@ jobs:
       - name: Install Gatsby
         run: npm install -g gatsby-cli
       - name: Build Gatsby
-        run: gatsby build
+        run: gatsby build --prefix-paths
       - name: Docker Publish
         uses: docker/build-push-action@v1
         with:

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StaticQuery, graphql } from 'gatsby';
+import { StaticQuery, graphql, withPrefix } from 'gatsby';
 import styled from '@emotion/styled';
 import config from 'config';
 import Logo from './logo';
@@ -229,7 +229,7 @@ const Header = ({ setShowSearch, location, themeProvider, show, toggleFullscreen
         },
       } = data;
       const logoLink = logo.link !== '' ? logo.link : '/';
-      const logoImg = logo.image !== '' ? logo.image : 'images/logo.svg';
+      const logoImg = logo.image !== '' ? withPrefix(logo.image) : withPrefix('images/logo.svg');
       const [darkMode, setDarkMode] = useState(false);
       useEffect(() => {
         setDarkMode(themeProvider.current.retrieveActiveTheme());

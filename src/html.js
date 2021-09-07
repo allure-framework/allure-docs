@@ -1,4 +1,5 @@
 import React from 'react';
+import { withPrefix } from 'gatsby';
 import PropTypes from 'prop-types';
 import config from 'config';
 import { scrollbar } from './styles';
@@ -19,7 +20,7 @@ export default class HTML extends React.Component {
             <meta property="twitter:image" content={config.metadata.ogImage} />
           ) : null}
           {config.metadata.favicon ? (
-            <link rel="shortcut icon" type="image/svg" href={config.metadata.favicon} />
+            <link rel="shortcut icon" type="image/svg" href={withPrefix(config.metadata.favicon)} />
           ) : null}
           <noscript key="noscript"></noscript>
           {this.props.headComponents}

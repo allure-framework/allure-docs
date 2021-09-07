@@ -1,4 +1,5 @@
 import React from 'react';
+import { withPrefix } from 'gatsby';
 import styled from '@emotion/styled';
 import { onMobile } from '../../styles/responsive';
 
@@ -10,10 +11,11 @@ const Navigation = styled(({ className, links }) => {
           ? links.map((link, key) => {
               const openRule = link.external ? '_blank' : '_self';
               if (link.link !== '' && link.text !== '') {
+                const linkHref = link.external ? link.link : withPrefix(link.link)
                 return (
                   <li key={key}>
                     <a
-                      href={link.link}
+                      href={linkHref}
                       target={openRule}
                       rel="noopener"
                       dangerouslySetInnerHTML={{ __html: link.text }}
