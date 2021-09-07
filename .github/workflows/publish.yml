@@ -10,8 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          submodules: recursive
       - run: echo "::set-output name=version::${GITHUB_REF:10}"
         id: release
       - name: Setup Node
@@ -26,10 +24,10 @@ jobs:
       - name: Build Gatsby
         run: gatsby build
       - name: Docker Publish
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v1
         with:
-          registry: ghcr.io
-          repository: allure-framework/allure-docs
-          tags: 1.0
           username: ${{ secrets.PACKAGES_USER }}
           password: ${{ secrets.PACKAGES_PASS }}
+          repository: allure-framework/allure-docs
+          registry: ghcr.io
+          tag_with_ref: true
