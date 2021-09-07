@@ -1,0 +1,25 @@
+name: Build
+
+on:
+  pull_request:
+    types: [synchronize, opened, reopened, ready_for_review]
+    branches:
+      - '*'
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+          cache: 'yarn'
+      - name: Install Deps
+        run: yarn install
+      - name: Build Gatsby
+        run: gatsby build

@@ -1,0 +1,117 @@
+---
+metadata:
+  name: Allure Report
+  short_name: Allure Report
+  description: Allure Report - Allure Framework is a flexible lightweight multi-language test report tool
+  language: en
+  pathPrefix: "/"
+  siteImage:
+  favicon: "/assets/favicon.png"
+  themeColor: "#ff0000"
+header:
+  enabled: true
+  logo: "/assets/allure-report-logo.svg"
+  logoLink: "/"
+  helpUrl: ""
+  links:
+    - text: Docs
+      link: "/"
+      external: false
+    - text: TestOps
+      link: https://docs.qameta.io/allure-testops/
+      external: true
+sidebar:
+  enabled: true
+  groups:
+    - order: 1
+      path: "/gettingstarted"
+      title: ":rocket: Getting Started"
+    - order: 2
+      path: "/frameworks"
+      title: ":star: Frameworks"
+    - order: 4
+      path: "/reporting"
+      title: ":green_book: Reporting"
+    - order: 5
+      path: "/plugins"
+      title: ":fishing_pole_and_fish: Plugins"
+  ignoreIndex: false
+  poweredBy:
+    trademark: "/assets/gatsby.png"
+    name: Qameta Software
+    link: https://qameta.io
+pwa:
+  enabled: true
+  manifest:
+    display: standalone
+    crossOrigin: anonymous
+    icon: "/assets/favicon.png"
+
+social:
+  github: https://github.com/allure-framework/allure2
+  twitter: https://twitter.com/qametasoftware
+
+features:
+  darkMode:
+    enabled: true  
+    default: false
+  editOnRepo:
+    location: https://github.com/allure-framework/allure-docs
+    type: github
+    editable: true
+  mermaid:
+    language: "mermaid"
+    theme: "dark"
+    options:
+    width: 400
+    height: 300
+  pageProgress:
+    enabled: true
+    height: 3
+    prependToBody: false
+    color: "#A05EB5"
+  previousNext:
+    enabled: true
+    arrowKeyNavigation: true
+  propagateNetlifyEnv: true
+  scrollTop: true
+  # search:
+  #   enabled: true,
+  #   engine: 'localsearch'
+  #   localSearchEngine: 'balance'
+  #   excerptSize: 10000
+  #   placeholder: 'Search here...'
+  #   startComponent: 'input'
+  #   debounceTime: 380,
+  #   snippetLength: 22,
+  #   hitsPerPage: 10,
+  #   showStats: true,
+  #   pagination:
+  #     enabled: true,
+  #     totalPages: 10,
+  #     showNext: true,
+  #     showPrevious: true
+  search:
+    enabled: true
+    engine: 'algolia'
+    placeholder: 'Search'
+    startComponent: 'input' # icon
+    excerptSize: 8000
+    debounceTime: 380
+    snippetLength: 23
+    hitsPerPage: 10
+    showStats: true
+    pagination:
+      enabled: true
+      totalPages: 10
+      showPrevious: true
+      showNext: true
+  showMetadata: true
+  toc:
+    show: true
+    depth: 4
+  fullScreenMode: 
+    enabled: true
+    hideHeader: true
+    hideToc: true
+    hideSidebar: true

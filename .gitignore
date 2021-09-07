@@ -1,7 +1,16 @@
-# Idea
-.idea
-*.iml
+# GatsbyJS
+node_modules
+public
+.cache
 
-# Gradle
-.gradle
-build
+# MacOS
+*DS_Store
+*.env
+
+# IDE
+.vscode/
+.idea/
+*.iml
+*.log
+reduxcache*
+.generated.config.js
