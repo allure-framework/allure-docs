@@ -36,10 +36,10 @@ sidebar:
       path: "/plugins"
       title: ":fishing_pole_and_fish: Plugins"
   ignoreIndex: false
-  poweredBy:
-    trademark: "/assets/gatsby.png"
-    name: Qameta Software
-    link: https://qameta.io
+  # poweredBy:
+  #   trademark: "/assets/gatsby.png"
+  #   name: Qameta Software
+  #   link: https://qameta.io
 pwa:
   enabled: true
   manifest:
