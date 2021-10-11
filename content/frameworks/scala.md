@@ -5,5 +5,5 @@ order: 9
 This section provides some information and code samples for Allure Report integrations with supported Scala frameworks setup. 
 
 Please, follow the links to see more:
-- [ScalaTest](https://docs.qameta.io/allure-report/frameworks/scala/scala-test)
-- [Specs](https://docs.qameta.io/allure-report/frameworks/scala/specs)
+- [ScalaTest](/scala/scala-test)
+- [Specs](/scala/specs)
