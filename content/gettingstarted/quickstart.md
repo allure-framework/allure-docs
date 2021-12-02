@@ -65,9 +65,6 @@ to install a newer version.
 To run commandline application, Java Runtime Environment must be
 installed.
 
-Older releases (⇐ 2.8.0) are available on
-[bintray](https://bintray.com/qameta/generic/allure2).
-
 ### Check the installation
 
 Execute `allure --version` in console to make sure that allure is now
