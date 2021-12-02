@@ -55,7 +55,7 @@ to install a newer version.
 
 ### Manual installation
 
-1.  Download the latest version as zip archive from [Maven Central](https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/).
+1.  Download the latest version as zip archive from [Maven Central](https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/) or [GitHub releases](https://github.com/allure-framework/allure2/releases).
 2.  Unpack the archive to allure-commandline directory.
 3.  Navigate to **bin** directory.
 4.  Use **allure.bat** for Windows or **allure** for other Unix
@@ -64,9 +64,6 @@ to install a newer version.
 
 To run commandline application, Java Runtime Environment must be
 installed.
-
-Older releases (⇐ 2.8.0) are available on
-[bintray](https://bintray.com/qameta/generic/allure2).
 
 ### Check the installation
 
