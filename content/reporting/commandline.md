@@ -40,9 +40,7 @@ will have allure command available. Read more about [Allure Debian Package](http
 
 ### Windows and other Unix
 
--   Download the latest version as zip archive from [Maven Central](http://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/).
--   (older releases, ⇐ 2.8.0) Download the desired version as zip
-    archive from [bintray](https://bintray.com/qameta/generic/allure2).
+-   Download the latest version as zip archive from either [Maven Central](https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/) or [GitHub releases](https://github.com/allure-framework/allure2/releases).
 -   Unpack the archive to **allure-commandline** directory.
 -   Navigate to **bin** directory.
 -   Use **allure.bat** for Windows and **allure** for other Unix platforms.
