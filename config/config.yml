@@ -24,9 +24,12 @@ sidebar:
   enabled: true
   groups:
     - order: 1
+      path: "/why"
+      title: ":question: Why?"
+    - order: 2
       path: "/gettingstarted"
       title: ":rocket: Getting Started"
-    - order: 2
+    - order: 3
       path: "/frameworks"
       title: ":star: Frameworks"
     - order: 4
