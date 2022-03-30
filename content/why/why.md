@@ -66,10 +66,11 @@ E           Timeout: 4 s.
 
 ```
 
-Now, imagine someone living in a galaxy far far away from the coding wants to see what is happening inside your tests.
+Now, imagine someone living in a galaxy far far away from the coding wants to see what is happening inside your tests. Someone called a manager or even an Analyst.
 
-Done?
+Imagined?
 
 Now, imagine yourself in a happy place, where you don't need to go line by line explaining what is happening, what this error means, on which step the test failed and how the UI looked like when it failed.
 
 This place has a name, it's Allure Report.
+
