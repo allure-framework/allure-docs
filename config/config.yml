@@ -27,15 +27,18 @@ sidebar:
       path: "/why"
       title: ":question: Why?"
     - order: 2
+      path: "/overview"
+      title: "🔎 Overview"
+    - order: 3
       path: "/gettingstarted"
       title: ":rocket: Getting Started"
-    - order: 3
+    - order: 4
       path: "/frameworks"
       title: ":star: Frameworks"
-    - order: 4
+    - order: 5
       path: "/reporting"
       title: ":green_book: Reporting"
-    - order: 5
+    - order: 6
       path: "/plugins"
       title: ":fishing_pole_and_fish: Plugins"
   ignoreIndex: false

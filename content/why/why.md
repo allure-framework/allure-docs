@@ -74,3 +74,16 @@ Now, imagine yourself in a happy place, where you don't need to go line by line 
 
 This place has a name, it's Allure Report.
 
+![Allure Report: automated test detailed view](./static/report-screenshot.png)
+
+Based on the test results Allure Report creates human readable report containing the following:
+
+- Test's status (successfully passed or failed)
+- Information about test's scenario (steps in our terminology)
+  - with direct marks of failed tests
+  - with human readable steps descriptions and actions descriptions as it is set in your code
+  - with additional information like screenshots, logs and other attachments you can use
+- Groupings of tests based on your code or based on the annotations you've added to your code
+- and many more.
+
+The detailed description of Allure Report is done here: 
