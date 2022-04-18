@@ -51,12 +51,6 @@ On the Suites tab a standard structural representation of executed tests, groupe
 
 ![Suites](../images/tab_suites.png)
 
-## Behaviors
-
-For Behavior-driven approach, this tab groups test results according to Epic, Feature and Story tags.
-
-![Behaviors](../images/tab_behaviors.png)
-
 ## Graphs
 
 Graphs allow you to see different statistics collected from the test
@@ -71,6 +65,12 @@ adaptors collect precise timings of tests, and here on this tab they are
 arranged accordingly to their sequential or parallel timing structure.
 
 ![Timeline](../images/tab_timeline.png)
+
+## Behaviors
+
+For Behavior-driven approach, this tab groups test results according to Epic, Feature and Story tags.
+
+![Behaviors](../images/tab_behaviors.png)
 
 
 ## Packages
