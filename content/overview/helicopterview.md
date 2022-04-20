@@ -32,16 +32,10 @@ Home page widgets are draggable and configurable. Also, Allure supports it’s o
 
 Collapsible navigation bar allows you to use additional workspace. Besides the overview, it contains tabs with a more detailed description of [test results](/content/overview/helicopterview.md):
 
- [Categories](/content/overview/helicopterview.md).
- [Suites](/content/overview/helicopterview.md).
- [Graphs](/content/overview/helicopterview.md).
- [Timeline](/content/overview/helicopterview.md).
- [Behaviors](/content/overview/helicopterview.md).
- [Packages](/content/overview/helicopterview.md).
  
 ## Categories
 
-Categories section gives you the way to [create custom defects classification](/content/overview/helicopterview.md) to apply for test results.
+Categories tab gives you the way to [create custom defects classification](/content/overview/helicopterview.md) to apply for test results.
 
 ![Categories](../images/tab_categories.png)
 
@@ -53,16 +47,13 @@ On the Suites tab a standard structural representation of executed tests, groupe
 
 ## Graphs
 
-Graphs allow you to see different statistics collected from the test
-data: statuses breakdown or severity and duration diagrams.
+Graphs allow you to see different statistics collected from the test data: statuses breakdown or severity and duration diagrams.
 
 ![Graphs](../images/tab_graphs.png)
 
 ## Timeline
 
-Timeline tab visualizes retrospective of tests execution, allure
-adaptors collect precise timings of tests, and here on this tab they are
-arranged accordingly to their sequential or parallel timing structure.
+Timeline tab visualizes retrospective of tests execution, allure adaptors collect precise timings of tests, and here on this tab they are arranged accordingly to their sequential or parallel timing structure.
 
 ![Timeline](../images/tab_timeline.png)
 
@@ -75,18 +66,13 @@ For Behavior-driven approach, this tab groups test results according to Epic, Fe
 
 ## Packages
 
-Packages tab represents a tree-like layout of test results, grouped by
-different packages.
+Packages tab represents a tree-like layout of test results, grouped by different packages.
 
 ![Packages](../images/tab_packages.png)
 
 
 ## Test result
 
-From some of the results overview pages described above you can go to
-the test case page after clicking on the individual tests. This page
-will typically contain a lot of individual data related to the test
-case: steps executed during the test, timings, attachments, test
-categorization labels, descriptions and links.
+From some of the results overview pages described above you can go to the test case page after clicking on the individual tests. This page will typically contain a lot of individual data related to the test case: steps executed during the test, timings, attachments, test categorization labels, descriptions and links (see more on [Test result](../test_result_page.md)).
 
 ![Test result page](../images/testcase.png)
