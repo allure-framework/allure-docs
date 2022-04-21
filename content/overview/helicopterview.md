@@ -5,41 +5,42 @@ order: 1
 
 # Helicopter view
 
+
+May be some funny info like "Who is Allure Report, what magic is in it, and why you may need it" in two words?
+
 ## Overview
 
 Entry point for every report would be the 'Overview' page with seven default widgets representing basic characteristics of your project and test environment.
 
 ![Overview](../images/tab_overview.png)
 
--   Summary - overall report statistics.
+- 1 - Summary - overall report statistics.
 
--   [Suites]() - shows tests grouped by suites existing in the project.
+- 2 - [Suites]() - shows tests grouped by suites existing in the project.
 
--   [Environment]() - information on test environment.
+- 3 - [Environment](../useful_features#environment) - information about tests environment.
 
--   [Behaviors]() - information on results aggregated according to epics, features and stories.
+- 4 - [Behaviors]() - information about results aggregated according to epics, features and stories.
 
--   [History Trend]() - if tests accumulated some historical data, it’s trend will be calculated and shown on the graph.
+- 5 - [History Trend]() - if tests accumulated some historical data, it’s trend will be calculated and shown on the graph.
 
--   [Categories]() - information on test executors that were used to run the tests.
+- 6 - [Categories](../useful_features#categories) - common information of defects.
 
--   [Executors]() - information on test executors that were used to run the tests (see [how to run tests]()).
+- 7 - [Executors](../quick_start#executors) - information about how results was appeared.
 
-Home page widgets are draggable and configurable. Also, Allure supports it’s own plugin system, so quite different widget layouts are possible (see [how to configure widget]()).
+Home page widgets are [draggable and configurable](../widgets). Also, Allure supports it’s own plugin system, so quite different widget layouts are possible.
 
+Collapsible navigation bar contains tabs with more detailed description of the test results, see below.
 
-Collapsible navigation bar contains tabs with more detailed description of the [test results](), you can see it below.
-
- 
 ## Categories
 
-Categories tab gives you the way to [create custom defects classification]() to apply for test results.
+Categories tab gives you the way to [create custom defects classification](../useful_features#categories) to apply for test results.
 
 ![Categories](../images/tab_categories.png)
 
 ## Suites
 
-On the Suites tab a standard structural representation of executed tests, grouped by suites and classes can be found.
+On the Suites tab a standard structural representation of executed tests, grouped by [suites]() and classes can be found.
 
 ![Suites](../images/tab_suites.png)
 
@@ -57,14 +58,14 @@ Timeline tab visualizes retrospective of tests execution, allure adaptors collec
 
 ## Behaviors
 
-For Behavior-driven approach, this tab groups test results according to Epic, Feature and Story tags.
+For Behavior-driven approach, this tab groups test results according to [Epic, Feature and Story tags]().
 
 ![Behaviors](../images/tab_behaviors.png)
 
 
 ## Packages
 
-Packages tab represents a tree-like layout of test results, grouped by different packages.
+Packages tab represents a tree-like layout of test results, grouped by different [packages]().
 
 ![Packages](../images/tab_packages.png)
 

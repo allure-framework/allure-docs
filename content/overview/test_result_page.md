@@ -1,6 +1,6 @@
 ---
 title: 'Test result'
-order: 5
+order: 2
 ---
 
 # Test result page
@@ -18,13 +18,13 @@ This panel allows you to sort, group and download current tree content.
 - 2 - Toggle group info
 - 3 - Download CSV
 - 4 - Tree sorting
-- 5 - [Status]()
-- 6 - [Marks]()
+- 5 - [Status](../overview/quick_start)
+- 6 - [Marks](../overview/useful_features)
 
 
 ## Tree content
 
-Represents the tree-like list of tests selected in the previous section.
+Represents the tree-like list of tests selected in the previous section, also depends on which one of the main tabs you're on now: [Categories](../helicopterview#categories), [Suites](../helicopterview#suites), [Behaviors](../helicopterview#behaviors) or [Packages](../helicopterview#packages)
 
 ![Test result page](../images/testcase.png)
 
