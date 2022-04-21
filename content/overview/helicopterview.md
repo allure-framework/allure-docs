@@ -7,35 +7,33 @@ order: 1
 
 ## Overview
 
-Entry point for every report would be the 'Overview' page with dashboards and widgets:
+Entry point for every report would be the 'Overview' page with seven default widgets representing basic characteristics of your project and test environment.
 
 ![Overview](../images/tab_overview.png)
 
-Overview page hosts seven default widgets representing basic characteristics of your project and test environment.
+-   Summary - overall report statistics.
 
--   [Summary](/content/overview/helicopterview.md) - overall report statistics.
+-   [Suites]() - shows tests grouped by suites existing in the project.
 
--   [Suites](/content/overview/helicopterview.md) - shows tests grouped by suites existing in the project.
+-   [Environment]() - information on test environment.
 
--   [Environment](/content/overview/helicopterview.md) - information on test environment.
+-   [Behaviors]() - information on results aggregated according to epics, features and stories.
 
--   [Behaviors](/content/overview/helicopterview.md) - information on results aggregated according to epics, features and stories.
+-   [History Trend]() - if tests accumulated some historical data, it’s trend will be calculated and shown on the graph.
 
--   [History Trend](/content/overview/helicopterview.md) - if tests accumulated some historical data, it’s trend will be calculated and shown on the graph.
+-   [Categories]() - information on test executors that were used to run the tests.
 
--   [Categories](/content/overview/helicopterview.md) - information on test executors that were used to run the tests.
+-   [Executors]() - information on test executors that were used to run the tests (see [how to run tests]()).
 
--   [Executors](/content/overview/helicopterview.md) - information on test executors that were used to run the tests (see [how to run tests](/content/overview/helicopterview.md)).
-
-Home page widgets are draggable and configurable. Also, Allure supports it’s own plugin system, so quite different widget layouts are possible (see [how to configure widget](/content/overview/helicopterview.md)).
+Home page widgets are draggable and configurable. Also, Allure supports it’s own plugin system, so quite different widget layouts are possible (see [how to configure widget]()).
 
 
-Collapsible navigation bar allows you to use additional workspace. Besides the overview, it contains tabs with a more detailed description of [test results](/content/overview/helicopterview.md):
+Collapsible navigation bar contains tabs with more detailed description of the [test results](), you can see it below.
 
  
 ## Categories
 
-Categories tab gives you the way to [create custom defects classification](/content/overview/helicopterview.md) to apply for test results.
+Categories tab gives you the way to [create custom defects classification]() to apply for test results.
 
 ![Categories](../images/tab_categories.png)
 
@@ -73,6 +71,6 @@ Packages tab represents a tree-like layout of test results, grouped by different
 
 ## Test result
 
-From some of the results overview pages described above you can go to the test case page after clicking on the individual tests. This page will typically contain a lot of individual data related to the test case: steps executed during the test, timings, attachments, test categorization labels, descriptions and links (see more on [Test result](../test_result_page.md)).
+From some of the results overview pages described above you can go to the test case page after clicking on the individual tests. This page will typically contain a lot of individual data related to the test case: steps executed during the test, timings, attachments, test categorization labels, descriptions and links (see more on [Test result](../test_result_page)).
 
 ![Test result page](../images/testcase.png)

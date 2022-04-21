@@ -1,0 +1,35 @@
+---
+title: 'Environment'
+order: 4
+---
+
+# Environment
+
+To add information to Environment widget just create environment.properties (or environment.xml) file to allure-results directory before report generation.
+
+For example:
+
+```c
+environment.properties
+Browser=Chrome
+Browser.Version=63.0
+Stand=Production
+```
+
+```xml
+environment.xml
+<environment>
+    <parameter>
+        <key>Browser</key>
+        <value>Chrome</value>
+    </parameter>
+    <parameter>
+        <key>Browser.Version</key>
+        <value>63.0</value>
+    </parameter>
+    <parameter>
+        <key>Stand</key>
+        <value>Production</value>
+    </parameter>
+</environment>
+```

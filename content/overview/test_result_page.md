@@ -1,17 +1,19 @@
 ---
 title: 'Test result'
-order: 2
+order: 5
 ---
 
 # Test result page
 
-## Tree control pannel
+Information that you see on this page is actually converted for readability JSON file obtained from results of your test last run.
 
+![Test result page](../images/testcase.png)
+## Tree control pannel
 
 ![Tree control pannel](../images/replace_it-pannel_tree_control.png)
 
-This panel allows you to filter, group and download current tree content.
-You can select and sort the values that will be displayed in the tree content by:
+This panel allows you to sort, group and download current tree content.
+
 - 1 - Search
 - 2 - Toggle group info
 - 3 - Download CSV
