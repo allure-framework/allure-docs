@@ -12,7 +12,7 @@ May be some funny info like "Who is Allure Report, what magic is in it, and why 
 
 Entry point for every report would be the 'Overview' page with seven default widgets representing basic characteristics of your project and test environment.
 
-![Overview](../images/tab_overview.png)
+![Overview](../images/replace_it-overview.png)
 
 - 1 - Summary - overall report statistics.
 
