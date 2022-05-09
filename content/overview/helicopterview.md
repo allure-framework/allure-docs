@@ -5,7 +5,6 @@ order: 1
 
 # Helicopter view
 
-
 May be some funny info like "Who is Allure Report, what magic is in it, and why you may need it" in two words?
 
 ## Overview
@@ -14,19 +13,19 @@ Entry point for every report would be the 'Overview' page with seven default wid
 
 ![Overview](../images/replace_it-overview.png)
 
-- 1 - Summary - overall report statistics.
+1. Summary - overall report statistics.
 
-- 2 - [Suites]() - shows tests grouped by suites existing in the project.
+2. [Suites]() - shows tests grouped by suites existing in the project.
 
-- 3 - [Environment](../useful_features#environment) - information about tests environment.
+3. [Environment](../useful_features#environment) - information about tests environment.
 
-- 4 - [Behaviors]() - information about results aggregated according to epics, features and stories.
+4. [Behaviors]() - information about results aggregated according to epics, features and stories.
 
-- 5 - [History Trend]() - if tests accumulated some historical data, it’s trend will be calculated and shown on the graph.
+5. [History Trend]() - if tests accumulated some historical data, it’s trend will be calculated and shown on the graph.
 
-- 6 - [Categories](../useful_features#categories) - common information of defects.
+6. [Categories](../useful_features#categories) - common information of defects.
 
-- 7 - [Executors](../quick_start#executors) - information about how results was appeared.
+7. [Executors](../quick_start#executors) - information about how results was appeared.
 
 Home page widgets are [draggable and configurable](../widgets). Also, Allure supports it’s own plugin system, so quite different widget layouts are possible.
 
