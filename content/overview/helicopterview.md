@@ -3,37 +3,31 @@ title: '🚁 Helicopter view'
 order: 1
 ---
 
-# Helicopter view
+# Check this out
 
-May be some funny info like "Who is Allure Report, what magic is in it, and why you may need it" in two words?
+## Overview tab
 
-## Overview
+Entry point for every report would be the 'Overview' page with a helicopter view of your test run.
 
-Entry point for every report would be the 'Overview' page with seven default widgets representing basic characteristics of your project and test environment.
+Let's have a quick look on what we have here (and we don't even need to dig into the details to understand what's good happening inside our test results yet!).
 
 ![Overview](../images/replace_it-overview.png)
 
 1. Summary - overall report statistics.
-
 2. [Suites]() - shows tests grouped by suites existing in the project.
-
 3. [Environment](../useful_features#environment) - information about tests environment.
-
 4. [Behaviors]() - information about results aggregated according to epics, features and stories.
-
 5. [History Trend]() - if tests accumulated some historical data, it’s trend will be calculated and shown on the graph.
-
 6. [Categories](../useful_features#categories) - common information of defects.
-
 7. [Executors](../quick_start#executors) - information about how results was appeared.
 
-Home page widgets are [draggable and configurable](../widgets). Also, Allure supports it’s own plugin system, so quite different widget layouts are possible.
+Overview page's widgets are [draggable and configurable](../widgets). Allure Report supports its own plugin system, so quite different widget layouts are possible.
 
 Collapsible navigation bar contains tabs with more detailed description of the test results, see below.
 
 ## Categories
 
-Categories tab gives you the way to [create custom defects classification](../useful_features#categories) to apply for test results.
+Categories tab gives you the way to [show defects by their classification](../useful_features#categories) to apply for test results.
 
 ![Categories](../images/tab_categories.png)
 
@@ -57,7 +51,7 @@ Timeline tab visualizes retrospective of tests execution, allure adaptors collec
 
 ## Behaviors
 
-For Behavior-driven approach, this tab groups test results according to [Epic, Feature and Story tags]().
+For behavior-driven approach, this tab groups test results according to [Epic, Feature and Story tags]().
 
 ![Behaviors](../images/tab_behaviors.png)
 
