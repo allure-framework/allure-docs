@@ -7,64 +7,64 @@ order: 1
 
 ## Overview tab
 
-Entry point for every report would be the 'Overview' page with a helicopter view of your test run.
+The first thing we see after loading the Allure report is the overview tab.
 
-Let's have a quick look on what we have here (and we don't even need to dig into the details to understand what's good happening inside our test results yet!).
+Here you will find general information about the test results, for which the report is built.
 
 ![Overview](../images/replace_it-overview.png)
 
 1. Summary - overall report statistics.
-2. [Suites]() - shows tests grouped by suites existing in the project.
-3. [Environment](../useful_features#environment) - information about tests environment.
-4. [Behaviors]() - information about results aggregated according to epics, features and stories.
-5. [History Trend]() - if tests accumulated some historical data, it’s trend will be calculated and shown on the graph.
-6. [Categories](../useful_features#categories) - common information of defects.
-7. [Executors](../quick_start#executors) - information about how results was appeared.
+2. Suites - shows tests grouped by suites existing in the project.
+3. [Environment](../../gettingstarted_2/features_2#environment) - information about tests environment.
+4. Behaviors - information about results aggregated according to epics, features and stories.
+5. [History Trend](../overview/widgets) - if tests accumulated some historical data, it’s trend will be calculated and shown on the graph.
+6. Categories - common information of defects.
+7. [Executors](../../gettingstarted_2/quickstart_2#test-execution) - information about how results was appeared.
 
-Overview page's widgets are [draggable and configurable](../widgets). Allure Report supports its own plugin system, so quite different widget layouts are possible.
+Overview page's widgets are draggable and configurable. Allure Report supports its own plugin system, so different widget layouts are possible.
 
 Collapsible navigation bar contains tabs with more detailed description of the test results, see below.
 
 ## Categories
 
-Categories tab gives you the way to [show defects by their classification](../useful_features#categories) to apply for test results.
+Shows known bugs grouped into [Categories](../../gettingstarted_2/features_2#categories).
 
 ![Categories](../images/tab_categories.png)
 
 ## Suites
 
-On the Suites tab a standard structural representation of executed tests, grouped by [suites]() and classes can be found.
+Shows test results grouped by the name of classes in the project and specified custom labels.
 
 ![Suites](../images/tab_suites.png)
 
 ## Graphs
 
-Graphs allow you to see different statistics collected from the test data: statuses breakdown or severity and duration diagrams.
+Shows the statistics collected on the basis of the testing results: [Status](../overview/widgets), [Severity](../overview/widgets), [Duration Trend](../overview/widgets), [Retries Trend](../overview/widgets), [Categories Trend](../overview/widgets), [Trend](../overview/widgets).
 
 ![Graphs](../images/tab_graphs.png)
 
 ## Timeline
 
-Timeline tab visualizes retrospective of tests execution, allure adaptors collect precise timings of tests, and here on this tab they are arranged accordingly to their sequential or parallel timing structure.
+Displays the sequence of the test results according to the test execution time.
 
 ![Timeline](../images/tab_timeline.png)
 
 ## Behaviors
 
-For behavior-driven approach, this tab groups test results according to [Epic, Feature and Story tags]().
+Test results grouped by custom labels assigned to each test in the code. The display is implemented by the tree-like structure.
 
 ![Behaviors](../images/tab_behaviors.png)
 
 
 ## Packages
 
-Packages tab represents a tree-like layout of test results, grouped by different [packages]().
+Test results are grouped based on the structure of the project that contains the tests.
 
 ![Packages](../images/tab_packages.png)
 
 
 ## Test result
 
-From some of the results overview pages described above you can go to the test case page after clicking on the individual tests. This page will typically contain a lot of individual data related to the test case: steps executed during the test, timings, attachments, test categorization labels, descriptions and links (see more on [Test result](../test_result_page)).
+Test results are displayed when you select a particular result from the list available on the Categories, Suites, Behaviors and Packages tabs. Described in more details [here](../test_result_page).
 
 ![Test result page](../images/testcase.png)
