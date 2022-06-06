@@ -1,5 +1,6 @@
-FROM nginx:alpine
+FROM bitnami/nginx:latest
 
-COPY public /usr/share/nginx/html
+COPY config/docs.conf /opt/bitnami/nginx/conf/server_blocks/docs.conf
+COPY public /app
 
 EXPOSE 80
