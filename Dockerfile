@@ -1,5 +1,6 @@
-FROM nginx:alpine
+FROM bitnami/nginx
 
-COPY public /usr/share/nginx/html
+COPY public /app
+COPY nginx/site.conf /opt/bitnami/nginx/conf/server_blocks/site.conf
 
 EXPOSE 80
