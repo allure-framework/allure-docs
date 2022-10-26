@@ -61,7 +61,7 @@ Add the following to your **pom.xml**:
                         <groupId>org.aspectj</groupId>
                         <artifactId>aspectjweaver</artifactId>
                         <version>${aspectj.version}</version>
-                    <dependency>
+                    </dependency>
                 </dependencies>
             </plugin>
             <plugin>
