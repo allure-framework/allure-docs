@@ -38,7 +38,7 @@ Add the following to your **pom.xml**:
     <plugins>
         <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.21</version>
+                <version>2.21.0</version>
                 <configuration>
                 <testFailureIgnore>false</testFailureIgnore>
                         <argLine>
